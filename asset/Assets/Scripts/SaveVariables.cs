@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static class SaveVariables
+{
+    public static bool GamePaused;
+    public static bool FlashAvailable;
+    public static int NumBatteries;
+    public static float flashtime;
+    public static float CaffeineLevel;
+    public static int CaffeinePillsAvailable;
+    public static bool GunAvailable;
+    public static bool Key1Available;
+    public static bool Key2Available;
+    public static bool Key3Available;
+    public static bool[] ItemIndexRemoved;
+    public static bool InventoryOpen;
+    public static bool PlayerHiding;
+
+}

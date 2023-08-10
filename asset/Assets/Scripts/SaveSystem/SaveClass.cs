@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SaveClass
+{   
+    public bool FlashAvailable;
+    public int FlashBatteries;
+    public float flashtime;
+    public bool GunAvailable;
+    public bool Key1Available;
+    public bool Key2Available;
+    public bool Key3Available;
+    public bool NotFirstTime;
+    public Vector3 PlayerPosition;
+    public bool[] ItemIndexRemoved;
+
+}   
