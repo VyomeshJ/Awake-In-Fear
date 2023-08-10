@@ -16,6 +16,7 @@ public static class SaveVariables
     public static bool Key3Available;
     public static bool[] ItemIndexRemoved;
     public static bool InventoryOpen;
-    public static bool PlayerHiding;
+    public static bool PlayerHiding_Closet;
+    public static bool PlayerHiding_Bed;
 
 }

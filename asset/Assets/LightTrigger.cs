@@ -5,6 +5,7 @@ using UnityEngine;
 public class LightTrigger : MonoBehaviour
 {
     public bool triggered;
+    public bool triggerDone;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,7 @@ public class LightTrigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            triggered = true;
+            if(!triggerDone) triggered = true;
         }
     }
     // Update is called once per frame

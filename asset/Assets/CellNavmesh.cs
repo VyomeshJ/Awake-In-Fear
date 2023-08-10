@@ -87,7 +87,7 @@ public class CellNavmesh : MonoBehaviour
 
         if (ready)
         {
-            if (SaveVariables.PlayerHiding == true)
+            if (SaveVariables.PlayerHiding_Closet == true || SaveVariables.PlayerHiding_Bed == true)
             {
                 
 

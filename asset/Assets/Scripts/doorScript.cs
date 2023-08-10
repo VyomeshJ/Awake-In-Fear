@@ -9,11 +9,13 @@ public class doorScript : MonoBehaviour
     public bool DoorStateLocked;
     public bool DoorInAniState;
     public bool DoorOpen;
+    public bool OpenDoorAtStart;
     
     public AudioClip OpenSound;
     public AudioClip CloseSound;
     public AudioManagerScript AudioManager;
     public AudioSource self_AudioSource;
+
     public void openDoor()
     {
         
@@ -45,11 +47,14 @@ public class doorScript : MonoBehaviour
     {
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
         self_AudioSource = gameObject.GetComponent<AudioSource>();
+        if(OpenDoorAtStart) door.Play("OpenedState");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (DoorStateLocked) gameObject.tag = "Untagged";
+        else gameObject.tag = "InteractableObject";
+
     }
 }

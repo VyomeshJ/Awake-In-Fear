@@ -82,12 +82,29 @@ public class InputMasterScript : MonoBehaviour
             if(ctx.action.activeControl.device.name == "Keyboard" || ctx.action.activeControl.device.name == "Mouse"){
                 CurrentInputMethod = InputMethod.Keyboard;
                 Player.GetComponent<CharController_Motor>().rotX = ctx.ReadValue<Vector2>().x * Player.GetComponent<CharController_Motor>().MouseSensitivity;
-                Player.GetComponent<CharController_Motor>().rotY = ctx.ReadValue<Vector2>().y * Player.GetComponent<CharController_Motor>().MouseSensitivity;
+            
+                if (!SaveVariables.PlayerHiding_Bed)
+                {
+                    Player.GetComponent<CharController_Motor>().rotY = ctx.ReadValue<Vector2>().y * Player.GetComponent<CharController_Motor>().MouseSensitivity;
+                }
+                else
+                {
+                    Player.GetComponent<CharController_Motor>().rotY = 0;
+                }
+
             }
             if(ctx.action.activeControl.device.name == "XInputControllerWindows"){
                 CurrentInputMethod = InputMethod.Controller;
                 Player.GetComponent<CharController_Motor>().rotX = ctx.ReadValue<Vector2>().x * Player.GetComponent<CharController_Motor>().ControllerSensitivity;
-                Player.GetComponent<CharController_Motor>().rotY = ctx.ReadValue<Vector2>().y * Player.GetComponent<CharController_Motor>().ControllerSensitivity;
+            //Player.GetComponent<CharController_Motor>().rotY = ctx.ReadValue<Vector2>().y * Player.GetComponent<CharController_Motor>().ControllerSensitivity;
+                if (!SaveVariables.PlayerHiding_Bed)
+                {
+                    Player.GetComponent<CharController_Motor>().rotY = ctx.ReadValue<Vector2>().y * Player.GetComponent<CharController_Motor>().ControllerSensitivity;
+                }
+                else
+                {
+                    Player.GetComponent<CharController_Motor>().rotY = 0;
+                }
             }
         //}
         
@@ -145,7 +162,7 @@ public class InputMasterScript : MonoBehaviour
         if(ctx.action.activeControl.device.name == "Keyboard" || ctx.action.activeControl.device.name == "Mouse") CurrentInputMethod = InputMethod.Keyboard;
         if(ctx.action.activeControl.device.name == "XInputControllerWindows") CurrentInputMethod = InputMethod.Controller;
         if (SaveVariables.InventoryOpen) Player.GetComponent<PlayerScript>().InventoryMenu();
-        else if (SaveVariables.PlayerHiding) Player.GetComponent<PlayerScript>().StopHiding();
+        else if (SaveVariables.PlayerHiding_Bed || SaveVariables.PlayerHiding_Closet) Player.GetComponent<PlayerScript>().StopHiding();
         else if (GameObject.FindGameObjectWithTag("PauseMenuObj").GetComponent<PauseMenu>().PromptOpen){
             GameObject.FindGameObjectWithTag("PauseMenuObj").GetComponent<PauseMenu>().AskPrompt.SetActive(false);
 

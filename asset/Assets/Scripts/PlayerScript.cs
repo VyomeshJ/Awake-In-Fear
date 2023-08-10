@@ -102,6 +102,7 @@ public class PlayerScript : MonoBehaviour
     public bool gun_zoomed_in = false;
     GameObject hiding_obj;
     public GameObject CameraCarrier;
+    public bool lockLook;
 
 
 
@@ -111,7 +112,8 @@ public class PlayerScript : MonoBehaviour
         gameObject.transform.Find("CameraCarrier").GetComponent<headhbob>().enabled = true;
         transform.position = PositionBfrHiding;
         gameObject.GetComponent<CharacterController>().enabled = true;
-        SaveVariables.PlayerHiding = false;
+        SaveVariables.PlayerHiding_Bed = false;
+        SaveVariables.PlayerHiding_Closet = false;
     }
     void Start(){
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
@@ -324,7 +326,7 @@ public class PlayerScript : MonoBehaviour
                 }
 
             }
-            if (PointingToObj.name.Substring(0, 4) == "Hide"){
+            if (PointingToObj.name.Substring(0, 10) == "HideCloset"){
                
                 gameObject.GetComponent<CharacterController>().enabled = false;
                 PointingToObj.GetComponent<BoxCollider>().enabled = false;
@@ -333,12 +335,41 @@ public class PlayerScript : MonoBehaviour
                
                 //gameObject.GetComponent<>
                 PositionBfrHiding = gameObject.transform.position;
-                SaveVariables.PlayerHiding = true;
+                SaveVariables.PlayerHiding_Closet = true;
+                gameObject.transform.position = PointingToObj.transform.Find("HidePosition").position;
+
+                //gameObject.GetComponent<CharacterController>().enabled = true;
+                //gameObject.transform.localPosition = PointingToObj.transform.parent.Find("HidePosition").position;
+                if (!lockLook)
+                {
+                    lockLook = true;
+                    transform.LookAt(PointingToObj.transform.Find("Lookat"));
+                    transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+                    //cameraholder.transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
+            }
+            if (PointingToObj.name.Substring(0, 7) == "HideBed")
+            {
+
+                gameObject.GetComponent<CharacterController>().enabled = false;
+                PointingToObj.GetComponent<BoxCollider>().enabled = false;
+                hiding_obj = PointingToObj;
+                gameObject.transform.Find("CameraCarrier").GetComponent<headhbob>().enabled = false;
+
+                //gameObject.GetComponent<>
+                PositionBfrHiding = gameObject.transform.position;
+                SaveVariables.PlayerHiding_Bed = true;
                 gameObject.transform.position = PointingToObj.transform.Find("HidePosition").position;
                 //gameObject.GetComponent<CharacterController>().enabled = true;
                 //gameObject.transform.localPosition = PointingToObj.transform.parent.Find("HidePosition").position;
+                if (!lockLook)
+                {
+                    lockLook = true;
+                    gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 0, gameObject.transform.rotation.z);
+                    cameraholder.transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
             }
-            if(PointingToObj.name.Substring(0,4) == "Door"){
+            if (PointingToObj.name.Substring(0,4) == "Door"){
                 if (!PointingToObj.GetComponent<doorScript>().DoorStateLocked && !PointingToObj.GetComponent<doorScript>().DoorInAniState && !PointingToObj.GetComponent<doorScript>().DoorOpen)
                 {
                     
@@ -627,6 +658,7 @@ public class PlayerScript : MonoBehaviour
 
 
     void Update(){
+        if (!SaveVariables.PlayerHiding_Bed && !SaveVariables.PlayerHiding_Closet) lockLook = false;
         if (trigger1.triggered)
         {
             light1.enabled = true;
@@ -641,6 +673,8 @@ public class PlayerScript : MonoBehaviour
         }
         if (trigger3.triggered)
         {
+            trigger3.triggerDone = true;
+            trigger3_door.GetComponent<doorScript>().closeDoor();
             trigger3_door.GetComponent<doorScript>().DoorStateLocked = true;
             //close door
         }
@@ -654,7 +688,7 @@ public class PlayerScript : MonoBehaviour
         {
             CameraCarrier.GetComponent<headhbob>().enabled = false;
         }
-        else if (!SaveVariables.PlayerHiding)
+        else if (!SaveVariables.PlayerHiding_Bed && !SaveVariables.PlayerHiding_Closet)
         {
             CameraCarrier.GetComponent<headhbob>().enabled = true;
         }
@@ -762,7 +796,7 @@ public class PlayerScript : MonoBehaviour
 
             if (hit.transform.gameObject.tag == "InteractableObject" && !InteractableObjectFound && Vector2.Distance(hit.transform.gameObject.transform.position, transform.position) < PlayerAccessRange)
             {
-              
+         
                 InteractableObjectFound = true;
                 if (hit.transform.gameObject.name.Substring(0, 4) != "Hide") 
                 {
