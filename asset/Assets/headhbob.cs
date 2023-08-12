@@ -20,8 +20,8 @@ public class headhbob : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (controller.moving)
+
+        if (controller.moving && controller.GetComponentInParent<PlayerScript>().Move_Null == false)
         {
             
             //Player is moving

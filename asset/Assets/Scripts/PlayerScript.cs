@@ -10,6 +10,7 @@ using System.Security.Claims;
 
 public class PlayerScript : MonoBehaviour
 {
+    public bool Move_Null;
     public GameObject trigger3_door;
     public float Base_Mov_Speed;
     public AudioManagerScript AudioManager;
@@ -103,9 +104,23 @@ public class PlayerScript : MonoBehaviour
     GameObject hiding_obj;
     public GameObject CameraCarrier;
     public bool lockLook;
+    public Vector3 lastPos;
 
 
-
+    private void FixedUpdate()
+    {
+        Vector3 pos_moved = transform.position - lastPos;
+        lastPos = transform.position;
+        Debug.Log(pos_moved.magnitude);
+        if(pos_moved.magnitude > 0.001 )
+        {
+            Move_Null = false;
+        }
+        else
+        {
+            Move_Null = true;
+        }
+    }
     public void StopHiding()
     {
         hiding_obj.GetComponent<BoxCollider>().enabled = true;
@@ -680,6 +695,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (trigger4.triggered)
         {
+            trigger4.triggerDone = true;
             removable.SetActive(false);
         }
 

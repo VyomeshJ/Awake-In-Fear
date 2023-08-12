@@ -65,10 +65,12 @@ public class InputMasterScript : MonoBehaviour
 
     public void Movement(InputAction.CallbackContext ctx){
         //if(!SaveVariables.InventoryOpen){
-            if(ctx.action.activeControl.device.name == "Keyboard" || ctx.action.activeControl.device.name == "Mouse") CurrentInputMethod = InputMethod.Keyboard;
-            if(ctx.action.activeControl.device.name == "XInputControllerWindows") CurrentInputMethod = InputMethod.Controller;
-            Player.GetComponent<CharController_Motor>().moveFB = ctx.ReadValue<Vector2>().x;
-            Player.GetComponent<CharController_Motor>().moveLR = ctx.ReadValue<Vector2>().y;
+        if(ctx.action.activeControl.device.name == "Keyboard" || ctx.action.activeControl.device.name == "Mouse") CurrentInputMethod = InputMethod.Keyboard;
+        if(ctx.action.activeControl.device.name == "XInputControllerWindows") CurrentInputMethod = InputMethod.Controller;
+        Player.GetComponent<CharController_Motor>().moveFB = ctx.ReadValue<Vector2>().x;
+        Player.GetComponent<CharController_Motor>().moveLR = ctx.ReadValue<Vector2>().y;
+        
+
         //}
     }
     public void MovementCanceled(InputAction.CallbackContext ctx){
