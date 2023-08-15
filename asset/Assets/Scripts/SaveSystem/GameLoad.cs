@@ -6,6 +6,7 @@ using System.IO;
 public class GameLoad : MonoBehaviour
 {
     public GameObject player;
+    public GameObject[] light_triggers;
     void Awake(){
         LoadGame();
         player.GetComponent<PlayerScript>().SetupInventory();
@@ -30,6 +31,7 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key2Available = save.Key2Available;
             SaveVariables.Key3Available = save.Key3Available;
             player.transform.position = save.PlayerPosition;
+            SaveVariables.light_trigger_activated = save.light_trigger_activated;
         }
     }
     public SaveClass CreateSave()
@@ -44,6 +46,8 @@ public class GameLoad : MonoBehaviour
         save.Key2Available = SaveVariables.Key2Available;
         save.Key3Available = SaveVariables.Key3Available;
         save.PlayerPosition = player.transform.position;
+        save.light_trigger_activated = SaveVariables.light_trigger_activated;
+        Load_Light_Triggers();
         return save;
     }
     public void SaveGame(){
@@ -51,4 +55,13 @@ public class GameLoad : MonoBehaviour
         string json = JsonUtility.ToJson(save);
         File.WriteAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() + ".txt", json);
     }
+    public void Load_Light_Triggers()
+    {
+        for(int i = 0; i < SaveVariables.light_trigger_activated; i++)
+        {
+            light_triggers[i].GetComponent<LightTrigger>().triggerDone = true;
+            light_triggers[i].GetComponent<LightTrigger>().triggered = true;
+        }
+    }
+
 }

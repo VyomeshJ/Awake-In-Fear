@@ -14,5 +14,6 @@ public class SaveClass
     public bool NotFirstTime;
     public Vector3 PlayerPosition;
     public bool[] ItemIndexRemoved;
+    public int light_trigger_activated;
 
 }   

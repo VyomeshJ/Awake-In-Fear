@@ -202,7 +202,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void Flashlight(){
         
-        if (SaveVariables.FlashAvailable && currentSelectedItem == "flashlight" && !SaveVariables.InventoryOpen){
+        if (SaveVariables.FlashAvailable && SaveVariables.flashtime > 0 && currentSelectedItem == "flashlight" && !SaveVariables.InventoryOpen){
             if (!flashon)
             {
                

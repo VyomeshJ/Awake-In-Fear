@@ -18,5 +18,6 @@ public static class SaveVariables
     public static bool InventoryOpen;
     public static bool PlayerHiding_Closet;
     public static bool PlayerHiding_Bed;
+    public static int light_trigger_activated;
 
 }
