@@ -686,7 +686,7 @@ public class PlayerScript : MonoBehaviour
             light2.enabled = true;  
             trigger3.enabled = true;
         }
-        if (trigger3.triggered)
+        if (trigger3.triggered && !trigger3.triggerDone)
         {
             trigger3.triggerDone = true;
             trigger3_door.GetComponent<doorScript>().closeDoor();
