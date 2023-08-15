@@ -111,7 +111,7 @@ public class PlayerScript : MonoBehaviour
     {
         Vector3 pos_moved = transform.position - lastPos;
         lastPos = transform.position;
-        Debug.Log(pos_moved.magnitude);
+        //Debug.Log(pos_moved.magnitude);
         if(pos_moved.magnitude > 0.001 )
         {
             Move_Null = false;
