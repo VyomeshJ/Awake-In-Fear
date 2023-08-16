@@ -15,5 +15,6 @@ public class SaveClass
     public Vector3 PlayerPosition;
     public bool[] ItemIndexRemoved;
     public int light_trigger_activated;
+    public string safe_code;
 
 }   

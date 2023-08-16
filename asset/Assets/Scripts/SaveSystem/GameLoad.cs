@@ -7,10 +7,27 @@ public class GameLoad : MonoBehaviour
 {
     public GameObject player;
     public GameObject[] light_triggers;
+    public GameObject[] notes;
     void Awake(){
         LoadGame();
         player.GetComponent<PlayerScript>().SetupInventory();
         DeleteIndexedObjects();
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                if(j == i)
+                {
+                    notes[i].GetComponent<notescript>().txt += SaveVariables.safe_code.Substring(i,1);
+                }
+                else
+                {
+                    notes[i].GetComponent<notescript>().txt += "_";
+                }
+                
+            }
+            
+        }
     }
     public void DeleteIndexedObjects(){
         //poop
@@ -19,6 +36,13 @@ public class GameLoad : MonoBehaviour
     public void LoadGame(){
         if(!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt")).NotFirstTime){
             player.transform.position = new Vector3(527.315f, 18.5f, 540f);
+
+            for (int i = 0; i < 4; i++)
+            {
+                int num = Random.Range(0, 10);
+                SaveVariables.safe_code += num.ToString();
+            }
+            Debug.Log(SaveVariables.safe_code);
         }
         else{
             SaveClass save = new SaveClass();
@@ -47,6 +71,7 @@ public class GameLoad : MonoBehaviour
         save.Key3Available = SaveVariables.Key3Available;
         save.PlayerPosition = player.transform.position;
         save.light_trigger_activated = SaveVariables.light_trigger_activated;
+        save.safe_code = SaveVariables.safe_code;
         Load_Light_Triggers();
         return save;
     }
