@@ -7,9 +7,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Security.Claims;
+using UnityEngine.LowLevel;
 
 public class PlayerScript : MonoBehaviour
 {
+
+    int playerfloor;
+    public Light RemovedLight1;
+
     public bool Move_Null;
     public GameObject trigger3_door;
     public float Base_Mov_Speed;
@@ -668,11 +673,21 @@ public class PlayerScript : MonoBehaviour
             if (ReadyZoomOut)
                 shotgunanimator.Play("zoom out");
         }
-
+    }
+    void RemoveFLoor1()
+    {
+        RemovedLight1.enabled = false;
     }
 
-
     void Update(){
+        
+        if (transform.position.y > 22 && transform.position.y < 26)
+        {
+            playerfloor = 1;
+            RemoveFLoor1();
+        }
+        else if (transform.position.y > 28) playerfloor = 2;
+
         if (!SaveVariables.PlayerHiding_Bed && !SaveVariables.PlayerHiding_Closet) lockLook = false;
         if (trigger1.triggered)
         {

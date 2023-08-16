@@ -31,7 +31,7 @@ public class ZombieCrawl : MonoBehaviour
 
     {
         Health = 100f;
-        navMeshAgent.speed = 0.7f;
+        navMeshAgent.speed = 2.7f;
         m_IsPatrol = true;
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
     }
@@ -96,6 +96,7 @@ public class ZombieCrawl : MonoBehaviour
 
     void Patrolling()
     {
+        //Debug.Log("Patrolling");
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);    //  Set the enemy destination to the next waypoint
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
