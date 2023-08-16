@@ -531,7 +531,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void PickUpObject(){
         if(PointingToObj != null){
-            if(PointingToObj.name.Substring(0, 10) == "Flashlight"){
+            if(PointingToObj.name.Length == 10 && PointingToObj.name.Substring(0, 10) == "Flashlight"){
                 Destroy(PointingToObj);
                 SaveVariables.FlashAvailable = true;
                 MainCanvas.transform.Find("HUD").Find("FlashlightHolder").gameObject.GetComponent<Image>().color = Color.black;
@@ -801,6 +801,7 @@ public class PlayerScript : MonoBehaviour
             if(PointingToObj != null && hit.transform.gameObject.name != PointingToObj.name)
             {
                 //Debug.Log("testing");
+                PointingToObj = null;
                 PickableObjectFound = false;
                 InteractableObjectFound = false;
                 if (E_Prompt != null) E_Prompt.SetActive(false);
