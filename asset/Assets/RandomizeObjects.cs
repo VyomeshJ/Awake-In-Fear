@@ -13,27 +13,30 @@ public class RandomizeObjects : MonoBehaviour
 
     int indexNumber;
     int indexNumber2;
+    int indexNumber3;
+    int indexNumber4;
     bool inloop = true;
 
     // Start is called before the first frame update
     void Start()
     {
         
-            indexNumber = Random.Range(0, spawnpoints.Length);
-            indexNumber2 = Random.Range(0, spawnpoints.Length);
+            indexNumber = Random.Range(0, 3);
+            indexNumber2 = Random.Range(4, 7);
+            indexNumber3 = Random.Range(8, 11);
+            indexNumber4 = Random.Range(12, 16);
 
-            while (indexNumber == indexNumber2)
-            {
-                indexNumber2 = Random.Range(0, spawnpoints.Length);
-            }
+        
             
                 
                 Obj1.position = spawnpoints[indexNumber].position;
                 Obj2.position = spawnpoints[indexNumber2].position;
-                
-            
+                Obj3.position = spawnpoints[indexNumber3].position;
+                Obj4.position = spawnpoints[indexNumber4].position;
 
-        
+
+
+
         //Obj3.position = spawnpoints[indexNumber].position;
         //Obj4.position = spawnpoints[indexNumber].position;
     }

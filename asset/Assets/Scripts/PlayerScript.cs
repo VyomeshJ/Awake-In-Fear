@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
 
     int playerfloor;
     public Light RemovedLight1;
+    public AudioSource ClockSound1;
 
     public bool Move_Null;
     public GameObject trigger3_door;
@@ -26,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     public Light light2;
     public GameObject triggerobject2;
     public LightTrigger trigger3;
+    public BoxCollider collider3;
     public LightTrigger trigger4;
     public GameObject removable;
 
@@ -679,6 +681,7 @@ public class PlayerScript : MonoBehaviour
     void RemoveFLoor1()
     {
         RemovedLight1.enabled = false;
+        ClockSound1.enabled = false;
     }
 
     void Update(){
@@ -702,6 +705,7 @@ public class PlayerScript : MonoBehaviour
         {
             light2.enabled = true;  
             trigger3.enabled = true;
+            collider3.enabled = true;
         }
         if (trigger3.triggered && !trigger3.triggerDone)
         {
