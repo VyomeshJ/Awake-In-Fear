@@ -48,6 +48,7 @@ public class GameLoad : MonoBehaviour
             SaveClass save = new SaveClass();
             save = JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt"));
             SaveVariables.FlashAvailable = save.FlashAvailable;
+            SaveVariables.WrenchAvailable = save.WrenchAvailable;
             SaveVariables.NumBatteries = save.FlashBatteries;
             SaveVariables.flashtime = save.flashtime;
             SaveVariables.GunAvailable = save.GunAvailable;
@@ -63,6 +64,7 @@ public class GameLoad : MonoBehaviour
         SaveClass save = new SaveClass();
         save.NotFirstTime = true;
         save.FlashAvailable = SaveVariables.FlashAvailable;
+        save.WrenchAvailable = SaveVariables.WrenchAvailable;
         save.FlashBatteries = SaveVariables.NumBatteries;
         save.flashtime = SaveVariables.flashtime;
         save.GunAvailable = SaveVariables.GunAvailable;

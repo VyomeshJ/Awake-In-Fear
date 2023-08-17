@@ -16,6 +16,11 @@ public class doorScript : MonoBehaviour
     public AudioManagerScript AudioManager;
     public AudioSource self_AudioSource;
 
+    public void rumble()
+    {
+        self_AudioSource.clip = AudioManager.Door_Locked_Sound;
+        self_AudioSource.Play();
+    }
     public void openDoor()
     {
         

@@ -392,6 +392,10 @@ public class PlayerScript : MonoBehaviour
                 }
             }
             if (PointingToObj.name.Substring(0,4) == "Door"){
+                if (PointingToObj.GetComponent<doorScript>().DoorStateLocked)
+                {
+                    PointingToObj.GetComponent<doorScript>().rumble();
+                }
                 if (!PointingToObj.GetComponent<doorScript>().DoorStateLocked && !PointingToObj.GetComponent<doorScript>().DoorInAniState && !PointingToObj.GetComponent<doorScript>().DoorOpen)
                 {
                     
@@ -533,6 +537,10 @@ public class PlayerScript : MonoBehaviour
     }
     public void PickUpObject(){
         if(PointingToObj != null){
+            if(PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0, 6) == "Wrench")
+            {
+                SaveVariables.WrenchAvailable = true;
+            }
             if(PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "Flashlight"){
                 Destroy(PointingToObj);
                 SaveVariables.FlashAvailable = true;

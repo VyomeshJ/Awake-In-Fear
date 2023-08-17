@@ -5,6 +5,7 @@ using UnityEngine;
 public class SaveClass
 {   
     public bool FlashAvailable;
+    public bool WrenchAvailable;
     public int FlashBatteries;
     public float flashtime;
     public bool GunAvailable;
