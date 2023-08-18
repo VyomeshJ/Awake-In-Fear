@@ -21,10 +21,10 @@ public class RandomizeObjects : MonoBehaviour
     void Start()
     {
         
-            indexNumber = Random.Range(0, 3);
-            indexNumber2 = Random.Range(4, 7);
+            indexNumber = Random.Range(3, 4);
+            indexNumber2 = 13;
             indexNumber3 = Random.Range(8, 11);
-            indexNumber4 = Random.Range(12, 16);
+            indexNumber4 = Random.Range(12, 12);
 
         
             
