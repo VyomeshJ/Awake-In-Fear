@@ -112,7 +112,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject CameraCarrier;
     public bool lockLook;
     public Vector3 lastPos;
-
+    public LightFlick flicker1, flicker2, flicker3, flicker4, flicker5, flicker6;
 
     private void FixedUpdate()
     {
@@ -138,6 +138,8 @@ public class PlayerScript : MonoBehaviour
         SaveVariables.PlayerHiding_Closet = false;
     }
     void Start(){
+       
+
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
         SaveVariables.CaffeineLevel = 100;
         shotgun.SetActive(false);
@@ -720,12 +722,21 @@ public class PlayerScript : MonoBehaviour
             trigger3.triggerDone = true;
             trigger3_door.GetComponent<doorScript>().closeDoor();
             trigger3_door.GetComponent<doorScript>().DoorStateLocked = true;
+
+            flicker1.enabled = true;
+            flicker2.enabled = true;
+            flicker3.enabled = true;
+            flicker4.enabled = true;
+            flicker5.enabled = true;
+            flicker6.enabled = true;
+
             //close door
         }
         if (trigger4.triggered)
         {
             trigger4.triggerDone = true;
             removable.SetActive(false);
+           
         }
 
 
