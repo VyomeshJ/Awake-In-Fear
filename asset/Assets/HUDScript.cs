@@ -15,6 +15,9 @@ public class HUDScript : MonoBehaviour
 
     private void Update()
     {
+        if(SaveVariables.WrenchAvailable) InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
+        else InvObjects[6].GetComponent<Image>().sprite = UnselectedInv[6];
+
         if (SaveVariables.Key1Available) InvObjects[2].GetComponent<Image>().sprite = SelectedInv[2];
         else InvObjects[2].GetComponent<Image>().sprite = UnselectedInv[2];
 
@@ -48,6 +51,32 @@ public class HUDScript : MonoBehaviour
             Time.timeScale = 1;
         }
        
+    }
+    public void WrenchSelected()
+    {
+        if (SaveVariables.WrenchAvailable)
+        {
+            Debug.Log("wrench");
+            //InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
+
+            SaveVariables.InventoryOpen = false;
+            if (player.GetComponent<PlayerScript>().currentSelectedItem != "wrench")
+            {
+                player.GetComponent<PlayerScript>().currentSelectedItem = "wrench";
+                //InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
+                player.GetComponent<PlayerScript>().holdingweapon = false;
+                gunObj.SetActive(false);
+                player.GetComponent<PlayerScript>().wrenchObj.SetActive(true);
+            }
+            else
+            {
+                InvObjects[6].GetComponent<Image>().sprite = UnselectedInv[6];
+                player.GetComponent<PlayerScript>().wrenchObj.SetActive(false);
+                player.GetComponent<PlayerScript>().currentSelectedItem = "null";
+            }
+            gameObject.SetActive(false);
+            Time.timeScale = 1;
+        }
     }
     public void CaffeineSelected(){
         

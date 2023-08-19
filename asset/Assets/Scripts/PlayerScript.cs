@@ -11,7 +11,7 @@ using UnityEngine.LowLevel;
 
 public class PlayerScript : MonoBehaviour
 {
-
+    public GameObject wrenchObj;
     int playerfloor;
     public Light RemovedLight1;
     public AudioSource ClockSound1;
@@ -539,8 +539,10 @@ public class PlayerScript : MonoBehaviour
     }
     public void PickUpObject(){
         if(PointingToObj != null){
+
             if(PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0, 6) == "Wrench")
             {
+                Destroy(PointingToObj);
                 SaveVariables.WrenchAvailable = true;
             }
             if(PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "Flashlight"){
