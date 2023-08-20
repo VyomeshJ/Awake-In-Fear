@@ -323,6 +323,10 @@ public class PlayerScript : MonoBehaviour
     }
     public void InteractWithObject(){
         if(PointingToObj != null){
+            if (PointingToObj.name.Substring(0, 9) == "generator" && currentSelectedItem == "wrench")
+            {
+                ElectricityOpen();
+            }
             if (PointingToObj.name.Substring(0, 4) == "safe")
             {
                 PointingToObj.GetComponent<safe_script>().open_keypad();
@@ -876,15 +880,22 @@ public class PlayerScript : MonoBehaviour
 
             if (hit.transform.gameObject.tag == "InteractableObject" && !InteractableObjectFound && Vector2.Distance(hit.transform.gameObject.transform.position, transform.position) < PlayerAccessRange)
             {
-         
-                InteractableObjectFound = true;
-                if (hit.transform.gameObject.name.Substring(0, 4) != "Hide") 
+                if (hit.transform.gameObject.name.Substring(0, 4) != "generator")
                 {
-                    if (F_Prompt != null) F_Prompt.SetActive(true);
+                    InteractableObjectFound = true;
+                    if (hit.transform.gameObject.name.Substring(0, 4) != "Hide")
+                    {
+                        if (F_Prompt != null) F_Prompt.SetActive(true);
+                    }
+                    else
+                    {
+                        if (F_Prompt_Hide != null) F_Prompt_Hide.SetActive(true);
+                    }
                 }
-                else
+                else if(currentSelectedItem == "wrench")
                 {
-                    if (F_Prompt_Hide != null) F_Prompt_Hide.SetActive(true);
+                    InteractableObjectFound = true;
+                    if (F_Prompt != null) F_Prompt.SetActive(true);
                 }
                 PointingToObj = hit.transform.gameObject;
                 //PointingToObj = hit.transform.gameObject;
