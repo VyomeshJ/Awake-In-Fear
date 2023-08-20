@@ -11,6 +11,14 @@ using UnityEngine.LowLevel;
 
 public class PlayerScript : MonoBehaviour
 {
+    public GameObject lighton1;
+    public GameObject lighton2;
+    public GameObject lighton3;
+    public GameObject lighton4;
+    public GameObject lighton5;
+    public GameObject lighton6;
+    public bool electricityopen = false;
+
     public GameObject wrenchObj;
     int playerfloor;
     public Light RemovedLight1;
@@ -695,13 +703,26 @@ public class PlayerScript : MonoBehaviour
         RemovedLight1.enabled = false;
         ClockSound1.enabled = false;
     }
+    public void ElectricityOpen()
+    {
+        lighton1.SetActive(true);
+        lighton2.SetActive(true);
+        lighton3.SetActive(true);
+        lighton4.SetActive(true);
+        lighton5.SetActive(true);
+        lighton6.SetActive(true);
+        electricityopen = true;
+
+    }
 
     void Update(){
         
+         
         if (transform.position.y > 22 && transform.position.y < 26)
         {
             playerfloor = 1;
             RemoveFLoor1();
+            ElectricityOpen();
         }
         else if (transform.position.y > 28) playerfloor = 2;
 
@@ -877,6 +898,8 @@ public class PlayerScript : MonoBehaviour
                 if (F_Prompt_Hide != null) F_Prompt_Hide.SetActive(false);
                 //PointingToObj = null;
             }
+
+             
             /*if (hit.transform.gameObject.tag == "drawers")
             {
                 

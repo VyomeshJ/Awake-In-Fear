@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class CellNavmesh : MonoBehaviour
 {
     //public doorScript buttondoor;
+    public Transform ainewpos;
     public Animator dooranim;
     public CharController_Motor CharController_Motor;
     public float Health;
@@ -67,6 +68,11 @@ public class CellNavmesh : MonoBehaviour
     void Update()
         
     {
+        if (playerscript.electricityopen)
+        {
+            transform.position = ainewpos.position;
+            ready = true;
+        }
         if ((dooranim.GetAnimatorTransitionInfo(0).IsName("Open")))
         {
             Debug.Log("Open");
