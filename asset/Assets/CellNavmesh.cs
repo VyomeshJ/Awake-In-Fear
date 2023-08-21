@@ -68,19 +68,20 @@ public class CellNavmesh : MonoBehaviour
     void Update()
         
     {
-        if (playerscript.electricityopen)
-        {
-            transform.position = ainewpos.position;
-            ready = true;
-        }
+       // if (playerscript.electricityopen)
+        //{
+          //  transform.position = ainewpos.position;
+            //ready = true;
+        //}
         if ((dooranim.GetAnimatorTransitionInfo(0).IsName("Open")))
         {
             Debug.Log("Open");
         }
 
         
-        if (doorscript.DoorOpen == true && dead ==false)
+        if (playerscript.electricityopen == true && dead ==false)
         {
+            transform.position = ainewpos.position;
             //Debug.Log("running");
             running = true;
             if(running) runAble();
@@ -93,6 +94,8 @@ public class CellNavmesh : MonoBehaviour
 
         if (ready)
         {
+            
+
             if (SaveVariables.PlayerHiding_Closet == true || SaveVariables.PlayerHiding_Bed == true)
             {
                 
@@ -170,19 +173,9 @@ public class CellNavmesh : MonoBehaviour
     }
     void NextPoint()
     {
-        
-         if(buttondoor.opened == true)
-        {
             Debug.Log("working");
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
-            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        }
-         else
-        {
-            Debug.Log("notking");
-            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % 4;
-            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        }
+            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position); 
     }
     private void OnDrawGizmosSelected()
     {
@@ -227,7 +220,7 @@ public class CellNavmesh : MonoBehaviour
             {
 
                 float dstToPlayer = Vector3.Distance(transform.position, player.position);
-                Debug.Log(dstToPlayer);
+                //Debug.Log(dstToPlayer);
                 if (dstToPlayer < 1.82)
                 {
 
