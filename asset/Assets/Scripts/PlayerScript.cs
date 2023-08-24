@@ -11,6 +11,7 @@ using UnityEngine.LowLevel;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource shotgun_audio_source;
     public GameObject lighton1;
     public GameObject lighton2;
     public GameObject lighton3;
@@ -261,6 +262,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (holdingweapon && totalbullets > 0 && throwable)
         {
+            shotgun_audio_source.Play();
             gameObject.GetComponent<AudioSource>().clip = AudioManager.Shotgun_Shoot;
             gameObject.GetComponent<AudioSource>().Play();
             shootprojectile();
@@ -323,10 +325,11 @@ public class PlayerScript : MonoBehaviour
     }
     public void InteractWithObject(){
         if(PointingToObj != null){
-            if (PointingToObj.name.Substring(0, 9) == "generator" && currentSelectedItem == "wrench")
+            if (PointingToObj.name.Length >= 9 && PointingToObj.name.Substring(0, 9) == "generator" && currentSelectedItem == "wrench")
             {
                 ElectricityOpen();
             }
+            Debug.Log(PointingToObj.name);
             if (PointingToObj.name.Substring(0, 4) == "safe")
             {
                 PointingToObj.GetComponent<safe_script>().open_keypad();
@@ -471,8 +474,10 @@ public class PlayerScript : MonoBehaviour
                     PointingToObj.GetComponent<Outline>().enabled = false;
                 }
             }
+            
             if (PointingToObj.name.Substring(0,6) == "closet")
             {
+                Debug.Log("closet here buddy");
                 PointingToObj.GetComponent<Hiding_Closet>().Open_Close();
 
                 /*Animator clsanim = PointingToObj.GetComponent<Animator>();

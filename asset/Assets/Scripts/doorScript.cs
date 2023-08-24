@@ -23,22 +23,30 @@ public class doorScript : MonoBehaviour
     }
     public void openDoor()
     {
-        
-        Debug.Log("open door");
-        DoorInAniState = true;
-        DoorOpen = true;
-        Debug.Log(DoorOpen);
-        //doorSound.Play();
-        door.Play("Open");
-        self_AudioSource.clip = AudioManager.DoorOpenSound;
-        self_AudioSource.Play();
+      
+        if (!DoorStateLocked)
+        {
+         
+            DoorInAniState = true;
+            DoorOpen = true;
+       
+            //doorSound.Play();
+            door.Play("Open");
+            self_AudioSource.clip = AudioManager.DoorOpenSound;
+            self_AudioSource.Play();
+        }
+        else
+        {
+            self_AudioSource.clip = AudioManager.Door_Locked_Sound;
+            self_AudioSource.Play();
+        }
     }
 
     public void closeDoor()
     {
-        Debug.Log("door closed");
+ 
         DoorOpen = false;
-        Debug.Log(DoorOpen);
+
         DoorInAniState = true;
         door.Play("Close");
         self_AudioSource.clip = AudioManager.DoorCloseSound;
@@ -58,8 +66,8 @@ public class doorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DoorStateLocked) gameObject.tag = "Untagged";
-        else gameObject.tag = "InteractableObject";
+        //if (DoorStateLocked) gameObject.tag = "Untagged";
+        //else gameObject.tag = "InteractableObject";
 
     }
 }

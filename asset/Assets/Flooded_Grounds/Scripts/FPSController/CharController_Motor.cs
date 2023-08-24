@@ -135,7 +135,7 @@ public class CharController_Motor : MonoBehaviour
     {
         if (isGrounded)
         {
-            Debug.Log("Jump");
+           
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
