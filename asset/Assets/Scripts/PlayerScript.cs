@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject E_Prompt;
     public GameObject F_Prompt;
     public GameObject F_Prompt_Hide;
+    public GameObject F_Prompt_fix;
     public GameObject PointingToObj;
     public doorScript doorScript;
     int keys;
@@ -863,6 +864,7 @@ public class PlayerScript : MonoBehaviour
                 InteractableObjectFound = false;
                 if (E_Prompt != null) E_Prompt.SetActive(false);
                 if (F_Prompt_Hide != null) F_Prompt_Hide.SetActive(false);
+                if (F_Prompt_fix != null) F_Prompt_fix.SetActive(false);
                 if (F_Prompt != null) F_Prompt.SetActive(false);
 
             }
@@ -890,7 +892,14 @@ public class PlayerScript : MonoBehaviour
                     InteractableObjectFound = true;
                     if (hit.transform.gameObject.name.Substring(0, 4) != "Hide")
                     {
-                        if (F_Prompt != null) F_Prompt.SetActive(true);
+                        if(hit.transform.gameObject.name.Substring(0,9) == "generator")
+                        {
+                            if (F_Prompt_fix != null) F_Prompt_fix.SetActive(true);
+                        }
+                        else
+                        {
+                            if (F_Prompt != null) F_Prompt.SetActive(true);
+                        }
                     }
                     else
                     {
@@ -912,6 +921,7 @@ public class PlayerScript : MonoBehaviour
                 PointingToObj = null;
                 if(F_Prompt != null) F_Prompt.SetActive(false);
                 if (F_Prompt_Hide != null) F_Prompt_Hide.SetActive(false);
+                if (F_Prompt_fix != null) F_Prompt_fix.SetActive(false);
                 //PointingToObj = null;
             }
 

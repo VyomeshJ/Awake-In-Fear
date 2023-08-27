@@ -14,6 +14,7 @@ public class Keypad : MonoBehaviour
 
     private void Start()
     {
+        password = SaveVariables.safe_code;
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
         audio_source = gameObject.GetComponent<AudioSource>();
     }
