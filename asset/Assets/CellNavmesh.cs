@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class CellNavmesh : MonoBehaviour
 {
     //public doorScript buttondoor;
+    public LightTrigger trigger4;
     public Transform ainewpos;
     public Animator dooranim;
     public CharController_Motor CharController_Motor;
@@ -127,7 +128,7 @@ public class CellNavmesh : MonoBehaviour
             EnvironmentView();
             if (!m_IsPatrol)
             {
-
+                Debug.Log("Chasing");
                 navMeshAgent.SetDestination(playerscript.PlayerPos);
             }
             else
@@ -235,12 +236,16 @@ public class CellNavmesh : MonoBehaviour
                 //this causes the problem for first floor enemy
                 if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
                 {
-                    navMeshAgent.speed = 2f;
-                    //PlAY SOUND
-                    Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
+                    if (trigger4.triggerDone)
+                    {
+                        navMeshAgent.speed = 2f;
+                        //PlAY SOUND
+                        Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
 
-                    m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
-                    m_IsPatrol = false;                 //  Change the state to chasing the player
+                        m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
+                        m_IsPatrol = false;
+                    }
+                        //  Change the state to chasing the player
                 }
 
                 else

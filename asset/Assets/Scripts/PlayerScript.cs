@@ -731,7 +731,7 @@ public class PlayerScript : MonoBehaviour
         {
             playerfloor = 1;
             RemoveFLoor1();
-            ElectricityOpen();
+            
         }
         else if (transform.position.y > 28) playerfloor = 2;
 
