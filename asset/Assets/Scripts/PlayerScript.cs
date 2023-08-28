@@ -333,6 +333,7 @@ public class PlayerScript : MonoBehaviour
             Debug.Log(PointingToObj.name);
             if (PointingToObj.name.Substring(0, 4) == "safe")
             {
+                Debug.Log("open keypad");
                 PointingToObj.GetComponent<safe_script>().open_keypad();
             }
             if (PointingToObj.name.Length == 10 && PointingToObj.name.Substring(0, 10) == "OpenButton"){
@@ -887,17 +888,20 @@ public class PlayerScript : MonoBehaviour
 
             if (hit.transform.gameObject.tag == "InteractableObject" && !InteractableObjectFound && Vector2.Distance(hit.transform.gameObject.transform.position, transform.position) < PlayerAccessRange)
             {
+
                 if (hit.transform.gameObject.name.Substring(0, 4) != "generator")
                 {
                     InteractableObjectFound = true;
                     if (hit.transform.gameObject.name.Substring(0, 4) != "Hide")
                     {
-                        if(hit.transform.gameObject.name.Substring(0,9) == "generator")
+                        
+                        if (hit.transform.gameObject.name.Length >= 9 && hit.transform.gameObject.name.Substring(0,9) == "generator")
                         {
                             if (F_Prompt_fix != null) F_Prompt_fix.SetActive(true);
                         }
                         else
                         {
+                            
                             if (F_Prompt != null) F_Prompt.SetActive(true);
                         }
                     }
