@@ -39,10 +39,10 @@ public class GameLoad : MonoBehaviour
 
             for (int i = 0; i < 4; i++)
             {
-                int num = Random.Range(0, 10);
+                int num = Random.Range(1, 9);
                 SaveVariables.safe_code += num.ToString();
             }
-            Debug.Log(SaveVariables.safe_code);
+            
         }
         else{
             SaveClass save = new SaveClass();
