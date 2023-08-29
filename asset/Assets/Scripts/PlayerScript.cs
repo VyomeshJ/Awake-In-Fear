@@ -33,7 +33,8 @@ public class PlayerScript : MonoBehaviour
     public LightTrigger trigger1;
     public Light light1;
     public LightTrigger trigger2;
-    public Light light2;
+    //public Light light2;
+    public GameObject lightevent;
     public GameObject triggerobject2;
     public LightTrigger trigger3;
     public BoxCollider collider3;
@@ -747,7 +748,8 @@ public class PlayerScript : MonoBehaviour
         }
         if(trigger1.triggered && trigger2.triggered)
         {
-            light2.enabled = true;  
+            //light2.enabled = true;  
+            lightevent.SetActive(true);
             trigger3.enabled = true;
             collider3.enabled = true;
         }
