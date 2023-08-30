@@ -11,6 +11,7 @@ using UnityEngine.LowLevel;
 
 public class PlayerScript : MonoBehaviour
 {
+    public GameObject FloorDoor;
     public AudioSource shotgun_audio_source;
     public GameObject lighton1;
     public GameObject lighton2;
@@ -330,6 +331,7 @@ public class PlayerScript : MonoBehaviour
             if (PointingToObj.name.Length >= 9 && PointingToObj.name.Substring(0, 9) == "generator" && currentSelectedItem == "wrench")
             {
                 ElectricityOpen();
+                PointingToObj.transform.Find("Cube").GetComponent<AudioSource>().Play();
             }
             Debug.Log(PointingToObj.name);
             if (PointingToObj.name.Substring(0, 4) == "safe")
@@ -724,6 +726,8 @@ public class PlayerScript : MonoBehaviour
         lighton5.SetActive(true);
         lighton6.SetActive(true);
         electricityopen = true;
+        FloorDoor.GetComponent<Animator>().Play("Open");
+        FloorDoor.GetComponent<AudioSource>().Play();
 
     }
 
