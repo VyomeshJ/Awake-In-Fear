@@ -17,6 +17,7 @@ public class safe_script : MonoBehaviour
     }
     public void open_safe()
     {
+        gameObject.GetComponent<BoxCollider>().enabled = false;
         gameObject.GetComponent<Animator>().Play("safe_open");
         gameObject.name = "opened_safe";
         gameObject.tag = "Untagged";

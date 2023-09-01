@@ -23,7 +23,7 @@ public class doorScript : MonoBehaviour
     }
     public void openDoor()
     {
-      
+        Debug.Log("Open door");
         if (!DoorStateLocked)
         {
          
@@ -69,5 +69,10 @@ public class doorScript : MonoBehaviour
         //if (DoorStateLocked) gameObject.tag = "Untagged";
         //else gameObject.tag = "InteractableObject";
 
+    }
+    public void PickTriggered()
+    {
+        Debug.Log("piccked trigger door");
+        DoorStateLocked = false;
     }
 }

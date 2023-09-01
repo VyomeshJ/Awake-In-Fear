@@ -334,15 +334,15 @@ public class PlayerScript : MonoBehaviour
                 PointingToObj.transform.Find("Cube").GetComponent<AudioSource>().Play();
             }
             Debug.Log(PointingToObj.name);
-            if (PointingToObj.name.Substring(0, 4) == "safe")
+            if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "safe")
             {
                 Debug.Log("open keypad");
                 PointingToObj.GetComponent<safe_script>().open_keypad();
             }
-            if (PointingToObj.name.Length == 10 && PointingToObj.name.Substring(0, 10) == "OpenButton"){
+            if (PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "OpenButton"){
                 PointingToObj.GetComponent<OpenButton>().OpenDoor();
             }
-            if (PointingToObj.name.Substring(0, 3) == "key")
+            if (PointingToObj.name.Length >= 3 && PointingToObj.name.Substring(0, 3) == "key")
             {
                 if (PointingToObj.GetComponent<Outline>() != null)
                 {
@@ -370,7 +370,7 @@ public class PlayerScript : MonoBehaviour
                 }
 
             }
-            if (PointingToObj.name.Substring(0, 10) == "HideCloset"){
+            if (PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "HideCloset"){
                
                 gameObject.GetComponent<CharacterController>().enabled = false;
                 PointingToObj.GetComponent<BoxCollider>().enabled = false;
@@ -392,7 +392,7 @@ public class PlayerScript : MonoBehaviour
                     //cameraholder.transform.rotation = Quaternion.Euler(0, 0, 0);
                 }
             }
-            if (PointingToObj.name.Substring(0, 7) == "HideBed")
+            if (PointingToObj.name.Length >= 7 && PointingToObj.name.Substring(0, 7) == "HideBed")
             {
 
                 gameObject.GetComponent<CharacterController>().enabled = false;
@@ -413,7 +413,7 @@ public class PlayerScript : MonoBehaviour
                     cameraholder.transform.rotation = Quaternion.Euler(0, 0, 0);
                 }
             }
-            if (PointingToObj.name.Substring(0,4) == "Door"){
+            if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0,4) == "Door"){
                 if (PointingToObj.GetComponent<doorScript>().DoorStateLocked)
                 {
                     PointingToObj.GetComponent<doorScript>().rumble();
@@ -432,7 +432,7 @@ public class PlayerScript : MonoBehaviour
                     SoundAdd(20);
                 }
             }
-            if(PointingToObj.name.Substring(0, 6) == "Drawer")
+            if(PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0, 6) == "Drawer")
             {
                 Animator draweranim = PointingToObj.GetComponent<Animator>();
                 if (draweranim.GetCurrentAnimatorStateInfo(0).IsName("closedrw"))
@@ -480,7 +480,7 @@ public class PlayerScript : MonoBehaviour
                 }
             }
             
-            if (PointingToObj.name.Substring(0,6) == "closet")
+            if (PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0,6) == "closet")
             {
                 Debug.Log("closet here buddy");
                 PointingToObj.GetComponent<Hiding_Closet>().Open_Close();

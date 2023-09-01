@@ -34,7 +34,8 @@ public class GameLoad : MonoBehaviour
         //for(int i = 0, i < SaveVariables.ItemIndexRemoved.count())
     }
     public void LoadGame(){
-        if(!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt")).NotFirstTime){
+        SaveVariables.safe_code = "";
+        if (!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt")).NotFirstTime){
             player.transform.position = new Vector3(527.315f, 18.5f, 540f);
 
             for (int i = 0; i < 4; i++)
@@ -42,7 +43,7 @@ public class GameLoad : MonoBehaviour
                 int num = Random.Range(1, 9);
                 SaveVariables.safe_code += num.ToString();
             }
-            
+            Debug.Log(SaveVariables.safe_code);
         }
         else{
             SaveClass save = new SaveClass();
@@ -57,6 +58,7 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key3Available = save.Key3Available;
             player.transform.position = save.PlayerPosition;
             SaveVariables.light_trigger_activated = save.light_trigger_activated;
+            SaveVariables.safe_code = save.safe_code;
         }
     }
     public SaveClass CreateSave()

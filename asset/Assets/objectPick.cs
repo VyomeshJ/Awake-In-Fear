@@ -43,6 +43,10 @@ public class objectPick : MonoBehaviour
                     if (hit.transform.gameObject.tag == "dragable")
 
                     {
+                        if (hit.transform.gameObject.name == "trigger_chair")
+                        {
+                            hit.transform.gameObject.GetComponent<pickTrigger>().Picked();
+                        }
                         Debug.Log("die mf 2");
                         PickUpObject(hit.transform.gameObject);
                         if (hit.transform.gameObject.name == "s")
