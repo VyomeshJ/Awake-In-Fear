@@ -8,9 +8,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Security.Claims;
 using UnityEngine.LowLevel;
+using UnityEngine.Rendering;
 
 public class PlayerScript : MonoBehaviour
 {
+    public bool set_pos;
     public GameObject FloorDoor;
     public AudioSource shotgun_audio_source;
     public GameObject lighton1;
@@ -33,6 +35,7 @@ public class PlayerScript : MonoBehaviour
 
     public LightTrigger trigger1;
     public Light light1;
+    public Light light0;
     public LightTrigger trigger2;
     //public Light light2;
     public GameObject lightevent;
@@ -128,6 +131,7 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         Vector3 pos_moved = transform.position - lastPos;
         lastPos = transform.position;
         //Debug.Log(pos_moved.magnitude);
@@ -138,7 +142,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             Move_Null = true;
-        }
+        }    
     }
     public void StopHiding()
     {
@@ -149,9 +153,18 @@ public class PlayerScript : MonoBehaviour
         SaveVariables.PlayerHiding_Bed = false;
         SaveVariables.PlayerHiding_Closet = false;
     }
+    public void initialize_player_pos()
+    {
+        Debug.Log("call 1");
+        //gameObject.transform.position = SaveVariables.Player_Initial_Pos;
+    }
+    
     void Start(){
-       
+        Debug.Log("call 2");
 
+        //gameObject.transform.position = SaveVariables.Player_Initial_Pos;
+        
+        start_triggers();
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
         SaveVariables.CaffeineLevel = 100;
         shotgun.SetActive(false);
@@ -730,10 +743,54 @@ public class PlayerScript : MonoBehaviour
         FloorDoor.GetComponent<AudioSource>().Play();
 
     }
+    
+    public void start_triggers()
+    {
+        if(SaveVariables.trigger_to_trigger == 1)
+        {
+            light0.enabled = true;
+        }
+        if (SaveVariables.trigger_to_trigger == 2)
+        {
+            light1.enabled = true;
+            trigger2.gameObject.SetActive(true);
+        }
+        if (SaveVariables.trigger_to_trigger == 3)
+        {
+            SaveVariables.trigger_to_trigger = 3;
+            lightevent.SetActive(true);
+            trigger3.enabled = true;
+            collider3.enabled = true;
+        }
+        if (SaveVariables.trigger_to_trigger == 4)
+        {
+            trigger3.triggerDone = true;
+            trigger3_door.GetComponent<doorScript>().closeDoor();
+            trigger3_door.GetComponent<doorScript>().DoorStateLocked = true;
+
+            flicker1.enabled = true;
+            flicker2.enabled = true;
+            flicker3.enabled = true;
+            flicker4.enabled = true;
+            flicker5.enabled = true;
+            flicker6.enabled = true;
+        }
+        if (SaveVariables.trigger_to_trigger == 5)
+        {
+            trigger4.triggerDone = true;
+            removable.SetActive(false);
+        }
+    }
 
     void Update(){
         
-         
+        Debug.Log(transform.position);
+        if (!set_pos)
+        {
+            gameObject.transform.position = SaveVariables.Player_Initial_Pos;
+            Debug.Log(SaveVariables.Player_Initial_Pos);
+            set_pos = true;
+        }
         if (transform.position.y > 22 && transform.position.y < 26)
         {
             playerfloor = 1;
@@ -743,22 +800,31 @@ public class PlayerScript : MonoBehaviour
         else if (transform.position.y > 28) playerfloor = 2;
 
         if (!SaveVariables.PlayerHiding_Bed && !SaveVariables.PlayerHiding_Closet) lockLook = false;
-        if (trigger1.triggered)
+        
+        if (trigger1.triggered && !trigger1.triggerDone && SaveVariables.trigger_to_trigger == 1)
         {
+            light0.enabled = false;
+            SaveVariables.trigger_to_trigger = 2;
+            
             light1.enabled = true;
             trigger2.gameObject.SetActive(true);
             
             
         }
-        if(trigger1.triggered && trigger2.triggered)
+        if(trigger2.triggered && !trigger2.triggerDone && SaveVariables.trigger_to_trigger == 2)
         {
+            light1.enabled = false;
+            SaveVariables.trigger_to_trigger = 3;
+            
             //light2.enabled = true;  
             lightevent.SetActive(true);
             trigger3.enabled = true;
             collider3.enabled = true;
         }
-        if (trigger3.triggered && !trigger3.triggerDone)
+        if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
         {
+            lightevent.SetActive(false);
+            SaveVariables.trigger_to_trigger = 4;
             trigger3.triggerDone = true;
             trigger3_door.GetComponent<doorScript>().closeDoor();
             trigger3_door.GetComponent<doorScript>().DoorStateLocked = true;
@@ -772,8 +838,12 @@ public class PlayerScript : MonoBehaviour
 
             //close door
         }
-        if (trigger4.triggered)
+        if (trigger4.triggered && !trigger4.triggerDone && SaveVariables.trigger_to_trigger == 4)
         {
+            
+            
+            SaveVariables.trigger_to_trigger = 5;
+            
             trigger4.triggerDone = true;
             removable.SetActive(false);
            

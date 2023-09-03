@@ -21,5 +21,8 @@ public static class SaveVariables
     public static bool PlayerHiding_Bed;
     public static int light_trigger_activated;
     public static string safe_code;
+    public static Vector3 Player_Initial_Pos;
+// public static bool[] triggers_triggered;
+    public static int trigger_to_trigger;
 
 }

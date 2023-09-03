@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Rendering;
 
 public class GameLoad : MonoBehaviour
 {
     public GameObject player;
     public GameObject[] light_triggers;
     public GameObject[] notes;
-    void Awake(){
+    void Start(){
         LoadGame();
         player.GetComponent<PlayerScript>().SetupInventory();
         DeleteIndexedObjects();
@@ -35,15 +36,19 @@ public class GameLoad : MonoBehaviour
     }
     public void LoadGame(){
         SaveVariables.safe_code = "";
+        
         if (!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt")).NotFirstTime){
+            
             player.transform.position = new Vector3(527.315f, 18.5f, 540f);
-
+            SaveVariables.Player_Initial_Pos = new Vector3(527.315f, 18.5f, 540f);
+            player.GetComponent<PlayerScript>().initialize_player_pos();
             for (int i = 0; i < 4; i++)
             {
                 int num = Random.Range(1, 9);
                 SaveVariables.safe_code += num.ToString();
             }
-            Debug.Log(SaveVariables.safe_code);
+            SaveVariables.trigger_to_trigger = 1;
+           
         }
         else{
             SaveClass save = new SaveClass();
@@ -56,9 +61,14 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key1Available = save.Key1Available;
             SaveVariables.Key2Available = save.Key2Available;
             SaveVariables.Key3Available = save.Key3Available;
+            SaveVariables.Player_Initial_Pos = save.PlayerPosition;
+            player.GetComponent<PlayerScript>().initialize_player_pos();
             player.transform.position = save.PlayerPosition;
+            Debug.Log("player position done");
             SaveVariables.light_trigger_activated = save.light_trigger_activated;
             SaveVariables.safe_code = save.safe_code;
+
+            SaveVariables.trigger_to_trigger = save.trigger_to_trigger;
         }
     }
     public SaveClass CreateSave()
@@ -76,6 +86,10 @@ public class GameLoad : MonoBehaviour
         save.PlayerPosition = player.transform.position;
         save.light_trigger_activated = SaveVariables.light_trigger_activated;
         save.safe_code = SaveVariables.safe_code;
+        save.trigger_to_trigger = SaveVariables.trigger_to_trigger;
+
+        
+        
         Load_Light_Triggers();
         return save;
     }

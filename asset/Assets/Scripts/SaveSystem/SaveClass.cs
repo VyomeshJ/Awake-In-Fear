@@ -17,5 +17,7 @@ public class SaveClass
     public bool[] ItemIndexRemoved;
     public int light_trigger_activated;
     public string safe_code;
+    public int trigger_to_trigger;
+    //public bool[] triggers_triggered;
 
 }   
