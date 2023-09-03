@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class ZombieCrawl : MonoBehaviour
 {
     public float Health;
-    float speed;
+    public float speed;
     bool playercaught;
     bool enemyDefeated;
     float m_WaitTime;
@@ -31,6 +31,7 @@ public class ZombieCrawl : MonoBehaviour
 
     {
         Health = 100f;
+        
         navMeshAgent.speed = 2.7f;
         m_IsPatrol = true;
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
@@ -39,9 +40,8 @@ public class ZombieCrawl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTrapped == false)
-        {
 
+        
 
             EnvironmentView();
             if (!m_IsPatrol)
@@ -50,11 +50,8 @@ public class ZombieCrawl : MonoBehaviour
                 navMeshAgent.SetDestination(playerscript.PlayerPos);
             }
             else Patrolling();
-        }
-        else
-        {
-            navMeshAgent.SetDestination(TrapPos);
-        }
+        
+        
 
         if(Health <= 0)
         {
