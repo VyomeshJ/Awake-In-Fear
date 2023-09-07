@@ -158,9 +158,19 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("call 1");
         //gameObject.transform.position = SaveVariables.Player_Initial_Pos;
     }
-    
+    IEnumerator initiate_player_pos()
+    {
+        float counter = 0;
+        while(counter < 0.5)
+        {
+            counter += Time.deltaTime;
+            transform.position = SaveVariables.Player_Initial_Pos;
+            yield return null;
+        }
+    }
+
     void Start(){
-        Debug.Log("call 2");
+        StartCoroutine(initiate_player_pos());
 
         //gameObject.transform.position = SaveVariables.Player_Initial_Pos;
         
@@ -234,6 +244,7 @@ public class PlayerScript : MonoBehaviour
             flashintensity.intensity = 60;
         }
     }
+
     public void Flashlight(){
         
         if (SaveVariables.FlashAvailable && SaveVariables.flashtime > 0 && currentSelectedItem == "flashlight" && !SaveVariables.InventoryOpen){
@@ -785,12 +796,7 @@ public class PlayerScript : MonoBehaviour
     void Update(){
         
         Debug.Log(transform.position);
-        if (!set_pos)
-        {
-            gameObject.transform.position = SaveVariables.Player_Initial_Pos;
-            Debug.Log(SaveVariables.Player_Initial_Pos);
-            set_pos = true;
-        }
+        
         if (transform.position.y > 22 && transform.position.y < 26)
         {
             playerfloor = 1;

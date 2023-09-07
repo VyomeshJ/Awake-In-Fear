@@ -9,7 +9,7 @@ public class GameLoad : MonoBehaviour
     public GameObject player;
     public GameObject[] light_triggers;
     public GameObject[] notes;
-    void Start(){
+    void Awake(){
         LoadGame();
         player.GetComponent<PlayerScript>().SetupInventory();
         DeleteIndexedObjects();
@@ -39,7 +39,8 @@ public class GameLoad : MonoBehaviour
         
         if (!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt")).NotFirstTime){
             
-            player.transform.position = new Vector3(527.315f, 18.5f, 540f);
+            //player.transform.position = new Vector3(527.315f, 18.5f, 540f);
+         
             SaveVariables.Player_Initial_Pos = new Vector3(527.315f, 18.5f, 540f);
             player.GetComponent<PlayerScript>().initialize_player_pos();
             for (int i = 0; i < 4; i++)
@@ -62,8 +63,8 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key2Available = save.Key2Available;
             SaveVariables.Key3Available = save.Key3Available;
             SaveVariables.Player_Initial_Pos = save.PlayerPosition;
-            player.GetComponent<PlayerScript>().initialize_player_pos();
-            player.transform.position = save.PlayerPosition;
+            //player.transform.position = save.PlayerPosition;
+            
             Debug.Log("player position done");
             SaveVariables.light_trigger_activated = save.light_trigger_activated;
             SaveVariables.safe_code = save.safe_code;
