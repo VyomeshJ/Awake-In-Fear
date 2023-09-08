@@ -152,6 +152,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""b56ea8e8-c3ab-47be-bf26-3811915a8b4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -506,6 +515,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""P"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""066ee56a-68c7-4d01-ae00-9afdc254471a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -528,6 +548,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Player_LClick = m_Player.FindAction("LClick", throwIfNotFound: true);
         m_Player_RClick = m_Player.FindAction("RClick", throwIfNotFound: true);
         m_Player_P = m_Player.FindAction("P", throwIfNotFound: true);
+        m_Player_Enter = m_Player.FindAction("Enter", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -603,6 +624,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LClick;
     private readonly InputAction m_Player_RClick;
     private readonly InputAction m_Player_P;
+    private readonly InputAction m_Player_Enter;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -621,6 +643,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @LClick => m_Wrapper.m_Player_LClick;
         public InputAction @RClick => m_Wrapper.m_Player_RClick;
         public InputAction @P => m_Wrapper.m_Player_P;
+        public InputAction @Enter => m_Wrapper.m_Player_Enter;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -672,6 +695,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @P.started += instance.OnP;
             @P.performed += instance.OnP;
             @P.canceled += instance.OnP;
+            @Enter.started += instance.OnEnter;
+            @Enter.performed += instance.OnEnter;
+            @Enter.canceled += instance.OnEnter;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -718,6 +744,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @P.started -= instance.OnP;
             @P.performed -= instance.OnP;
             @P.canceled -= instance.OnP;
+            @Enter.started -= instance.OnEnter;
+            @Enter.performed -= instance.OnEnter;
+            @Enter.canceled -= instance.OnEnter;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -751,5 +780,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnLClick(InputAction.CallbackContext context);
         void OnRClick(InputAction.CallbackContext context);
         void OnP(InputAction.CallbackContext context);
+        void OnEnter(InputAction.CallbackContext context);
     }
 }
