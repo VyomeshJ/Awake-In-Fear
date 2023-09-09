@@ -29,6 +29,7 @@ public class tutorial_script : MonoBehaviour
     public void Start()
     {
         continue_txt.SetActive(false);
+        continue_last_txt.SetActive(false);
     }
     void Next_Page(InputAction.CallbackContext ctx)
     {
