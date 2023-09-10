@@ -46,10 +46,11 @@ public class ManageUI : MonoBehaviour
             File.WriteAllText(Application.dataPath + "/save" + saveNo.ToString() + ".txt", json);
         }
         PlayerPrefs.SetInt("SaveNum", saveNo);
-        SceneChange("Scene_A");
+        SceneChange("TutorialScene");
     }
-    public void SceneChange(string Scene){
-        SceneManager.LoadScene(Scene);
+    public void SceneChange(string scene_name){
+
+        SceneManager.LoadScene(scene_name);
     }
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class tutorial_script : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class tutorial_script : MonoBehaviour
     public GameObject continue_last_txt;
     public InputMaster inputMaster;
     public bool last_page;
+    public bool finished_page;
     private void OnEnable()
     {
         inputMaster.Player.Enable();
@@ -30,28 +32,34 @@ public class tutorial_script : MonoBehaviour
     {
         continue_txt.SetActive(false);
         continue_last_txt.SetActive(false);
+        Read_Txt(pages[0]);
     }
     void Next_Page(InputAction.CallbackContext ctx)
     {
-        continue_txt.SetActive(false);
-        if (current_page < (pages.Length - 1))
+        if(finished_page)
         {
-            current_page += 1;
-            StartCoroutine(Read_Txt(pages[current_page]));
+            if(last_page)
+            {
+                SceneManager.LoadScene("Scene_A");
+            }
+            finished_page = false;
+            continue_txt.SetActive(false);
+            
+            if (current_page == pages.Length - 2)
+            {
+                last_page = true;
+            }
+            if (current_page < (pages.Length - 1))
+            {
+                current_page += 1;
+                Read_Txt(pages[current_page]);
+            }
         }
-        if(current_page == pages.Length)
-        {
-            last_page = true;
-        }
+        
     }
-    IEnumerator Read_Txt(string txt)
+    public void Read_Txt(string txt)
     {
         text_obj.text = "";
-        for(int i =  0; i <= txt.Length; i++)
-        {
-            text_obj.text = txt.Substring(0, (i + 1));
-            yield return new WaitForSeconds(0.1f);
-        }
         text_obj.text = txt;
         if(last_page)
         {
@@ -61,5 +69,6 @@ public class tutorial_script : MonoBehaviour
         {
             continue_txt.SetActive(true) ;
         }
+        finished_page = true;
     }
 }
