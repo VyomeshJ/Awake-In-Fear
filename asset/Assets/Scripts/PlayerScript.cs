@@ -15,12 +15,8 @@ public class PlayerScript : MonoBehaviour
     public bool set_pos;
     public GameObject FloorDoor;
     public AudioSource shotgun_audio_source;
-    public GameObject lighton1;
-    public GameObject lighton2;
-    public GameObject lighton3;
-    public GameObject lighton4;
-    public GameObject lighton5;
-    public GameObject lighton6;
+    public GameObject LightContainer;
+    
     public bool electricityopen = false;
 
     public GameObject wrenchObj;
@@ -743,12 +739,12 @@ public class PlayerScript : MonoBehaviour
     }
     public void ElectricityOpen()
     {
-        lighton1.SetActive(true);
-        lighton2.SetActive(true);
-        lighton3.SetActive(true);
-        lighton4.SetActive(true);
-        lighton5.SetActive(true);
-        lighton6.SetActive(true);
+        LightContainer.SetActive(true);
+        //lighton2.SetActive(true);
+        //lighton3.SetActive(true);
+        //lighton4.SetActive(true);
+        //lighton5.SetActive(true);
+        //lighton6.SetActive(true);
         electricityopen = true;
         FloorDoor.GetComponent<Animator>().Play("Open");
         FloorDoor.GetComponent<AudioSource>().Play();
@@ -809,7 +805,7 @@ public class PlayerScript : MonoBehaviour
         
         if (trigger1.triggered && !trigger1.triggerDone && SaveVariables.trigger_to_trigger == 1)
         {
-            light0.enabled = false;
+            //light0.enabled = false;
             SaveVariables.trigger_to_trigger = 2;
             
             light1.enabled = true;
@@ -819,7 +815,8 @@ public class PlayerScript : MonoBehaviour
         }
         if(trigger2.triggered && !trigger2.triggerDone && SaveVariables.trigger_to_trigger == 2)
         {
-            light1.enabled = false;
+            light0.enabled = false;
+            //light1.enabled = false;
             SaveVariables.trigger_to_trigger = 3;
             
             //light2.enabled = true;  
@@ -829,7 +826,8 @@ public class PlayerScript : MonoBehaviour
         }
         if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
         {
-            lightevent.SetActive(false);
+            //lightevent.SetActive(false);
+            light1.enabled = false;
             SaveVariables.trigger_to_trigger = 4;
             trigger3.triggerDone = true;
             trigger3_door.GetComponent<doorScript>().closeDoor();

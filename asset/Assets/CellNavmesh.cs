@@ -238,7 +238,7 @@ public class CellNavmesh : MonoBehaviour
                 {
                     if (trigger4.triggerDone)
                     {
-                        navMeshAgent.speed = 2f;
+                        navMeshAgent.speed = 3f;
                         //PlAY SOUND
                         Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
 
