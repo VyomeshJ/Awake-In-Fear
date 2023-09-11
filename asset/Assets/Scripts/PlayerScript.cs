@@ -56,6 +56,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject F_Prompt;
     public GameObject F_Prompt_Hide;
     public GameObject F_Prompt_fix;
+    public GameObject No_Electricity_Prompt;
     public GameObject PointingToObj;
     public doorScript doorScript;
     int keys;
@@ -805,7 +806,7 @@ public class PlayerScript : MonoBehaviour
         
         if (trigger1.triggered && !trigger1.triggerDone && SaveVariables.trigger_to_trigger == 1)
         {
-            //light0.enabled = false;
+            light0.enabled = false;
             SaveVariables.trigger_to_trigger = 2;
             
             light1.enabled = true;
@@ -815,8 +816,8 @@ public class PlayerScript : MonoBehaviour
         }
         if(trigger2.triggered && !trigger2.triggerDone && SaveVariables.trigger_to_trigger == 2)
         {
-            light0.enabled = false;
-            //light1.enabled = false;
+            //light0.enabled = false;
+            light1.enabled = false;
             SaveVariables.trigger_to_trigger = 3;
             
             //light2.enabled = true;  
@@ -826,6 +827,9 @@ public class PlayerScript : MonoBehaviour
         }
         if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
         {
+            lightevent.SetActive(false);
+            trigger3.enabled = false;
+            collider3.enabled = false;
             //lightevent.SetActive(false);
             light1.enabled = false;
             SaveVariables.trigger_to_trigger = 4;
@@ -949,6 +953,14 @@ public class PlayerScript : MonoBehaviour
                 if (F_Prompt != null) F_Prompt.SetActive(false);
 
             }
+            if(hit.transform.gameObject.name == "FirstFloorDoor")
+            {
+                No_Electricity_Prompt.SetActive(true);
+            }
+            else
+            {
+                No_Electricity_Prompt.SetActive(false);
+            }
             //Debug.Log(hit.transform.gameObject.name);
             
             if (hit.transform.gameObject.tag == "PickableObject" && !PickableObjectFound && Vector2.Distance(hit.transform.gameObject.transform.position, transform.position) < PlayerAccessRange)
@@ -993,7 +1005,7 @@ public class PlayerScript : MonoBehaviour
                 else if(currentSelectedItem == "wrench")
                 {
                     InteractableObjectFound = true;
-                    if (F_Prompt != null) F_Prompt.SetActive(true);
+                    if (F_Prompt_fix != null) F_Prompt_fix.SetActive(true);
                 }
                 PointingToObj = hit.transform.gameObject;
                 //PointingToObj = hit.transform.gameObject;
