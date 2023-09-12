@@ -69,11 +69,11 @@ public class CellNavmesh : MonoBehaviour
     void Update()
         
     {
-       // if (playerscript.electricityopen)
-        //{
-          //  transform.position = ainewpos.position;
-            //ready = true;
-        //}
+        if (playerscript.electricityopen)
+        {
+            transform.position = ainewpos.position;
+            ready = true;
+        }
         if ((dooranim.GetAnimatorTransitionInfo(0).IsName("Open")))
         {
             Debug.Log("Open");
