@@ -15,6 +15,7 @@ public class tutorial_script : MonoBehaviour
     public InputMaster inputMaster;
     public bool last_page;
     public bool finished_page;
+    public GameObject Load_Panel;
     private void OnEnable()
     {
         inputMaster.Player.Enable();
@@ -40,7 +41,7 @@ public class tutorial_script : MonoBehaviour
         {
             if(last_page)
             {
-                SceneManager.LoadScene("Scene_A");
+                Load_Panel.GetComponent<Animator>().Play("close");
             }
             finished_page = false;
             continue_txt.SetActive(false);
@@ -57,6 +58,7 @@ public class tutorial_script : MonoBehaviour
         }
         
     }
+    
     public void Read_Txt(string txt)
     {
         text_obj.text = "";
