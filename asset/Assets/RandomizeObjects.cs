@@ -55,6 +55,6 @@ public class RandomizeObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(indexNumber2);
     }
 }
