@@ -12,6 +12,7 @@ public class ManageUI : MonoBehaviour
     public bool SaveScene;
     public GameObject[] SaveSlots;
     public Color RedSelectedColor;
+    public GameObject transition_obj;
 
     void Awake(){
         if(SaveScene){
@@ -49,7 +50,14 @@ public class ManageUI : MonoBehaviour
         SceneChange("TutorialScene");
     }
     public void SceneChange(string scene_name){
-
+        Debug.Log("cock");
+        StartCoroutine(transition(scene_name));
+    }
+    IEnumerator transition(string scene_name)
+    {
+        transition_obj.SetActive(true);
+        transition_obj.GetComponent<Animator>().Play("close");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(scene_name);
     }
 
