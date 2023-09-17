@@ -19,7 +19,7 @@ public class navmeshAI : MonoBehaviour
     public NavMeshAgent navMeshAgent;               
     public float startWaitTime = 4;                 
     public float timeToRotate = 2;                  
-    public float speedWalk = 6;                     
+    public float speedWalk = 3;                     
     public float speedRun = 9;                      
     public float viewRadius;                
     public float viewAngle;                  
