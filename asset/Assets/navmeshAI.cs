@@ -6,15 +6,13 @@ using Unity.Collections.LowLevel.Unsafe;
 //using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Assertions.Must;
 
-/// <summary>
-/// Major problem: once instantiated object is destroyed, ai can't track the new instantiated object
-/// </summary>
+
 public class navmeshAI : MonoBehaviour
 {
+    bool runable;
+    public CharController_Motor CharController_Motor;
     public Animator attacking;
-    public float enemyhealth = 100;
     public GameObject enemy;
     public NavMeshAgent navMeshAgent;               
     public float startWaitTime = 4;                 
@@ -26,10 +24,11 @@ public class navmeshAI : MonoBehaviour
     public LayerMask playerMask;              
     public LayerMask obstacleMask;                 
     public float meshResolution = 1.0f;             
-    public int edgeIterations = 4;                  
-    public float edgeDistance = 0.5f;
-    public bool enemyDefeated;
+    //public int edgeIterations = 4;                  
+    //public float edgeDistance = 0.5f;
+    //public bool enemyDefeated;
     public bool playercaught;
+    public Transform target;
     
     public Transform[] waypoints;                   
     int m_CurrentWaypointIndex;                     
@@ -65,11 +64,11 @@ public class navmeshAI : MonoBehaviour
     void Start()
         
     {
+        runable = true;
         closeEnough = false;    
         canIstantiate = true;
         playercaught = false;
-        enemyDefeated = false;
-        enemyhealth = 100f;
+        //enemyDefeated = false;
         enemybox = new Vector3(20f, 1.0f, 10.0f);
 
         m_PlayerPosition = Vector3.zero;
@@ -97,7 +96,10 @@ public class navmeshAI : MonoBehaviour
         
     }
 
-
+    void runAble()
+    {
+        attacking.Play("Walking");
+    }
     void instantiateObjects()
     {
         /// randomize roaring sound
@@ -111,6 +113,7 @@ public class navmeshAI : MonoBehaviour
     private void Update()
 
     {
+        if (runable) runAble();
         if (transform.position.y > 20  && transform.position.y <26) enemyfloor = 1;
         else if (transform.position.y >26) enemyfloor = 2;
 
@@ -204,25 +207,6 @@ public class navmeshAI : MonoBehaviour
             }
              
         }
-
-
-
-            //just to test variable
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                Debug.Log(SoundIndex);
-            }
-
-            if (enemyhealth <= 0)
-            {
-                Stop();
-                attacking.Play("Dying");
-                enemyDefeated = true;
-                enabled = false;
-
-
-            }
-
 
             if (ishiding.ishiding)
             {
@@ -332,31 +316,23 @@ public class navmeshAI : MonoBehaviour
             }
         }
     }
-    void dealDamage(float damage)
-    {
-        enemyhealth -= damage;
-    }
+    
+        
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //temporary scene
-            // SceneManager.LoadScene("Scene_A");
-           
+            runable = false;
+            navMeshAgent.isStopped = true;
+            navMeshAgent.speed = 0;
+            attacking.Play("Attack");
+            CharController_Motor.enabled = false;
+            player.LookAt(target);
+            
         }
-        if(other.gameObject.name == "Projectile(Clone)")
-        {
-            dealDamage(100);
-        }
-       
-    }
-
-    private void OnAnimatorMove()
-    {
 
     }
-
     public void NextPoint()
     {
         m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
@@ -435,7 +411,7 @@ public class navmeshAI : MonoBehaviour
                         else
 
 
-                            attacking.Play("Walking");
+                            //attacking.Play("Walking");
 
                         //this causes the problem for first floor enemy
                         if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))

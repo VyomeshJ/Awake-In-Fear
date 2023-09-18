@@ -36,11 +36,7 @@ public class ManageEnemy : MonoBehaviour
         if (navmeshai.playerfloor == 2)
         {
             Vector3 targePosition = new Vector3(target.position.x, transform.position.y + 8, target.transform.position.z);
-            if (navmeshai.enemyDefeated && callable == true)
-            {
-
-                Invoke(nameof(spawnEnemy), 25f);
-            }
+            
 
 
 
@@ -54,13 +50,7 @@ public class ManageEnemy : MonoBehaviour
         {
             Vector3 targeposition1 = new Vector3(target1st.position.x, transform.position.y + 8, target1st.position.z);
 
-            if (navmeshai1stfloor.enemyDefeated && callable == true)
-            {
-
-                Invoke(nameof(spawnEnemy), 25f);
-            }
-
-
+           
 
             if (navmeshai1stfloor.playercaught)
             {
