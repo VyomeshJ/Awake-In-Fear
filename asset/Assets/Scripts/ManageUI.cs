@@ -35,10 +35,10 @@ public class ManageUI : MonoBehaviour
         }
     }
     public void HoveringOverObject(GameObject obj){
-        eventSystem.SetSelectedGameObject(obj);
+        //eventSystem.SetSelectedGameObject(obj);
     }
     public void HoveringOverObjectExit(){
-        eventSystem.SetSelectedGameObject(null);
+        //eventSystem.SetSelectedGameObject(null);
     }
     public void CreateSave(int saveNo){
         if(!File.Exists(Application.dataPath + "/save" + saveNo.ToString() + ".txt")){
