@@ -8,8 +8,10 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+
 public class navmeshAI : MonoBehaviour
 {
+    bool incontact;
     bool runable;
     public CharController_Motor CharController_Motor;
     public Animator attacking;
@@ -64,6 +66,7 @@ public class navmeshAI : MonoBehaviour
     void Start()
         
     {
+        incontact = false;
         runable = true;
         closeEnough = false;    
         canIstantiate = true;
@@ -96,10 +99,7 @@ public class navmeshAI : MonoBehaviour
         
     }
 
-    void runAble()
-    {
-        attacking.Play("Walking");
-    }
+   
     void instantiateObjects()
     {
         /// randomize roaring sound
@@ -113,7 +113,8 @@ public class navmeshAI : MonoBehaviour
     private void Update()
 
     {
-        if (runable) runAble();
+        //if (runable) attacking.Play("Walking");
+        //else attacking.Play("Attack");
         if (transform.position.y > 20  && transform.position.y <26) enemyfloor = 1;
         else if (transform.position.y >26) enemyfloor = 2;
 
@@ -219,8 +220,22 @@ public class navmeshAI : MonoBehaviour
                 m_WaitTime = startWaitTime;
                 navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
             }
+        if (incontact)
+        {
+            navMeshAgent.isStopped = true;
 
-            EnviromentView();
+            navMeshAgent.speed = 0;
+            //
+            runable = false;
+            attacking.Play("Attack");
+            CharController_Motor.enabled = false;
+            player.LookAt(target);
+        }
+        else if (incontact == false && runable == true)
+        {
+            attacking.Play("Walking");
+        }
+        EnviromentView();
 
             if (!m_IsPatrol && SoundIndex == 0 && m_playerInRange)
             {
@@ -323,15 +338,15 @@ public class navmeshAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            runable = false;
-            navMeshAgent.isStopped = true;
-            navMeshAgent.speed = 0;
-            attacking.Play("Attack");
-            CharController_Motor.enabled = false;
-            player.LookAt(target);
+            Debug.Log("touched");
+            incontact=true;
             
         }
 
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        incontact = false;
     }
     public void NextPoint()
     {
@@ -416,7 +431,7 @@ public class navmeshAI : MonoBehaviour
                         //this causes the problem for first floor enemy
                         if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
                         {
-                        Debug.Log("Player in range");
+                        //Debug.Log("Player in range");
                             Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
                             SoundIndex = 0;
                             m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player

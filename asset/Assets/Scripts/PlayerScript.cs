@@ -792,7 +792,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update(){
         
-        Debug.Log(transform.position);
+        //Debug.Log(transform.position);
         
         if (transform.position.y > 22 && transform.position.y < 26)
         {
