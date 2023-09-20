@@ -363,34 +363,8 @@ public class PlayerScript : MonoBehaviour
             if (PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "OpenButton"){
                 PointingToObj.GetComponent<OpenButton>().OpenDoor();
             }
-            if (PointingToObj.name.Length >= 3 && PointingToObj.name.Substring(0, 3) == "key")
-            {
-                if (PointingToObj.GetComponent<Outline>() != null)
-                {
-                    PointingToObj.GetComponent<Outline>().enabled = true;
-                }
-                else
-                {
-                    Outline outline = PointingToObj.AddComponent<Outline>();
-                    PointingToObj.GetComponent<Outline>().OutlineColor = Color.white;
-                    PointingToObj.GetComponent<Outline>().OutlineWidth = 10f;
-                }
-            }
-            else
-            {
-                if (PointingToObj.GetComponent<Outline>() != null)
-                {
-                    PointingToObj.GetComponent<Outline>().enabled = false;
-                }
-                else
-                {
-                    Outline outline = PointingToObj.AddComponent<Outline>();
-                    PointingToObj.GetComponent<Outline>().OutlineColor = Color.white;
-                    PointingToObj.GetComponent<Outline>().OutlineWidth = 10f;
-                    PointingToObj.GetComponent<Outline>().enabled = false;
-                }
-
-            }
+            
+            
             if (PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "HideCloset"){
                
                 gameObject.GetComponent<CharacterController>().enabled = false;
@@ -474,32 +448,11 @@ public class PlayerScript : MonoBehaviour
                     //dcounter++;
                     //draweranim.Play("closedrw");
                 }
-                if (PointingToObj.GetComponent<Outline>() != null)
-                {
-                    PointingToObj.GetComponent<Outline>().enabled = true;
-                }
-                else
-                {
-                    Outline outline = PointingToObj.AddComponent<Outline>();
-                    PointingToObj.GetComponent<Outline>().OutlineColor = Color.white;
-                    PointingToObj.GetComponent<Outline>().OutlineWidth = 10f;
-                }
+
+                
 
             }
-            else
-            {
-                if (PointingToObj.GetComponent<Outline>() != null)
-                {
-                    PointingToObj.GetComponent<Outline>().enabled = false;
-                }
-                else
-                {
-                    Outline outline = PointingToObj.AddComponent<Outline>();
-                    PointingToObj.GetComponent<Outline>().OutlineColor = Color.white;
-                    PointingToObj.GetComponent<Outline>().OutlineWidth = 10f;
-                    PointingToObj.GetComponent<Outline>().enabled = false;
-                }
-            }
+           
             
             if (PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0,6) == "closet")
             {
@@ -531,20 +484,7 @@ public class PlayerScript : MonoBehaviour
                     PointingToObj.GetComponent<Outline>().OutlineWidth = 10f;
                 }*/
             }
-            else
-            {
-                if (PointingToObj.GetComponent<Outline>() != null)
-                {
-                    PointingToObj.GetComponent<Outline>().enabled = false;
-                }
-                else
-                {
-                    Outline outline = PointingToObj.AddComponent<Outline>();
-                    PointingToObj.GetComponent<Outline>().OutlineColor = Color.white;
-                    PointingToObj.GetComponent<Outline>().OutlineWidth = 10f;
-                    PointingToObj.GetComponent<Outline>().enabled = false;
-                }
-            }
+            
             
 
             
@@ -611,6 +551,8 @@ public class PlayerScript : MonoBehaviour
             if (PointingToObj.name.Length >= 4 && PointingToObj.name == "key2")
             {
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
+                PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
+                PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
                 Destroy(PointingToObj);
                 MainCanvas.transform.Find("HUD").Find("Key2").gameObject.GetComponent<Image>().color = Color.black;
                 SaveVariables.Key2Available = true;
@@ -618,6 +560,8 @@ public class PlayerScript : MonoBehaviour
             if (PointingToObj.name.Length >= 4 && PointingToObj.name == "key3")
             {
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
+                PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
+                PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
                 Destroy(PointingToObj);
                 MainCanvas.transform.Find("HUD").Find("Key3").gameObject.GetComponent<Image>().color = Color.black;
                 SaveVariables.Key3Available = true;
@@ -941,18 +885,29 @@ public class PlayerScript : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(new Vector3(cam.pixelWidth/2, cam.pixelHeight/2, 0));
         if (Physics.Raycast(ray, out hit))
         {
-            if(PointingToObj != null && hit.transform.gameObject.name != PointingToObj.name)
+            
+            if(PointingToObj != null)
             {
-                //Debug.Log("testing");
-                PointingToObj = null;
-                PickableObjectFound = false;
-                InteractableObjectFound = false;
-                if (E_Prompt != null) E_Prompt.SetActive(false);
-                if (F_Prompt_Hide != null) F_Prompt_Hide.SetActive(false);
-                if (F_Prompt_fix != null) F_Prompt_fix.SetActive(false);
-                if (F_Prompt != null) F_Prompt.SetActive(false);
+           
+                if (hit.transform.gameObject.name != PointingToObj.name)
+                {
+                   
+                    Debug.Log("block outline");
+                    PointingToObj = null;
+                    PickableObjectFound = false;
+                    InteractableObjectFound = false;
+                    if (E_Prompt != null) E_Prompt.SetActive(false);
+                    if (F_Prompt_Hide != null) F_Prompt_Hide.SetActive(false);
+                    if (F_Prompt_fix != null) F_Prompt_fix.SetActive(false);
+                    if (F_Prompt != null) F_Prompt.SetActive(false);
+                 
+                }
+               
+                
+                
 
             }
+          
             if(hit.transform.gameObject.name == "FirstFloorDoor")
             {
                 No_Electricity_Prompt.SetActive(true);
