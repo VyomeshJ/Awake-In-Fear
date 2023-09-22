@@ -61,4 +61,14 @@ public class ManageUI : MonoBehaviour
         SceneManager.LoadScene(scene_name);
     }
 
+    public void DeleteSave(int num)
+    {
+        File.Delete(Application.dataPath + "/save" + num.ToString() + ".txt");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }
