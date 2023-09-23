@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class CellNavmesh : MonoBehaviour
 {
     //public doorScript buttondoor;
-    public LightTrigger trigger4;
     public Transform ainewpos;
     public Animator dooranim;
     public CharController_Motor CharController_Motor;
@@ -44,12 +43,12 @@ public class CellNavmesh : MonoBehaviour
     {
         running = false;
         dead = false;
-        inContact = false;  
+        inContact = false;
         ready = false;
         Health = 100f;
-        
+
         m_IsPatrol = true;
-       //avMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+        //avMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
     }
 
     void runAble()
@@ -59,7 +58,7 @@ public class CellNavmesh : MonoBehaviour
     // Update is called once per frame
     void waiter()
     {
-        
+
         running = true;
         m_IsPatrol = true;
         m_PlayerNear = false;
@@ -67,27 +66,22 @@ public class CellNavmesh : MonoBehaviour
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
     }
     void Update()
-        
+
     {
-        if (playerscript.electricityopen)
-        {
-            transform.position = ainewpos.position;
-            ready = true;
-        }
         if ((dooranim.GetAnimatorTransitionInfo(0).IsName("Open")))
         {
             Debug.Log("Open");
         }
 
-        
-        if (playerscript.electricityopen == true && dead ==false)
+
+        if (playerscript.electricityopen == true && dead == false)
         {
             transform.position = ainewpos.position;
             //Debug.Log("running");
             running = true;
-            if(running) runAble();
+            if (running) runAble();
             //doorscript.DoorOpen = false;
-            
+
             dead = true;
             ready = true;
 
@@ -95,11 +89,9 @@ public class CellNavmesh : MonoBehaviour
 
         if (ready)
         {
-            
-
             if (SaveVariables.PlayerHiding_Closet == true || SaveVariables.PlayerHiding_Bed == true)
             {
-                
+
 
                 m_IsPatrol = true;
                 m_PlayerNear = false;
@@ -112,15 +104,15 @@ public class CellNavmesh : MonoBehaviour
             if (inContact)
             {
                 navMeshAgent.isStopped = true;
-                
+
                 navMeshAgent.speed = 0;
-              //
+                //
                 running = false;
                 AiAnimation.Play("Attack");
                 CharController_Motor.enabled = false;
                 player.LookAt(target);
             }
-            else if(inContact ==false && running == true)
+            else if (inContact == false && running == true)
             {
                 runAble();
             }
@@ -128,28 +120,28 @@ public class CellNavmesh : MonoBehaviour
             EnvironmentView();
             if (!m_IsPatrol)
             {
-                Debug.Log("Chasing");
+
                 navMeshAgent.SetDestination(playerscript.PlayerPos);
             }
             else
             {
-                
+
                 Patrolling();
             }
 
             if (Health <= 0)
             {
-                dead=true;
+                dead = true;
                 navMeshAgent.speed = 0;
-                running=false;
+                running = false;
                 AiAnimation.Play("Defeated");
             }
         }
-        
+
     }
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("touched");
@@ -174,9 +166,19 @@ public class CellNavmesh : MonoBehaviour
     }
     void NextPoint()
     {
+
+        if (buttondoor.opened == true)
+        {
             Debug.Log("working");
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
-            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position); 
+            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+        }
+        else
+        {
+            Debug.Log("notking");
+            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % 4;
+            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+        }
     }
     private void OnDrawGizmosSelected()
     {
@@ -189,11 +191,9 @@ public class CellNavmesh : MonoBehaviour
 
     void Patrolling()
     {
-        
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);    //  Set the enemy destination to the next waypoint
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
-            Debug.Log("DEbug");
             //  If the enemy arrives to the waypoint position then wait for a moment and go to the next
             if (m_WaitTime <= 0)
             {
@@ -223,7 +223,7 @@ public class CellNavmesh : MonoBehaviour
             {
 
                 float dstToPlayer = Vector3.Distance(transform.position, player.position);
-                //Debug.Log(dstToPlayer);
+                Debug.Log(dstToPlayer);
                 if (dstToPlayer < 1.82)
                 {
 
@@ -234,20 +234,17 @@ public class CellNavmesh : MonoBehaviour
                     navMeshAgent.ResetPath();
 
                 }
-                
-                //this causes the problem for first floor enemy
-                if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
-                {
-                    if (trigger4.triggerDone)
-                    {
-                        navMeshAgent.speed = 3f;
-                        //PlAY SOUND
-                        Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
 
-                        m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
-                        m_IsPatrol = false;
-                    }
-                        //  Change the state to chasing the player
+                //this causes the problem for first floor enemy
+                if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer-3, obstacleMask))
+                {
+                    Debug.Log(dstToPlayer);
+                    navMeshAgent.speed = 2f;
+                    //PlAY SOUND
+                    Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
+
+                    m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
+                    m_IsPatrol = false;                 //  Change the state to chasing the player
                 }
 
                 else
