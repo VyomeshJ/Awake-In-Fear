@@ -12,6 +12,7 @@ using UnityEngine.Rendering;
 
 public class PlayerScript : MonoBehaviour
 {
+    public Collider BlockCollider;
     public bool set_pos;
     public GameObject FloorDoor;
     public AudioSource shotgun_audio_source;
@@ -685,6 +686,7 @@ public class PlayerScript : MonoBehaviour
     public void ElectricityOpen()
     {
         LightContainer.SetActive(true);
+        BlockCollider.enabled = false;
         //lighton2.SetActive(true);
         //lighton3.SetActive(true);
         //lighton4.SetActive(true);

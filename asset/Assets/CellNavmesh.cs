@@ -189,9 +189,11 @@ public class CellNavmesh : MonoBehaviour
 
     void Patrolling()
     {
+        
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);    //  Set the enemy destination to the next waypoint
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
+            Debug.Log("DEbug");
             //  If the enemy arrives to the waypoint position then wait for a moment and go to the next
             if (m_WaitTime <= 0)
             {
