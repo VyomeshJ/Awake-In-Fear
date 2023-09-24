@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,15 @@ public class HUDScript : MonoBehaviour
     public Sprite[] SelectedInv;
     public Sprite[] UnselectedInv;
     public GameObject[] InvObjects;
+    public string[] ItemDescriotions;
+
+    public TextMeshProUGUI desc_txt;
 
     private void Update()
     {
-        if(SaveVariables.WrenchAvailable) InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
+        if (SaveVariables.FlashAvailable) InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
+        else InvObjects[6].GetComponent<Image>().sprite = UnselectedInv[0];
+        if (SaveVariables.WrenchAvailable) InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
         else InvObjects[6].GetComponent<Image>().sprite = UnselectedInv[6];
 
         if (SaveVariables.Key1Available) InvObjects[2].GetComponent<Image>().sprite = SelectedInv[2];
@@ -27,6 +33,19 @@ public class HUDScript : MonoBehaviour
         if (SaveVariables.Key1Available) InvObjects[4].GetComponent<Image>().sprite = SelectedInv[4];
         else InvObjects[2].GetComponent<Image>().sprite = UnselectedInv[4];
 
+    }
+    public void test()
+    {
+        Debug.Log("tatti");
+    }
+    public void change_item_description(int item_index)
+    {
+        desc_txt.text = ItemDescriotions[item_index];
+        player.GetComponent<PlayerScript>().eventSystem.SetSelectedGameObject(InvObjects[item_index].transform.Find("Image").gameObject);
+    }
+    public void null_item_description()
+    {
+        //desc_txt.text = "";
     }
     public void FlashLightSelected(){
         if(SaveVariables.FlashAvailable){

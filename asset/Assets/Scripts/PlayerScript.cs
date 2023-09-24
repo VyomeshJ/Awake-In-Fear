@@ -185,8 +185,8 @@ public class PlayerScript : MonoBehaviour
 
         flashLight.transform.parent = gameObject.transform.Find("HoldPosition");
         flashLight.transform.localPosition = new Vector3(0,0,0);
-        if(SaveVariables.FlashAvailable) MainCanvas.transform.Find("FlashlightHolder").gameObject.GetComponent<Image>().color = Color.black;
-        else flashLight.SetActive(false);
+        //if(SaveVariables.FlashAvailable) MainCanvas.transform.Find("FlashlightHolder").gameObject.GetComponent<Image>().color = Color.black;
+        if (!SaveVariables.FlashAvailable) flashLight.SetActive(false);
     }
 
     public void SoundReset()
@@ -208,6 +208,8 @@ public class PlayerScript : MonoBehaviour
 
     public void InventoryMenu(){
         if(!SaveVariables.InventoryOpen){
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             SaveVariables.InventoryOpen = true;
             Time.timeScale = 0f;
             InventoryGUI.SetActive(true);
@@ -220,6 +222,8 @@ public class PlayerScript : MonoBehaviour
             if(SaveVariables.Key3Available) InventoryGUI.transform.Find("Key3").gameObject.GetComponent<Image>().sprite = FilledInv[4];
         }
         else if(SaveVariables.InventoryOpen){
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1f;
             SaveVariables.InventoryOpen = false;
             InventoryGUI.SetActive(false);
