@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class CellNavmesh : MonoBehaviour
 {
     //public doorScript buttondoor;
+    //public Transform playerPosition;
+    public ViewRange viewRange;
     public Transform ainewpos;
     public Animator dooranim;
     public CharController_Motor CharController_Motor;
@@ -41,6 +43,7 @@ public class CellNavmesh : MonoBehaviour
     void Start()
 
     {
+        Physics.IgnoreCollision(viewRange.GetComponent<Collider>(), GetComponent<Collider>());
         running = false;
         dead = false;
         inContact = false;
@@ -68,11 +71,17 @@ public class CellNavmesh : MonoBehaviour
     void Update()
 
     {
-        if ((dooranim.GetAnimatorTransitionInfo(0).IsName("Open")))
-        {
-            Debug.Log("Open");
-        }
 
+        if(viewRange.InRange == true)
+        {
+            m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
+            m_IsPatrol = false;
+        }
+        else
+        {
+            m_playerInRange = false;
+            m_IsPatrol = true;
+        }
 
         if (playerscript.electricityopen == true && dead == false)
         {
@@ -117,7 +126,7 @@ public class CellNavmesh : MonoBehaviour
                 runAble();
             }
 
-            EnvironmentView();
+            //EnvironmentView();
             if (!m_IsPatrol)
             {
 
@@ -169,13 +178,13 @@ public class CellNavmesh : MonoBehaviour
 
         if (buttondoor.opened == true)
         {
-            Debug.Log("working");
+            //Debug.Log("working");
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         }
         else
         {
-            Debug.Log("notking");
+            //Debug.Log("notking");
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % 4;
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         }
@@ -212,71 +221,71 @@ public class CellNavmesh : MonoBehaviour
     {
 
     }
-    void EnvironmentView()
-    {
-        Collider[] playerInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
-        for (int i = 0; i < playerInRange.Length; i++)
-        {
-            Transform player = playerInRange[i].transform;
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, dirToPlayer) < viewAngle / 2)
-            {
+    //void EnvironmentView()
+    //{
+       // Collider[] playerInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
+        //for (int i = 0; i < playerInRange.Length; i++)
+        //{
+            //Transform player = playerInRange[i].transform;
+            //Vector3 dirToPlayer = (player.position - transform.position).normalized;
+           // if (Vector3.Angle(transform.forward, dirToPlayer) < viewAngle / 2)
+            //{
 
-                float dstToPlayer = Vector3.Distance(transform.position, player.position);
-                Debug.Log(dstToPlayer);
-                if (dstToPlayer < 1.82)
-                {
+                //float dstToPlayer = Vector3.Distance(transform.position, player.position);
+               // Debug.Log(dstToPlayer);
+                //if (dstToPlayer < 1.82)
+               // {
 
                     //Debug.Log(dstToPlayer);
                     //AiAnimation.Play("Attack");
-                    playercaught = true;
+                   // playercaught = true;
                     //set destination should be changed
-                    navMeshAgent.ResetPath();
+                    //navMeshAgent.ResetPath();
 
-                }
+               // }
 
                 //this causes the problem for first floor enemy
-                if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer-3, obstacleMask))
-                {
-                    Debug.Log(dstToPlayer);
-                    navMeshAgent.speed = 2f;
+                //if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer-3, obstacleMask))
+                //{
+                    //Debug.Log(dstToPlayer);
+                    //navMeshAgent.speed = 2f;
                     //PlAY SOUND
-                    Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
+                   // Debug.DrawRay(transform.position, dirToPlayer, Color.yellow);
 
-                    m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
-                    m_IsPatrol = false;                 //  Change the state to chasing the player
-                }
+                   // m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
+                    //m_IsPatrol = false;                 //  Change the state to chasing the player
+                //}
 
-                else
-                {
+                //else
+               // {
                     /*
                      *  If the player is behind a obstacle the player position will not be registered
                      * */
-                    m_playerInRange = false;
-                    m_IsPatrol = true;
-                }
+                   //m_playerInRange = false;
+                   // m_IsPatrol = true;
+                //}
 
-            }
-            if (Vector3.Distance(transform.position, player.position) > viewRadius)
+            //}
+            //if (Vector3.Distance(transform.position, player.position) > viewRadius)
 
-            {
+           // {
 
                 /*
                  *  If the player is further than the view radius, then the enemy will no longer keep the player's current position.
                  *  Or the enemy is a safe zone, the enemy will no chase
                  * */
-                m_IsPatrol = true;
-                m_playerInRange = false;                //  Change the sate of chasing
-            }
-            if (m_playerInRange)
-            {
+                //m_IsPatrol = true;
+                //m_playerInRange = false;                //  Change the sate of chasing
+           // }
+            //if (m_playerInRange)
+           // {
                 /*
                  *  If the enemy no longer sees the player, then the enemy will go to the last position that has been registered
                  * */
                 //m_PlayerPosition = player.transform.position;       //  Save the player's current position if the player is in range of vision
 
-            }
-        }
-    }
+           // }
+       // }
+    //}
 
 }

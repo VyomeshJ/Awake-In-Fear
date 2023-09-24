@@ -898,7 +898,7 @@ public class PlayerScript : MonoBehaviour
                 if (hit.transform.gameObject.name != PointingToObj.name)
                 {
                    
-                    Debug.Log("block outline");
+                    //Debug.Log("block outline");
                     PointingToObj = null;
                     PickableObjectFound = false;
                     InteractableObjectFound = false;

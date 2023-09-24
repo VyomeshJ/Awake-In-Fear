@@ -9,7 +9,7 @@ public class DcloseEvent : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Close door");
+            //Debug.Log("Close door");
             //close door
         }
     }
