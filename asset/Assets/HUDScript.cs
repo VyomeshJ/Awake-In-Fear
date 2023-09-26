@@ -69,7 +69,9 @@ public class HUDScript : MonoBehaviour
             gameObject.SetActive(false);
             Time.timeScale = 1;
         }
-       
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
     public void WrenchSelected()
     {
@@ -95,6 +97,8 @@ public class HUDScript : MonoBehaviour
             }
             gameObject.SetActive(false);
             Time.timeScale = 1;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
     public void CaffeineSelected(){

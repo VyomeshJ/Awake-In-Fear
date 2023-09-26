@@ -207,26 +207,29 @@ public class PlayerScript : MonoBehaviour
 
 
     public void InventoryMenu(){
-        if(!SaveVariables.InventoryOpen){
+        if (!SaveVariables.InventoryOpen)
+        {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             SaveVariables.InventoryOpen = true;
             Time.timeScale = 0f;
             InventoryGUI.SetActive(true);
             eventSystem.SetSelectedGameObject(InventoryGUI.transform.Find("FlashlightHolder").Find("Image").gameObject);
-            if(SaveVariables.FlashAvailable == true) InventoryGUI.transform.Find("FlashlightHolder").gameObject.GetComponent<Image>().sprite = FilledInv[0];
-            if(SaveVariables.CaffeinePillsAvailable > 0) InventoryGUI.transform.Find("CaffeineHolder").gameObject.GetComponent<Image>().sprite = FilledInv[1];
+            if (SaveVariables.FlashAvailable == true) InventoryGUI.transform.Find("FlashlightHolder").gameObject.GetComponent<Image>().sprite = FilledInv[0];
+            if (SaveVariables.CaffeinePillsAvailable > 0) InventoryGUI.transform.Find("CaffeineHolder").gameObject.GetComponent<Image>().sprite = FilledInv[1];
 
-            if(SaveVariables.Key1Available) InventoryGUI.transform.Find("Key1").gameObject.GetComponent<Image>().sprite = FilledInv[2];
-            if(SaveVariables.Key2Available) InventoryGUI.transform.Find("Key2").gameObject.GetComponent<Image>().sprite = FilledInv[3];
-            if(SaveVariables.Key3Available) InventoryGUI.transform.Find("Key3").gameObject.GetComponent<Image>().sprite = FilledInv[4];
+            if (SaveVariables.Key1Available) InventoryGUI.transform.Find("Key1").gameObject.GetComponent<Image>().sprite = FilledInv[2];
+            if (SaveVariables.Key2Available) InventoryGUI.transform.Find("Key2").gameObject.GetComponent<Image>().sprite = FilledInv[3];
+            if (SaveVariables.Key3Available) InventoryGUI.transform.Find("Key3").gameObject.GetComponent<Image>().sprite = FilledInv[4];
         }
-        else if(SaveVariables.InventoryOpen){
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+        else if (SaveVariables.InventoryOpen){
+            Debug.Log("close inv");
+            
             Time.timeScale = 1f;
             SaveVariables.InventoryOpen = false;
             InventoryGUI.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
     public void OpenFlashlight(){
@@ -710,11 +713,15 @@ public class PlayerScript : MonoBehaviour
         }
         if (SaveVariables.trigger_to_trigger == 2)
         {
+            light0.enabled = true;
             light1.enabled = true;
             trigger2.gameObject.SetActive(true);
         }
         if (SaveVariables.trigger_to_trigger == 3)
         {
+            light0.enabled = true;
+            light1.enabled = true;
+            trigger2.gameObject.SetActive(true);
             SaveVariables.trigger_to_trigger = 3;
             lightevent.SetActive(true);
             trigger3.enabled = true;
@@ -722,6 +729,13 @@ public class PlayerScript : MonoBehaviour
         }
         if (SaveVariables.trigger_to_trigger == 4)
         {
+            light0.enabled = true;
+            light1.enabled = true;
+            trigger2.gameObject.SetActive(true);
+            SaveVariables.trigger_to_trigger = 3;
+            lightevent.SetActive(true);
+            trigger3.enabled = true;
+            collider3.enabled = true;
             trigger3.triggerDone = true;
             trigger3_door.GetComponent<doorScript>().closeDoor();
             trigger3_door.GetComponent<doorScript>().DoorStateLocked = true;
@@ -756,7 +770,7 @@ public class PlayerScript : MonoBehaviour
         
         if (trigger1.triggered && !trigger1.triggerDone && SaveVariables.trigger_to_trigger == 1)
         {
-            light0.enabled = false;
+            //light0.enabled = false;
             SaveVariables.trigger_to_trigger = 2;
             
             light1.enabled = true;
@@ -767,7 +781,7 @@ public class PlayerScript : MonoBehaviour
         if(trigger2.triggered && !trigger2.triggerDone && SaveVariables.trigger_to_trigger == 2)
         {
             //light0.enabled = false;
-            light1.enabled = false;
+            //light1.enabled = false;
             SaveVariables.trigger_to_trigger = 3;
             
             //light2.enabled = true;  
@@ -777,9 +791,9 @@ public class PlayerScript : MonoBehaviour
         }
         if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
         {
-            lightevent.SetActive(false);
-            trigger3.enabled = false;
-            collider3.enabled = false;
+            //lightevent.SetActive(false);
+            //trigger3.enabled = false;
+            //collider3.enabled = false;
             //lightevent.SetActive(false);
             light1.enabled = false;
             SaveVariables.trigger_to_trigger = 4;
