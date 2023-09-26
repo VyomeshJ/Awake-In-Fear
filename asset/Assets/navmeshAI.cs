@@ -100,19 +100,20 @@ public class navmeshAI : MonoBehaviour
     }
 
    
-    void instantiateObjects()
-    {
+    //void instantiateObjects()
+    ///{
         /// randomize roaring sound
-        canIstantiate = false;
-        Instantiate(instantiateObject, player.position, Quaternion.identity);
-        instantiateObject.GetComponent<MeshRenderer>().enabled = false;
+        //canIstantiate = false;
+        //Instantiate(instantiateObject, player.position, Quaternion.identity);
+        //instantiateObject.GetComponent<MeshRenderer>().enabled = false;
         
-    }
+    //}
 
 
     private void Update()
 
     {
+        if (Input.GetKeyDown(KeyCode.V)) incontact = true;
         //if (runable) attacking.Play("Walking");
         //else attacking.Play("Attack");
         if (transform.position.y > 20  && transform.position.y <26) enemyfloor = 1;
@@ -134,9 +135,9 @@ public class navmeshAI : MonoBehaviour
             //speedWalk = 2;
             //speedRun = 3.5f;
 
-            SoundDecibel = playerScript.SoundDecibel;
-            SoundDistance = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
-            SoundIndex = SoundDecibel / SoundDistance;
+            //SoundDecibel = playerScript.SoundDecibel;
+            //SoundDistance = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
+            //SoundIndex = SoundDecibel / SoundDistance;
 
             //if(enemyfloor.enemyFloorNum == playerfloornum) then
             if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
@@ -155,57 +156,57 @@ public class navmeshAI : MonoBehaviour
                 }
             }
 
-            if (SoundIndex > 0.5)
-            {
+            //if (SoundIndex > 0.5)
+            ///{
 
                 //if(!closeEnough) SoundIndex = 0.6f;
 
-                EnviromentView();
+               // EnviromentView();
 
-                currentInstantiated = GameObject.Find("Instantiated Object(Clone)");
-                instantiateObject.GetComponent<MeshRenderer>().enabled = false;
-                instantiateObject.GetComponent<BoxCollider>().enabled = false;
+                //currentInstantiated = GameObject.Find("Instantiated Object(Clone)");
+                //instantiateObject.GetComponent<MeshRenderer>().enabled = false;
+                //instantiateObject.GetComponent<BoxCollider>().enabled = false;
                 //Debug.Log("sjd");
-                if (canIstantiate && playerScript.madeSound)
-                {
-                    instantiateObjects();
+                //if (canIstantiate && playerScript.madeSound)
+               // {
+                 //   instantiateObjects();
 
-                }
+               // }
                 
-                m_IsPatrol = false;
-                Move(speedRun);
+               // m_IsPatrol = false;
+               /// Move(speedRun);
                 //Debug.Log(navMeshAgent.transform.position);
-                EnemySoundDistance = navMeshAgent.transform.position - currentInstantiated.transform.position; // this part causes issue for first floor
-                navMeshAgent.SetDestination(currentInstantiated.transform.position);
+                //EnemySoundDistance = navMeshAgent.transform.position - currentInstantiated.transform.position; // this part causes issue for first floor
+               // navMeshAgent.SetDestination(currentInstantiated.transform.position);
                 //Debug.Log(EnemySoundDistance);
                 //LookingPlayer(playerScript.PlayerPos);
 
                 //if (!closeEnough) 
 
 
-                if (EnemySoundDistance.x <= 0.5 && EnemySoundDistance.x > -1 && EnemySoundDistance.z >= -0.5 && EnemySoundDistance.z < 1)
-                {
-                    Destroy(GameObject.Find("Instantiated Object(Clone)"));
-                    SoundIndex = 0;
-                    canIstantiate = true;
-                    closeEnough = true;
+               // if (EnemySoundDistance.x <= 0.5 && EnemySoundDistance.x > -1 && EnemySoundDistance.z >= -0.5 && EnemySoundDistance.z < 1)
+                //{
+                  //  Destroy(GameObject.Find("Instantiated Object(Clone)"));
+                  //  SoundIndex = 0;
+                  //  canIstantiate = true;
+                  //  closeEnough = true;
 
-                    m_IsPatrol = true;
+                  //  m_IsPatrol = true;
 
-                    m_PlayerNear = false;
-                    Move(speedWalk);
-                    m_TimeToRotate = timeToRotate;
-                    m_WaitTime = startWaitTime;
-                    navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);    //  Set the enemy destination to the next waypoint
+                  //  m_PlayerNear = false;
+                  //  Move(speedWalk);
+                  //  m_TimeToRotate = timeToRotate;
+                  //  m_WaitTime = startWaitTime;
+                 // /  navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);    //  Set the enemy destination to the next waypoint
 
 
-                }
+               // }
 
 
                 //Debug.Log(waypoints[m_CurrentWaypointIndex].position);
 
 
-            }
+           //}
              
         }
 
@@ -220,8 +221,13 @@ public class navmeshAI : MonoBehaviour
                 m_WaitTime = startWaitTime;
                 navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
             }
-        if (incontact)
+        if (incontact == false && runable == true)
         {
+            attacking.Play("Walking");
+        }
+        else if (incontact)
+        {
+            
             navMeshAgent.isStopped = true;
 
             navMeshAgent.speed = 0;
@@ -230,10 +236,6 @@ public class navmeshAI : MonoBehaviour
             attacking.Play("Attack");
             CharController_Motor.enabled = false;
             player.LookAt(target);
-        }
-        else if (incontact == false && runable == true)
-        {
-            attacking.Play("Walking");
         }
         EnviromentView();
 
