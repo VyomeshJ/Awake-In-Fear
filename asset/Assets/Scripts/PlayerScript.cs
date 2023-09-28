@@ -126,6 +126,7 @@ public class PlayerScript : MonoBehaviour
     public bool lockLook;
     public Vector3 lastPos;
     public LightFlick flicker1, flicker2, flicker3, flicker4, flicker5, flicker6;
+    public GameObject KeyPromptTxt;
 
     private void FixedUpdate()
     {
@@ -499,19 +500,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
     public void SetupInventory(){
-        if(SaveVariables.FlashAvailable){
-            SaveVariables.FlashAvailable = true;
-            MainCanvas.transform.Find("HUD").Find("FlashlightHolder").gameObject.GetComponent<Image>().color = Color.black;
-        }
-        if (SaveVariables.Key1Available) MainCanvas.transform.Find("HUD").Find("Key1").gameObject.GetComponent<Image>().color = Color.black;
-        if (SaveVariables.Key2Available) MainCanvas.transform.Find("HUD").Find("Key2").gameObject.GetComponent<Image>().color = Color.black;
-        if (SaveVariables.Key3Available) MainCanvas.transform.Find("HUD").Find("Key3").gameObject.GetComponent<Image>().color = Color.black;
         
-        if (SaveVariables.GunAvailable)
-        {
-            haveShotgun = true;
-            MainCanvas.transform.Find("HUD").Find("GunHolder").gameObject.GetComponent<Image>().color = Color.black;
-        }
     }
     public void Num1(){
         if(SaveVariables.GunAvailable && !holdingweapon && SaveVariables.InventoryOpen){
@@ -528,6 +517,13 @@ public class PlayerScript : MonoBehaviour
             if(SaveVariables.InventoryOpen) InventoryMenu();
         }
     }
+    IEnumerator ShowPrompt(int num)
+    {
+        KeyPromptTxt.SetActive(true);
+        KeyPromptTxt.GetComponent<TextMeshProUGUI>().text = "Door " + num.ToString() + " unlocked";
+        yield return new WaitForSeconds(2);
+        KeyPromptTxt.SetActive(false);
+    }
     public void PickUpObject(){
         if(PointingToObj != null){
 
@@ -539,7 +535,7 @@ public class PlayerScript : MonoBehaviour
             if(PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "Flashlight"){
                 Destroy(PointingToObj);
                 SaveVariables.FlashAvailable = true;
-                MainCanvas.transform.Find("HUD").Find("FlashlightHolder").gameObject.GetComponent<Image>().color = Color.black;
+                
                 SaveVariables.FlashAvailable = true;
                 SaveVariables.flashtime = 100;
             }
@@ -547,31 +543,34 @@ public class PlayerScript : MonoBehaviour
                 Destroy(PointingToObj);
                 SaveVariables.NumBatteries++;
             }
-            if (PointingToObj.name.Length >= 4 && PointingToObj.name == "key1")
+            if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0,4) == "key1")
             {
+                StartCoroutine(ShowPrompt(1));
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
                 Destroy(PointingToObj);
-                MainCanvas.transform.Find("HUD").Find("Key1").gameObject.GetComponent<Image>().color = Color.black;
+               
                 SaveVariables.Key1Available = true;
             }
-            if (PointingToObj.name.Length >= 4 && PointingToObj.name == "key2")
+            if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "key2")
             {
+                StartCoroutine(ShowPrompt(2));
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
                 Destroy(PointingToObj);
-                MainCanvas.transform.Find("HUD").Find("Key2").gameObject.GetComponent<Image>().color = Color.black;
+                
                 SaveVariables.Key2Available = true;
             }
-            if (PointingToObj.name.Length >= 4 && PointingToObj.name == "key3")
+            if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "key3")
             {
+                StartCoroutine(ShowPrompt(3));
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
                 Destroy(PointingToObj);
-                MainCanvas.transform.Find("HUD").Find("Key3").gameObject.GetComponent<Image>().color = Color.black;
+              
                 SaveVariables.Key3Available = true;
             }
             if (PointingToObj.name.Length >= 7 && PointingToObj.name.Substring(0, 7) == "shotgun")
@@ -579,7 +578,7 @@ public class PlayerScript : MonoBehaviour
                 //PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 Destroy(PointingToObj);
                 haveShotgun = true;
-                MainCanvas.transform.Find("HUD").Find("GunHolder").gameObject.GetComponent<Image>().color = Color.black;
+                
                 SaveVariables.GunAvailable = true;
             }
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "Note")
