@@ -9,9 +9,11 @@ using UnityEngine.EventSystems;
 using System.Security.Claims;
 using UnityEngine.LowLevel;
 using UnityEngine.Rendering;
+using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public bool GeneratorOpened;
     public Collider BlockCollider;
     public bool set_pos;
     public GameObject FloorDoor;
@@ -181,12 +183,13 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        flashLight = Instantiate(FlashLightPrefab, Vector3.zero, Quaternion.identity);
-            //flashLight.transform.localPosition = new Vector3(0,0,0);
+        //flashLight = Instantiate(FlashLightPrefab, Vector3.zero, Quaternion.identity);
+        //flashLight.transform.localRotation = Quaternion.Euler(0, 0, 0);
+       
 
-        flashLight.transform.parent = gameObject.transform.Find("HoldPosition");
-        flashLight.transform.localPosition = new Vector3(0,0,0);
-        //if(SaveVariables.FlashAvailable) MainCanvas.transform.Find("FlashlightHolder").gameObject.GetComponent<Image>().color = Color.black;
+        //flashLight.transform.parent = gameObject.transform.Find("HoldPosition");
+        //flashLight.transform.localPosition = new Vector3(0,0,0);
+        
         if (!SaveVariables.FlashAvailable) flashLight.SetActive(false);
     }
 
@@ -360,8 +363,15 @@ public class PlayerScript : MonoBehaviour
         if(PointingToObj != null){
             if (PointingToObj.name.Length >= 9 && PointingToObj.name.Substring(0, 9) == "generator" && currentSelectedItem == "wrench")
             {
-                ElectricityOpen();
-                PointingToObj.transform.Find("Cube").GetComponent<AudioSource>().Play();
+                if (!GeneratorOpened)
+                {
+                    GeneratorOpened = true;
+                    
+                    ElectricityOpen();
+                    PointingToObj.transform.Find("Cube").GetComponent<AudioSource>().Play();
+                    StartCoroutine(ShowPrompt("Floor 1 door opened"));
+                }
+                
             }
             Debug.Log(PointingToObj.name);
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "safe")
@@ -517,10 +527,10 @@ public class PlayerScript : MonoBehaviour
             if(SaveVariables.InventoryOpen) InventoryMenu();
         }
     }
-    IEnumerator ShowPrompt(int num)
+    IEnumerator ShowPrompt(string txt_message)
     {
         KeyPromptTxt.SetActive(true);
-        KeyPromptTxt.GetComponent<TextMeshProUGUI>().text = "Door " + num.ToString() + " unlocked";
+        KeyPromptTxt.GetComponent<TextMeshProUGUI>().text = txt_message;
         yield return new WaitForSeconds(2);
         KeyPromptTxt.SetActive(false);
     }
@@ -545,7 +555,7 @@ public class PlayerScript : MonoBehaviour
             }
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0,4) == "key1")
             {
-                StartCoroutine(ShowPrompt(1));
+                StartCoroutine(ShowPrompt("Door 1 unlocked"));
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
@@ -555,7 +565,7 @@ public class PlayerScript : MonoBehaviour
             }
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "key2")
             {
-                StartCoroutine(ShowPrompt(2));
+                StartCoroutine(ShowPrompt("Door 2 unlocked"));
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
@@ -565,7 +575,7 @@ public class PlayerScript : MonoBehaviour
             }
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "key3")
             {
-                StartCoroutine(ShowPrompt(3));
+                StartCoroutine(ShowPrompt("Door 3 unlocked"));
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().Play();
@@ -636,7 +646,7 @@ public class PlayerScript : MonoBehaviour
         //SoundDecibel = 0f;
         //SoundAdd(0f);
     }
-    IEnumerator ShakeCamera(float duration, float magnitude)
+    /*IEnumerator ShakeCamera(float duration, float magnitude)
         {
             
             Vector3 originalpos = cameraholder.transform.localPosition;
@@ -654,6 +664,7 @@ public class PlayerScript : MonoBehaviour
             cameraholder.transform.localPosition = originalpos;
 
         }
+    */
 
     
     public void MouseButtonZoom(){
