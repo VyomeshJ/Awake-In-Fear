@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject wrenchObj;
     int playerfloor;
-    public Light RemovedLight1;
+    public GameObject RemovedLights;
     public AudioSource ClockSound1;
 
     public bool Move_Null;
@@ -686,11 +686,12 @@ public class PlayerScript : MonoBehaviour
     }
     void RemoveFLoor1()
     {
-        RemovedLight1.enabled = false;
+        RemovedLights.SetActive(false);
         ClockSound1.enabled = false;
     }
     public void ElectricityOpen()
     {
+        Debug.Log("electricity opened");
         LightContainer.SetActive(true);
         BlockCollider.enabled = false;
         //lighton2.SetActive(true);
@@ -757,8 +758,9 @@ public class PlayerScript : MonoBehaviour
         
         //Debug.Log(transform.position);
         
-        if (transform.position.y > 22 && transform.position.y < 26)
+        if (transform.position.y > 22)
         {
+            Debug.Log("Remmoved");
             playerfloor = 1;
             RemoveFLoor1();
             
