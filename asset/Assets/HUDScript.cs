@@ -16,6 +16,8 @@ public class HUDScript : MonoBehaviour
     public string[] ItemDescriotions;
 
     public TextMeshProUGUI desc_txt;
+    public bool flash_open;
+    public bool wrench_open;
 
     private void Update()
     {
@@ -49,25 +51,36 @@ public class HUDScript : MonoBehaviour
     }
     public void FlashLightSelected(){
         if(SaveVariables.FlashAvailable){
-
-            InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
-            
-            SaveVariables.InventoryOpen = false;
-            if(player.GetComponent<PlayerScript>().currentSelectedItem != "flashlight"){
-                player.GetComponent<PlayerScript>().currentSelectedItem = "flashlight";
+                flash_open = true;
                 InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
-                player.GetComponent<PlayerScript>().holdingweapon = false;
-                gunObj.SetActive(false);
-                player.GetComponent<PlayerScript>().OpenFlashlight();
-            }
-            else{
-                InvObjects[0].GetComponent<Image>().sprite = UnselectedInv[0];
-                player.GetComponent<PlayerScript>().flashLight.SetActive(false);
-                player.GetComponent<PlayerScript>().FlashlightHUD.SetActive(false);
+
+                SaveVariables.InventoryOpen = false;
+                if (player.GetComponent<PlayerScript>().currentSelectedItem != "flashlight")
+                {
+                    player.GetComponent<PlayerScript>().currentSelectedItem = "flashlight";
+                    InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
+                    player.GetComponent<PlayerScript>().holdingweapon = false;
+                    gunObj.SetActive(false);
+                    player.GetComponent<PlayerScript>().OpenFlashlight();
+                }
+                else
+                {
+                    InvObjects[0].GetComponent<Image>().sprite = UnselectedInv[0];
+                    player.GetComponent<PlayerScript>().flashLight.SetActive(false);
+                    player.GetComponent<PlayerScript>().FlashlightHUD.SetActive(false);
+                    player.GetComponent<PlayerScript>().currentSelectedItem = "null";
+                }
+                gameObject.SetActive(false);
+                Time.timeScale = 1;
+            
+            if(wrench_open)
+            {
+                wrench_open = false;
+                InvObjects[6].GetComponent<Image>().sprite = UnselectedInv[6];
+                player.GetComponent<PlayerScript>().wrenchObj.SetActive(false);
                 player.GetComponent<PlayerScript>().currentSelectedItem = "null";
             }
-            gameObject.SetActive(false);
-            Time.timeScale = 1;
+            
         }
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -77,6 +90,7 @@ public class HUDScript : MonoBehaviour
     {
         if (SaveVariables.WrenchAvailable)
         {
+            wrench_open = true;
             Debug.Log("wrench");
             //InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
 
@@ -99,6 +113,14 @@ public class HUDScript : MonoBehaviour
             Time.timeScale = 1;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            if (flash_open)
+            {
+                flash_open = false;
+                InvObjects[0].GetComponent<Image>().sprite = UnselectedInv[0];
+                player.GetComponent<PlayerScript>().flashLight.SetActive(false);
+                player.GetComponent<PlayerScript>().FlashlightHUD.SetActive(false);
+                player.GetComponent<PlayerScript>().currentSelectedItem = "null";
+            }
         }
     }
     public void CaffeineSelected(){

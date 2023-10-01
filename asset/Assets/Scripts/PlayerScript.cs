@@ -13,6 +13,8 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public GameObject saving_txt;
+    public GameObject game_load;
     public bool GeneratorOpened;
     public Collider BlockCollider;
     public bool set_pos;
@@ -144,6 +146,11 @@ public class PlayerScript : MonoBehaviour
         {
             Move_Null = true;
         }    
+    }
+    public void SaveGame_event()
+    {
+        saving_txt.SetActive(true);
+        game_load.GetComponent<GameLoad>().SaveGame();
     }
     public void StopHiding()
     {
@@ -702,6 +709,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void ElectricityOpen()
     {
+        SaveGame_event();
         Debug.Log("electricity opened");
         LightContainer.SetActive(true);
         BlockCollider.enabled = false;
