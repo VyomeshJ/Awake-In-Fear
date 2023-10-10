@@ -13,6 +13,7 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+   
     public GameObject ManageUI;
     public GameObject you_died_txt;
     public GameObject saving_txt;

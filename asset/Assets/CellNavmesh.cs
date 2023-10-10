@@ -7,6 +7,8 @@ public class CellNavmesh : MonoBehaviour
 {
     //public doorScript buttondoor;
     //public Transform playerPosition;
+    public GameObject jumpscareGO;
+    public ViewRange jumpscareCheck;
     public ViewRange viewRange;
     public Transform ainewpos;
     public Animator dooranim;
@@ -85,14 +87,21 @@ public class CellNavmesh : MonoBehaviour
 
         if (playerscript.electricityopen == true && dead == false)
         {
-            transform.position = ainewpos.position;
-            //Debug.Log("running");
-            running = true;
-            if (running) runAble();
-            //doorscript.DoorOpen = false;
+            jumpscareGO.SetActive(true);
+            //if collider triggered
+            if (jumpscareCheck.InRange)
+            {
 
-            dead = true;
-            ready = true;
+                //play audio
+                transform.position = ainewpos.position;
+                //Debug.Log("running");
+                running = true;
+                if (running) runAble();
+                //doorscript.DoorOpen = false;
+
+                dead = true;
+                ready = true;
+            }
 
         }
 
