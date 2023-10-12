@@ -28,10 +28,10 @@ public class tutorial_script : MonoBehaviour
     private void Awake()
     {
         inputMaster = new InputMaster();
-        pages[0] = "UI and Movement\n(I) -> Inventory Open/Close\n(WASD) -> Movement &  Navigate Inventory\n(ESC) -> Close Notes, Resume Menu\n(LSHIFT) -> Sprint t";
-        pages[1] = "Interacting\n(G) -> Open/Close drawers, closets, doors\n(G) -> Hide in Closets & Beds\n(E) -> Pick Up notes, Keys, objects";
-        pages[2] = "Utilities\n(F) -> Open/Close Flashlight\n(R) -> Reload flashlight battery\n(P) -> Carry Chairs/Box (Not Prompted)";
-        pages[3] = "If you die, there is no saving you.";
+        pages[0] = "UI and Movement\n\n(I) -> Inventory Open/Close\n(WASD) -> Movement &  Navigate Inventory\n(ESC) -> Close Notes, Resume Menu\n(LSHIFT) -> Sprint t";
+        pages[1] = "Interacting\n\n(G) -> Open/Close drawers, closets, doors\n(G) -> Hide in Closets & Beds\n(E) -> Pick Up notes, Keys, objects";
+        pages[2] = "Utilities\n\n(F) -> Open/Close Flashlight\n(R) -> Reload flashlight battery\n(P) -> Carry Chairs/Box (Not Prompted)";
+        pages[3] = "If you die, there is no saving yourself.";
     }
     public void Start()
     {
