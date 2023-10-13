@@ -7,7 +7,8 @@ public class CellNavmesh : MonoBehaviour
 {
     //public doorScript buttondoor;
     //public Transform playerPosition;
-    public GameObject jumpscareGO;
+    public GameObject chasecollider;
+    //public GameObject jumpscareGO;
     public ViewRange jumpscareCheck;
     public ViewRange viewRange;
     public Transform ainewpos;
@@ -87,21 +88,21 @@ public class CellNavmesh : MonoBehaviour
 
         if (playerscript.electricityopen == true && dead == false)
         {
-            jumpscareGO.SetActive(true);
+            //jumpscareGO.SetActive(true);
             //if collider triggered
-            if (jumpscareCheck.InRange)
-            {
+            //if (jumpscareCheck.InRange)
+           // {
 
                 //play audio
-                transform.position = ainewpos.position;
-                //Debug.Log("running");
-                running = true;
-                if (running) runAble();
+              //  transform.position = ainewpos.position;
+             //Debug.Log("running");
+                //running = true;
+               // if (running) runAble();
                 //doorscript.DoorOpen = false;
 
-                dead = true;
-                ready = true;
-            }
+                //dead = true;
+               // ready = true;
+            //}
 
         }
 
@@ -156,6 +157,30 @@ public class CellNavmesh : MonoBehaviour
             }
         }
 
+    }
+    public IEnumerator Chase()
+    {
+        chasecollider.SetActive(true);
+        jumpscareCheck.InRange = true;
+        navMeshAgent.speed += 8;
+        yield return new WaitForSeconds(0.1f);
+        if (jumpscareCheck.InRange)
+        {
+            Debug.Log("working");
+            //play audio
+            transform.position = ainewpos.position;
+            //Debug.Log("running");
+            running = true;
+            if (running) runAble();
+            //doorscript.DoorOpen = false;
+
+            dead = true;
+            ready = true;
+        }
+
+        yield return new WaitForSeconds(6f);
+        Debug.Log("Slowed");
+        navMeshAgent.speed -= 8;
     }
     private void OnTriggerEnter(Collider other)
     {

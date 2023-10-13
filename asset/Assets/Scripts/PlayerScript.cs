@@ -13,13 +13,13 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
-   
+    public CellNavmesh CellNavmesh;
     public GameObject ManageUI;
     public GameObject you_died_txt;
     public GameObject saving_txt;
     public GameObject game_load;
     public bool GeneratorOpened;
-    public Collider BlockCollider;
+    public Collider ViewCollider;
     public bool set_pos;
     public GameObject FloorDoor;
     public AudioSource shotgun_audio_source;
@@ -173,7 +173,7 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("call 1");
         //gameObject.transform.position = SaveVariables.Player_Initial_Pos;
     }
-    IEnumerator initiate_player_pos()
+    public IEnumerator initiate_player_pos()
     {
         float counter = 0;
         while(counter < 0.5)
@@ -716,15 +716,13 @@ public class PlayerScript : MonoBehaviour
     }
     public void ElectricityOpen()
     {
+       
         SaveGame_event();
+        StartCoroutine(CellNavmesh.Chase());
         Debug.Log("electricity opened");
         LightContainer.SetActive(true);
-        BlockCollider.enabled = false;
-        //lighton2.SetActive(true);
-        //lighton3.SetActive(true);
-        //lighton4.SetActive(true);
-        //lighton5.SetActive(true);
-        //lighton6.SetActive(true);
+        ViewCollider.enabled = true;
+        
         electricityopen = true;
         FloorDoor.GetComponent<Animator>().Play("Open");
         FloorDoor.GetComponent<AudioSource>().Play();
