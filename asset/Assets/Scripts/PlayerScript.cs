@@ -134,6 +134,7 @@ public class PlayerScript : MonoBehaviour
     public Vector3 lastPos;
     public LightFlick flicker1, flicker2, flicker3, flicker4, flicker5, flicker6;
     public GameObject KeyPromptTxt;
+    public GameObject BasementElectricityDoor;
 
     public void DeathScene()
     {
@@ -579,6 +580,7 @@ public class PlayerScript : MonoBehaviour
             }
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "key2")
             {
+                SaveGame_event();
                 StartCoroutine(ShowPrompt("Door 2 unlocked"));
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<doorScript>().DoorStateLocked = false;
                 PointingToObj.GetComponent<KeyScript>().door.GetComponent<AudioSource>().clip = AudioManager.Door_Unlocked_Sound;
@@ -716,7 +718,8 @@ public class PlayerScript : MonoBehaviour
     }
     public void ElectricityOpen()
     {
-       
+        BasementElectricityDoor.GetComponent<doorScript>().DoorStateLocked = false;
+        BasementElectricityDoor.GetComponent<doorScript>().openDoor();
         SaveGame_event();
         StartCoroutine(CellNavmesh.Chase());
         Debug.Log("electricity opened");
