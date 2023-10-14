@@ -28,7 +28,7 @@ public class RandomizeObjects : MonoBehaviour
             indexNumber = Random.Range(0, 1);
             indexNumber2 = Random.Range(2, 6); 
             indexNumber3 = Random.Range(7, 11);
-            indexNumber4 = Random.Range(12, 16);
+            indexNumber4 = Random.Range(12, 15);
 
             if(indexNumber == 0)
         {
