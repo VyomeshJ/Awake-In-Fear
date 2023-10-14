@@ -1,0 +1,1 @@
+{"FlashAvailable":false,"WrenchAvailable":true,"FlashBatteries":0,"flashtime":0.0,"GunAvailable":false,"Key1Available":false,"Key2Available":false,"Key3Available":false,"NotFirstTime":true,"PlayerPosition":{"x":492.5505065917969,"y":18.260000228881837,"z":509.0556335449219},"ItemIndexRemoved":[],"light_trigger_activated":0,"safe_code":"4382","trigger_to_trigger":4}

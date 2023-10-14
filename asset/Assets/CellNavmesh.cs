@@ -182,6 +182,12 @@ public class CellNavmesh : MonoBehaviour
         Debug.Log("Slowed");
         navMeshAgent.speed -= 8;
     }
+    IEnumerator wait_to_die()
+    {
+        Debug.Log("die");
+        yield return new WaitForSeconds(2);
+        player.gameObject.GetComponent<PlayerScript>().DeathScene();
+    }
     private void OnTriggerEnter(Collider other)
     {
 
@@ -189,6 +195,7 @@ public class CellNavmesh : MonoBehaviour
         {
             Debug.Log("touched");
             inContact = true;
+            StartCoroutine(wait_to_die());
 
         }
         if (other.gameObject.name == "Projectile(Clone)" && ready == true)

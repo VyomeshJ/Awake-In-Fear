@@ -63,6 +63,7 @@ public class navmeshAI : MonoBehaviour
     bool closeEnough;
     public int playerfloor;
     int enemyfloor;
+    bool kill;
     void Start()
         
     {
@@ -236,6 +237,14 @@ public class navmeshAI : MonoBehaviour
             attacking.Play("Attack");
             CharController_Motor.enabled = false;
             player.LookAt(target);
+            
+            
+        }
+        IEnumerator wait_to_die()
+        {
+            Debug.Log("die");
+            yield return new WaitForSeconds(2);
+            player.gameObject.GetComponent<PlayerScript>().DeathScene();
         }
         EnviromentView();
 
