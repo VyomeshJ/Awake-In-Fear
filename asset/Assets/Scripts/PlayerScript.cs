@@ -13,6 +13,7 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource dooraudio;
     public CellNavmesh CellNavmesh;
     public GameObject ManageUI;
     public GameObject you_died_txt;
@@ -718,6 +719,8 @@ public class PlayerScript : MonoBehaviour
     }
     public void ElectricityOpen()
     {
+        //play audio
+        dooraudio.Play(44100);
         BasementElectricityDoor.GetComponent<doorScript>().DoorStateLocked = false;
         BasementElectricityDoor.GetComponent<doorScript>().openDoor();
         SaveGame_event();
