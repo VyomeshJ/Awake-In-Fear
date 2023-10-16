@@ -13,6 +13,8 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource breathingaudio;
+    public AudioSource aitheme;
     public AudioSource dooraudio;
     public CellNavmesh CellNavmesh;
     public GameObject ManageUI;
@@ -656,6 +658,7 @@ public class PlayerScript : MonoBehaviour
             //Invoke("SoundReset", 2f);
             sprinting = true;
         }
+        
     }
     public void LShift_Disabled(){
         sprinting = false;
@@ -721,6 +724,7 @@ public class PlayerScript : MonoBehaviour
     {
         //play audio
         dooraudio.Play(44100);
+        aitheme.Play(88200);
         BasementElectricityDoor.GetComponent<doorScript>().DoorStateLocked = false;
         BasementElectricityDoor.GetComponent<doorScript>().openDoor();
         SaveGame_event();
@@ -787,7 +791,7 @@ public class PlayerScript : MonoBehaviour
     void Update(){
         
         //Debug.Log(transform.position);
-        
+
         if (transform.position.y > 22)
         {
             Debug.Log("Remmoved");
@@ -885,8 +889,11 @@ public class PlayerScript : MonoBehaviour
         staminaSlider.value = stamina;
 
         ////The input method has to change
-        if(sprinting)
+        Debug.Log(stamina);
+        
+        if (sprinting)
         {
+            
             decreaseStamina();
         }
         else if(stamina != maxStamina)
@@ -894,16 +901,31 @@ public class PlayerScript : MonoBehaviour
             increaseStamina();
         }
 
+        
+
         if (sprinting)
         {
+            if (stamina < 50f)
+            {
+                breathingaudio.Play();
+            }
+            if (stamina > 55f)
+            {
+                breathingaudio.Stop();
+            }
+
             staminaSlider.gameObject.SetActive(true);
             controllerScript.speed = Base_Mov_Speed*2;
         }
         else
         {
+            
+
             staminaSlider.gameObject.SetActive(false);
             controllerScript.speed = Base_Mov_Speed;
         }
+
+
 
         batteryNumText.text = "Batteries: " + SaveVariables.NumBatteries.ToString();
         batteryChargeText.text = SaveVariables.flashtime.ToString("0") + "%";

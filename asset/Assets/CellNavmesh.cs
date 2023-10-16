@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class CellNavmesh : MonoBehaviour
 {
+    public AudioSource AiHitSound;
     //public doorScript buttondoor;
     //public Transform playerPosition;
     public GameObject chasecollider;
@@ -122,6 +123,7 @@ public class CellNavmesh : MonoBehaviour
 
             if (inContact)
             {
+                AiHitSound.Play();
                 navMeshAgent.isStopped = true;
 
                 navMeshAgent.speed = 0;
@@ -130,6 +132,7 @@ public class CellNavmesh : MonoBehaviour
                 AiAnimation.Play("Attack");
                 CharController_Motor.enabled = false;
                 player.LookAt(target);
+                
             }
             else if (inContact == false && running == true)
             {
@@ -178,7 +181,7 @@ public class CellNavmesh : MonoBehaviour
             ready = true;
         }
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(7f);
         Debug.Log("Slowed");
         navMeshAgent.speed -= 8;
     }
