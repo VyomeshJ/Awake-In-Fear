@@ -181,7 +181,7 @@ public class CellNavmesh : MonoBehaviour
             ready = true;
         }
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(6.5f);
         Debug.Log("Slowed");
         navMeshAgent.speed -= 8;
     }
