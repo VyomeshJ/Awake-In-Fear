@@ -928,7 +928,7 @@ public class PlayerScript : MonoBehaviour
 
 
         batteryNumText.text = "Batteries: " + SaveVariables.NumBatteries.ToString();
-        batteryChargeText.text = SaveVariables.flashtime.ToString("0") + "%";
+        batteryChargeText.text = "Flashlight Charge: " + SaveVariables.flashtime.ToString() + "%";
         if (flashon) SaveVariables.flashtime -= 1 * Time.deltaTime;
         
         if (SaveVariables.flashtime <= 0)

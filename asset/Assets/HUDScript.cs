@@ -69,7 +69,9 @@ public class HUDScript : MonoBehaviour
                     player.GetComponent<PlayerScript>().flashLight.SetActive(false);
                     player.GetComponent<PlayerScript>().FlashlightHUD.SetActive(false);
                     player.GetComponent<PlayerScript>().currentSelectedItem = "null";
-                }
+                    player.GetComponent<PlayerScript>().batteryChargeText.gameObject.SetActive(true);
+                    player.GetComponent<PlayerScript>().batteryNumText.gameObject.SetActive(true);
+            }
                 gameObject.SetActive(false);
                 Time.timeScale = 1;
             
