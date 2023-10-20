@@ -13,6 +13,7 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource footsteps;
     public AudioSource breathingaudio;
     public AudioSource aitheme;
     public AudioSource dooraudio;
@@ -723,8 +724,9 @@ public class PlayerScript : MonoBehaviour
     public void ElectricityOpen()
     {
         //play audio
+        footsteps.Play();
         dooraudio.Play(44100);
-        aitheme.Play(88200);
+        aitheme.Play(60000);
         BasementElectricityDoor.GetComponent<doorScript>().DoorStateLocked = false;
         BasementElectricityDoor.GetComponent<doorScript>().openDoor();
         SaveGame_event();

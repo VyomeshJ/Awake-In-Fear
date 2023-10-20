@@ -11,6 +11,7 @@ using UnityEngine.AI;
 
 public class navmeshAI : MonoBehaviour
 {
+    public ViewRange ViewRange;
     bool incontact;
     bool runable;
     public CharController_Motor CharController_Motor;

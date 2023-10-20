@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class CellNavmesh : MonoBehaviour
 {
+    
     public AudioSource AiHitSound;
     //public doorScript buttondoor;
     //public Transform playerPosition;
