@@ -13,6 +13,7 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public TextMeshProUGUI Caffeine_Txt;
     public AudioSource footsteps;
     public AudioSource breathingaudio;
     public AudioSource aitheme;
@@ -791,7 +792,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update(){
-        
+        SaveVariables.caffeine_lvl -= Time.deltaTime/10;
+        Caffeine_Txt.text = "Caffeine percentage: " + ((int)Math.Round(SaveVariables.caffeine_lvl)).ToString();
         //Debug.Log(transform.position);
 
         if (transform.position.y > 22)

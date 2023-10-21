@@ -42,6 +42,7 @@ public class GameLoad : MonoBehaviour
             //player.transform.position = new Vector3(527.315f, 18.5f, 540f);
          
             SaveVariables.Player_Initial_Pos = new Vector3(527.315f, 18.5f, 540f);
+            SaveVariables.CaffeineLevel = 100;
             player.GetComponent<PlayerScript>().initialize_player_pos();
             for (int i = 0; i < 4; i++)
             {
@@ -63,6 +64,7 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key2Available = save.Key2Available;
             SaveVariables.Key3Available = save.Key3Available;
             SaveVariables.Player_Initial_Pos = save.PlayerPosition;
+            SaveVariables.caffeine_lvl = save.caffeine_lvl;
             //player.transform.position = save.PlayerPosition;
             
             Debug.Log("player position done");
@@ -88,9 +90,9 @@ public class GameLoad : MonoBehaviour
         save.light_trigger_activated = SaveVariables.light_trigger_activated;
         save.safe_code = SaveVariables.safe_code;
         save.trigger_to_trigger = SaveVariables.trigger_to_trigger;
+        save.caffeine_lvl = SaveVariables.caffeine_lvl;
 
-        
-        
+
         Load_Light_Triggers();
         return save;
     }

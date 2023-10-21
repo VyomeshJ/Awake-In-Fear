@@ -6,6 +6,7 @@ public class random_audio : MonoBehaviour
 {
     // Start is called before the first frame update
     public AudioClip[] audioClips;
+    public int aud_playing = -1;
     void Start()
     {
         StartCoroutine(random_audio_start());
@@ -20,10 +21,15 @@ public class random_audio : MonoBehaviour
     {
         float rand_num = Random.Range(3, 10);
         int rand_index = Random.Range(0, 3);
+        while (rand_index == aud_playing)
+        {
+            rand_index = Random.Range(0, 3);
+        }
+        aud_playing = rand_index;
         Debug.Log("yo " + rand_index);
         gameObject.GetComponent<AudioSource>().clip = audioClips[rand_index];
         gameObject.GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(audioClips[rand_index].length);
+        //yield return new WaitForSeconds(audioClips[rand_index].length);
         yield return new WaitForSeconds(rand_num);
         StartCoroutine(random_audio_start());
     }

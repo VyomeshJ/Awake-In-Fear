@@ -24,6 +24,7 @@ public static class SaveVariables
     public static Vector3 Player_Initial_Pos;
 // public static bool[] triggers_triggered;
     public static int trigger_to_trigger;
+    public static float caffeine_lvl;
     
 
 }
