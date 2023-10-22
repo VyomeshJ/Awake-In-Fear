@@ -15,11 +15,20 @@ public class random_audio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(aud_playing == 1)
+        {
+            gameObject.GetComponent<AudioSource>().volume = 0.1f;
+        }
+        else if(aud_playing == 2 || aud_playing == 0)
+        {
+            gameObject.GetComponent<AudioSource>().volume = 0.4f;
+        }
         
+        Debug.Log(aud_playing);
     }
     IEnumerator random_audio_start()
     {
-        float rand_num = Random.Range(3, 10);
+        float rand_num = Random.Range(30, 90);
         int rand_index = Random.Range(0, 3);
         while (rand_index == aud_playing)
         {
