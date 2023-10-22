@@ -38,9 +38,20 @@ public class GameLoad : MonoBehaviour
         SaveVariables.safe_code = "";
         
         if (!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt")).NotFirstTime){
-            
+            SaveVariables.FlashAvailable = false;
+            SaveVariables.WrenchAvailable = false;
+            SaveVariables.NumBatteries = 0;
+            SaveVariables.GunAvailable = false;
+            SaveVariables.Key1Available = false;
+            SaveVariables.Key2Available = false;
+            SaveVariables.Key3Available = false;
+            SaveVariables.caffeine_lvl = 0;
+            SaveVariables.door_unlocked = null;
+            SaveVariables.light_trigger_activated = 0;
+            SaveVariables.safe_code = null;
+            SaveVariables.trigger_to_trigger = 0;
             //player.transform.position = new Vector3(527.315f, 18.5f, 540f);
-         
+
             SaveVariables.Player_Initial_Pos = new Vector3(527.315f, 18.5f, 540f);
             SaveVariables.CaffeineLevel = 100;
             player.GetComponent<PlayerScript>().initialize_player_pos();
@@ -65,6 +76,7 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key3Available = save.Key3Available;
             SaveVariables.Player_Initial_Pos = save.PlayerPosition;
             SaveVariables.caffeine_lvl = save.caffeine_lvl;
+            SaveVariables.door_unlocked = save.door_unlocked;
             //player.transform.position = save.PlayerPosition;
             
             Debug.Log("player position done");
@@ -91,6 +103,7 @@ public class GameLoad : MonoBehaviour
         save.safe_code = SaveVariables.safe_code;
         save.trigger_to_trigger = SaveVariables.trigger_to_trigger;
         save.caffeine_lvl = SaveVariables.caffeine_lvl;
+        save.door_unlocked = SaveVariables.door_unlocked;
 
 
         Load_Light_Triggers();

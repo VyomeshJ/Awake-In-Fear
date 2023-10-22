@@ -16,6 +16,8 @@ public class doorScript : MonoBehaviour
     public AudioManagerScript AudioManager;
     public AudioSource self_AudioSource;
 
+    public int DOOR_NUM_SAVE;
+
     public void rumble()
     {
         self_AudioSource.clip = AudioManager.Door_Locked_Sound;
@@ -58,6 +60,14 @@ public class doorScript : MonoBehaviour
 
     void Start()
     {
+        if(DOOR_NUM_SAVE != 0)
+        {
+            if (SaveVariables.door_unlocked[DOOR_NUM_SAVE-1])
+            {
+                DoorStateLocked = false;
+                openDoor();
+            }
+        }
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
         self_AudioSource = gameObject.GetComponent<AudioSource>();
         if(OpenDoorAtStart) door.Play("OpenedState");

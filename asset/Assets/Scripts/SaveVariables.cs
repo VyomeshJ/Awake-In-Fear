@@ -25,6 +25,8 @@ public static class SaveVariables
 // public static bool[] triggers_triggered;
     public static int trigger_to_trigger;
     public static float caffeine_lvl;
+
+    public static bool[] door_unlocked;
     
 
 }

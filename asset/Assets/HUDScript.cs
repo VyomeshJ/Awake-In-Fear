@@ -18,9 +18,17 @@ public class HUDScript : MonoBehaviour
     public TextMeshProUGUI desc_txt;
     public bool flash_open;
     public bool wrench_open;
+    public GameObject caffeine_prompt_prefab;
+    public TextMeshProUGUI caffeine_pill_counter;
+
+    private void Start()
+    {
+        
+    }
 
     private void Update()
     {
+        if(SaveVariables.CaffeinePillsAvailable > 0) caffeine_pill_counter.text = SaveVariables.CaffeinePillsAvailable.ToString();
         if (SaveVariables.FlashAvailable) InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
         else InvObjects[6].GetComponent<Image>().sprite = UnselectedInv[0];
         if (SaveVariables.WrenchAvailable) InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
@@ -126,7 +134,21 @@ public class HUDScript : MonoBehaviour
         }
     }
     public void CaffeineSelected(){
-        
+        if(SaveVariables.CaffeinePillsAvailable > 0)
+        {
+            if(SaveVariables.caffeine_lvl > 75)
+            {
+                GameObject prefab_inst = Instantiate(caffeine_prompt_prefab);
+                prefab_inst.transform.parent = gameObject.transform;
+                prefab_inst.transform.localPosition = new Vector3(0, -650f, 0);
+                prefab_inst.transform.localScale = new Vector3(2, 2, 2);
+            }
+            else
+            {
+                SaveVariables.caffeine_lvl += 25;
+                SaveVariables.CaffeinePillsAvailable -= 1;
+            }
+        }
     }
     public void GunSelected(){
         Debug.Log("gun shit");
