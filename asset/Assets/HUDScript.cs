@@ -28,7 +28,16 @@ public class HUDScript : MonoBehaviour
 
     private void Update()
     {
-        if(SaveVariables.CaffeinePillsAvailable > 0) caffeine_pill_counter.text = SaveVariables.CaffeinePillsAvailable.ToString();
+        if (SaveVariables.CaffeinePillsAvailable > 0)
+        {
+            caffeine_pill_counter.text = SaveVariables.CaffeinePillsAvailable.ToString();
+            InvObjects[1].GetComponent<Image>().sprite = SelectedInv[1];
+        }
+        else
+        {
+            caffeine_pill_counter.text = "";
+            InvObjects[1].GetComponent<Image>().sprite = UnselectedInv[1];
+        }
         if (SaveVariables.FlashAvailable) InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
         else InvObjects[6].GetComponent<Image>().sprite = UnselectedInv[0];
         if (SaveVariables.WrenchAvailable) InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
@@ -37,10 +46,10 @@ public class HUDScript : MonoBehaviour
         if (SaveVariables.Key1Available) InvObjects[2].GetComponent<Image>().sprite = SelectedInv[2];
         else InvObjects[2].GetComponent<Image>().sprite = UnselectedInv[2];
 
-        if (SaveVariables.Key1Available) InvObjects[3].GetComponent<Image>().sprite = SelectedInv[3];
+        if (SaveVariables.Key2Available) InvObjects[3].GetComponent<Image>().sprite = SelectedInv[3];
         else InvObjects[2].GetComponent<Image>().sprite = UnselectedInv[3];
 
-        if (SaveVariables.Key1Available) InvObjects[4].GetComponent<Image>().sprite = SelectedInv[4];
+        if (SaveVariables.Key3Available) InvObjects[4].GetComponent<Image>().sprite = SelectedInv[4];
         else InvObjects[2].GetComponent<Image>().sprite = UnselectedInv[4];
 
     }
@@ -145,6 +154,7 @@ public class HUDScript : MonoBehaviour
             }
             else
             {
+                Debug.Log("caffeine consumed");
                 SaveVariables.caffeine_lvl += 25;
                 SaveVariables.CaffeinePillsAvailable -= 1;
             }

@@ -17,6 +17,9 @@ public class doorScript : MonoBehaviour
     public AudioSource self_AudioSource;
 
     public int DOOR_NUM_SAVE;
+    public bool save_door;
+
+
 
     public void rumble()
     {
@@ -25,6 +28,11 @@ public class doorScript : MonoBehaviour
     }
     public void openDoor()
     {
+        if (save_door)
+        {
+            Debug.Log("$");
+            SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1] = true;
+        }
         Debug.Log("Open door");
         if (!DoorStateLocked)
         {
@@ -60,14 +68,7 @@ public class doorScript : MonoBehaviour
 
     void Start()
     {
-        if(DOOR_NUM_SAVE != 0)
-        {
-            if (SaveVariables.door_unlocked[DOOR_NUM_SAVE-1])
-            {
-                DoorStateLocked = false;
-                openDoor();
-            }
-        }
+        
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
         self_AudioSource = gameObject.GetComponent<AudioSource>();
         if(OpenDoorAtStart) door.Play("OpenedState");
@@ -76,6 +77,17 @@ public class doorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("_" + SaveVariables.door_unlocked[0].ToString());
+        if (DOOR_NUM_SAVE != 0 && !DoorOpen)
+        {
+            DoorOpen = true;
+            if (SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1])
+            {
+                Debug.Log("unlock door");
+                DoorStateLocked = false;
+                openDoor();
+            }
+        }
         //if (DoorStateLocked) gameObject.tag = "Untagged";
         //else gameObject.tag = "InteractableObject";
 

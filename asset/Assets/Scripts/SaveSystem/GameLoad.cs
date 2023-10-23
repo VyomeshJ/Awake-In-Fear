@@ -38,6 +38,7 @@ public class GameLoad : MonoBehaviour
         SaveVariables.safe_code = "";
         
         if (!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt")).NotFirstTime){
+            SaveVariables.door_unlocked = new bool[6];
             SaveVariables.FlashAvailable = false;
             SaveVariables.WrenchAvailable = false;
             SaveVariables.NumBatteries = 0;
@@ -46,7 +47,6 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key2Available = false;
             SaveVariables.Key3Available = false;
             SaveVariables.caffeine_lvl = 0;
-            SaveVariables.door_unlocked = null;
             SaveVariables.light_trigger_activated = 0;
             SaveVariables.safe_code = null;
             SaveVariables.trigger_to_trigger = 0;

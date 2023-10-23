@@ -140,6 +140,7 @@ public class PlayerScript : MonoBehaviour
     public LightFlick flicker1, flicker2, flicker3, flicker4, flicker5, flicker6;
     public GameObject KeyPromptTxt;
     public GameObject BasementElectricityDoor;
+    
 
     public void DeathScene()
     {
@@ -191,6 +192,10 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Start(){
+        if (SaveVariables.door_unlocked[5])
+        {
+            FloorDoor.GetComponent<Animator>().Play("Open");
+        }
         StartCoroutine(initiate_player_pos());
 
         //gameObject.transform.position = SaveVariables.Player_Initial_Pos;
@@ -556,8 +561,12 @@ public class PlayerScript : MonoBehaviour
     }
     public void PickUpObject(){
         if(PointingToObj != null){
-
-            if(PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0, 6) == "Wrench")
+            if (PointingToObj.name.Length >= 8 && PointingToObj.name.Substring(0, 8) == "CaffPill")
+            {
+                Destroy(PointingToObj.gameObject);
+                SaveVariables.CaffeinePillsAvailable += 1;
+            }
+            if (PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0, 6) == "Wrench")
             {
                 Destroy(PointingToObj);
                 SaveVariables.WrenchAvailable = true;
