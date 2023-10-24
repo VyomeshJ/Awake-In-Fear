@@ -28,19 +28,22 @@ public class doorScript : MonoBehaviour
     }
     public void openDoor()
     {
+        Debug.Log(gameObject.name);
         if (save_door)
         {
-            Debug.Log("$");
+        
             SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1] = true;
+          
         }
-        Debug.Log("Open door");
+       
         if (!DoorStateLocked)
         {
-         
+       
             DoorInAniState = true;
             DoorOpen = true;
-       
+
             //doorSound.Play();
+            Debug.Log("finally workinhg");
             door.Play("Open");
             self_AudioSource.clip = AudioManager.DoorOpenSound;
             self_AudioSource.Play();
@@ -77,14 +80,27 @@ public class doorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("_" + SaveVariables.door_unlocked[0].ToString());
-        if (DOOR_NUM_SAVE != 0 && !DoorOpen)
+       
+        if (DOOR_NUM_SAVE != 0 && save_door)
         {
-            DoorOpen = true;
-            if (SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1])
+            if (SaveVariables.door_unlocked[0] && DOOR_NUM_SAVE == 1)
             {
-                Debug.Log("unlock door");
+                save_door = false;
                 DoorStateLocked = false;
+
+                DoorStateLocked = false;
+                Debug.Log("close this door");
+                closeDoor();
+
+            }
+            else if (SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1])
+            {
+                Debug.Log("&" + gameObject.name);
+                save_door = false;
+                DoorStateLocked = false;
+              
+                DoorStateLocked = false;
+                
                 openDoor();
             }
         }
@@ -94,7 +110,7 @@ public class doorScript : MonoBehaviour
     }
     public void PickTriggered()
     {
-        Debug.Log("piccked trigger door");
+     
         DoorStateLocked = false;
     }
 }
