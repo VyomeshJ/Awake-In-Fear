@@ -11,6 +11,7 @@ using UnityEngine.AI;
 
 public class navmeshAI : MonoBehaviour
 {
+    public Transform chase;
     public ViewRange ViewRange;
     bool incontact;
     bool runable;
@@ -102,19 +103,15 @@ public class navmeshAI : MonoBehaviour
     }
 
    
-    //void instantiateObjects()
-    ///{
-        /// randomize roaring sound
-        //canIstantiate = false;
-        //Instantiate(instantiateObject, player.position, Quaternion.identity);
-        //instantiateObject.GetComponent<MeshRenderer>().enabled = false;
-        
-    //}
 
 
     private void Update()
 
     {
+        if (ViewRange.InRange)
+        {
+            navMeshAgent.SetDestination(chase.position);
+        }
         if (Input.GetKeyDown(KeyCode.V)) incontact = true;
         //if (runable) attacking.Play("Walking");
         //else attacking.Play("Attack");
@@ -125,12 +122,6 @@ public class navmeshAI : MonoBehaviour
         else if (player.transform.position.y > 28) playerfloor = 2;
 
 
-        //if (enemyfloor != playerfloor)
-        //{
-           // Debug.Log("ssS");
-           // speedWalk = 10;
-            //speedRun = 12;
-        //}
 
         if (enemyfloor == playerfloor)
         {
