@@ -77,9 +77,10 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Player_Initial_Pos = save.PlayerPosition;
             SaveVariables.caffeine_lvl = save.caffeine_lvl;
             SaveVariables.door_unlocked = save.door_unlocked;
+            Debug.Log("^" + SaveVariables.door_unlocked[0]);
             //player.transform.position = save.PlayerPosition;
             
-            Debug.Log("player position done");
+          
             SaveVariables.light_trigger_activated = save.light_trigger_activated;
             SaveVariables.safe_code = save.safe_code;
 

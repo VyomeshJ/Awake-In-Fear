@@ -24,7 +24,7 @@ public class random_audio : MonoBehaviour
             gameObject.GetComponent<AudioSource>().volume = 0.4f;
         }
         
-        Debug.Log(aud_playing);
+        
     }
     IEnumerator random_audio_start()
     {
@@ -35,7 +35,7 @@ public class random_audio : MonoBehaviour
             rand_index = Random.Range(0, 3);
         }
         aud_playing = rand_index;
-        Debug.Log("yo " + rand_index);
+       
         gameObject.GetComponent<AudioSource>().clip = audioClips[rand_index];
         gameObject.GetComponent<AudioSource>().Play();
         //yield return new WaitForSeconds(audioClips[rand_index].length);

@@ -55,7 +55,7 @@ public class HUDScript : MonoBehaviour
     }
     public void test()
     {
-        Debug.Log("tatti");
+        
     }
     public void change_item_description(int item_index)
     {
@@ -110,7 +110,7 @@ public class HUDScript : MonoBehaviour
         if (SaveVariables.WrenchAvailable)
         {
             wrench_open = true;
-            Debug.Log("wrench");
+         
             //InvObjects[6].GetComponent<Image>().sprite = SelectedInv[6];
 
             SaveVariables.InventoryOpen = false;
@@ -154,14 +154,14 @@ public class HUDScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("caffeine consumed");
+              
                 SaveVariables.caffeine_lvl += 25;
                 SaveVariables.CaffeinePillsAvailable -= 1;
             }
         }
     }
     public void GunSelected(){
-        Debug.Log("gun shit");
+       
         if(SaveVariables.GunAvailable){
             gameObject.SetActive(false);
             SaveVariables.InventoryOpen = false;

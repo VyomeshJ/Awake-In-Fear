@@ -177,7 +177,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void initialize_player_pos()
     {
-        Debug.Log("call 1");
+       
         //gameObject.transform.position = SaveVariables.Player_Initial_Pos;
     }
     public IEnumerator initiate_player_pos()
@@ -252,7 +252,7 @@ public class PlayerScript : MonoBehaviour
             if (SaveVariables.Key3Available) InventoryGUI.transform.Find("Key3").gameObject.GetComponent<Image>().sprite = FilledInv[4];
         }
         else if (SaveVariables.InventoryOpen){
-            Debug.Log("close inv");
+          
             
             Time.timeScale = 1f;
             SaveVariables.InventoryOpen = false;
@@ -398,10 +398,10 @@ public class PlayerScript : MonoBehaviour
                 }
                 
             }
-            Debug.Log(PointingToObj.name);
+            
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0, 4) == "safe")
             {
-                Debug.Log("open keypad");
+                
                 PointingToObj.GetComponent<safe_script>().open_keypad();
             }
             if (PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "OpenButton"){
@@ -500,7 +500,7 @@ public class PlayerScript : MonoBehaviour
             
             if (PointingToObj.name.Length >= 6 && PointingToObj.name.Substring(0,6) == "closet")
             {
-                Debug.Log("closet here buddy");
+                
                 PointingToObj.GetComponent<Hiding_Closet>().Open_Close();
 
                 /*Animator clsanim = PointingToObj.GetComponent<Animator>();
@@ -741,7 +741,7 @@ public class PlayerScript : MonoBehaviour
         BasementElectricityDoor.GetComponent<doorScript>().openDoor();
         SaveGame_event();
         StartCoroutine(CellNavmesh.Chase());
-        Debug.Log("electricity opened");
+     
         LightContainer.SetActive(true);
         ViewCollider.enabled = true;
         
@@ -807,7 +807,7 @@ public class PlayerScript : MonoBehaviour
 
         if (transform.position.y > 22)
         {
-            Debug.Log("Remmoved");
+            
             playerfloor = 1;
             RemoveFLoor1();
             
@@ -902,7 +902,7 @@ public class PlayerScript : MonoBehaviour
         staminaSlider.value = stamina;
 
         ////The input method has to change
-        Debug.Log(stamina);
+      
         
         if (sprinting)
         {

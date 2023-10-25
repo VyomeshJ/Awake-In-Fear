@@ -28,10 +28,10 @@ public class doorScript : MonoBehaviour
     }
     public void openDoor()
     {
-        Debug.Log(gameObject.name);
+      
         if (save_door)
         {
-        
+            Debug.Log("^ saving rn");
             SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1] = true;
           
         }
@@ -43,7 +43,7 @@ public class doorScript : MonoBehaviour
             DoorOpen = true;
 
             //doorSound.Play();
-            Debug.Log("finally workinhg");
+        
             door.Play("Open");
             self_AudioSource.clip = AudioManager.DoorOpenSound;
             self_AudioSource.Play();
@@ -57,7 +57,12 @@ public class doorScript : MonoBehaviour
 
     public void closeDoor()
     {
- 
+        if (DOOR_NUM_SAVE == 1 && save_door)
+        {
+            Debug.Log("^ saving rn");
+            SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1] = true;
+
+        }
         DoorOpen = false;
 
         DoorInAniState = true;
@@ -89,13 +94,13 @@ public class doorScript : MonoBehaviour
                 DoorStateLocked = false;
 
                 DoorStateLocked = false;
-                Debug.Log("close this door");
+              
                 closeDoor();
 
             }
             else if (SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1])
             {
-                Debug.Log("&" + gameObject.name);
+                
                 save_door = false;
                 DoorStateLocked = false;
               

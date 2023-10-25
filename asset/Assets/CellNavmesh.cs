@@ -170,7 +170,7 @@ public class CellNavmesh : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         if (jumpscareCheck.InRange)
         {
-            Debug.Log("working");
+          
             //play audio
             transform.position = ainewpos.position;
             //Debug.Log("running");
@@ -183,12 +183,12 @@ public class CellNavmesh : MonoBehaviour
         }
 
         yield return new WaitForSeconds(6.5f);
-        Debug.Log("Slowed");
+      
         navMeshAgent.speed -= 8;
     }
     IEnumerator wait_to_die()
     {
-        Debug.Log("die");
+     
         yield return new WaitForSeconds(2);
         player.gameObject.GetComponent<PlayerScript>().DeathScene();
     }
@@ -197,7 +197,7 @@ public class CellNavmesh : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("touched");
+           
             inContact = true;
             StartCoroutine(wait_to_die());
 

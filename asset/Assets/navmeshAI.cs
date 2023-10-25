@@ -208,7 +208,7 @@ public class navmeshAI : MonoBehaviour
                 SoundIndex = 0;
                 m_IsPatrol = true;
                 m_PlayerNear = false;
-            Debug.Log("HIDING");
+        
                 Move(speedWalk);
                 m_TimeToRotate = timeToRotate;
                 m_WaitTime = startWaitTime;
@@ -234,7 +234,7 @@ public class navmeshAI : MonoBehaviour
         }
         IEnumerator wait_to_die()
         {
-            Debug.Log("die");
+          
             yield return new WaitForSeconds(2);
             player.gameObject.GetComponent<PlayerScript>().DeathScene();
         }
@@ -267,7 +267,7 @@ public class navmeshAI : MonoBehaviour
         if (!m_CaughtPlayer)
 
         {
-            Debug.Log("SSSSSSSSSS");
+       
             //randomize roaring sound
             Move(speedRun);
             navMeshAgent.SetDestination(m_PlayerPosition);          //  set the destination of the enemy to the player location
@@ -341,7 +341,7 @@ public class navmeshAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("touched");
+           
             incontact=true;
             
         }
@@ -359,7 +359,7 @@ public class navmeshAI : MonoBehaviour
 
     void Stop()
     {
-        Debug.Log("stopped");
+     
         navMeshAgent.isStopped = true;
         navMeshAgent.speed = 0;
     }
