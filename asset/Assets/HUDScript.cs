@@ -145,7 +145,7 @@ public class HUDScript : MonoBehaviour
     public void CaffeineSelected(){
         if(SaveVariables.CaffeinePillsAvailable > 0)
         {
-            if(SaveVariables.caffeine_lvl > 75)
+            if(SaveVariables.CaffeineLevel > 75)
             {
                 GameObject prefab_inst = Instantiate(caffeine_prompt_prefab);
                 prefab_inst.transform.parent = gameObject.transform;
@@ -155,7 +155,7 @@ public class HUDScript : MonoBehaviour
             else
             {
               
-                SaveVariables.caffeine_lvl += 25;
+                SaveVariables.CaffeineLevel += 25;
                 SaveVariables.CaffeinePillsAvailable -= 1;
             }
         }

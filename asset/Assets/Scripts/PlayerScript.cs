@@ -202,7 +202,7 @@ public class PlayerScript : MonoBehaviour
         
         start_triggers();
         AudioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManagerScript>();
-        SaveVariables.CaffeineLevel = 100;
+       
         shotgun.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -801,8 +801,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update(){
-        SaveVariables.caffeine_lvl -= Time.deltaTime/10;
-        Caffeine_Txt.text = "Caffeine percentage: " + ((int)Math.Round(SaveVariables.caffeine_lvl)).ToString();
+        SaveVariables.CaffeineLevel -= Time.deltaTime/10;
+        Caffeine_Txt.text = "Caffeine Percentage: " + ((int)Math.Round(SaveVariables.CaffeineLevel)).ToString() + "%";
         //Debug.Log(transform.position);
 
         if (transform.position.y > 22)
@@ -883,10 +883,7 @@ public class PlayerScript : MonoBehaviour
             sprinting = false;
         }
         //Debug.Log(eventSystem.currentSelectedGameObject);
-        if(SaveVariables.CaffeineLevel > 0){
-            SaveVariables.CaffeineLevel -= Time.deltaTime;
-            CaffeineSliderObj.GetComponent<Slider>().value = SaveVariables.CaffeineLevel/100f;
-        }
+      
         else{
             //PLAYER DIES OR SMTH
         }

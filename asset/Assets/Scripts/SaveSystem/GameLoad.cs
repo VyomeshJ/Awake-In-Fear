@@ -46,14 +46,13 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key1Available = false;
             SaveVariables.Key2Available = false;
             SaveVariables.Key3Available = false;
-            SaveVariables.caffeine_lvl = 0;
+            SaveVariables.CaffeineLevel = 100;
             SaveVariables.light_trigger_activated = 0;
             SaveVariables.safe_code = null;
             SaveVariables.trigger_to_trigger = 0;
             //player.transform.position = new Vector3(527.315f, 18.5f, 540f);
 
             SaveVariables.Player_Initial_Pos = new Vector3(527.315f, 18.5f, 540f);
-            SaveVariables.CaffeineLevel = 100;
             player.GetComponent<PlayerScript>().initialize_player_pos();
             for (int i = 0; i < 4; i++)
             {
@@ -61,7 +60,7 @@ public class GameLoad : MonoBehaviour
                 SaveVariables.safe_code += num.ToString();
             }
             SaveVariables.trigger_to_trigger = 1;
-           
+            Debug.Log("THE CAFFEINE AMOUNT IS " + SaveVariables.CaffeineLevel.ToString());
         }
         else{
             SaveClass save = new SaveClass();
@@ -75,9 +74,9 @@ public class GameLoad : MonoBehaviour
             SaveVariables.Key2Available = save.Key2Available;
             SaveVariables.Key3Available = save.Key3Available;
             SaveVariables.Player_Initial_Pos = save.PlayerPosition;
-            SaveVariables.caffeine_lvl = save.caffeine_lvl;
+            SaveVariables.CaffeineLevel = save.CaffeineLevel;
             SaveVariables.door_unlocked = save.door_unlocked;
-            Debug.Log("^" + SaveVariables.door_unlocked[0]);
+            
             //player.transform.position = save.PlayerPosition;
             
           
@@ -103,7 +102,7 @@ public class GameLoad : MonoBehaviour
         save.light_trigger_activated = SaveVariables.light_trigger_activated;
         save.safe_code = SaveVariables.safe_code;
         save.trigger_to_trigger = SaveVariables.trigger_to_trigger;
-        save.caffeine_lvl = SaveVariables.caffeine_lvl;
+        save.CaffeineLevel = SaveVariables.CaffeineLevel;
         save.door_unlocked = SaveVariables.door_unlocked;
 
 

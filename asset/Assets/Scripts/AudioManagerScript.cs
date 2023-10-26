@@ -6,8 +6,10 @@ public class AudioManagerScript : MonoBehaviour
 {
     public AudioClip DoorOpenSound;
     public AudioClip DoorCloseSound;
+    public AudioClip MetalDoorOpenSound;
 
     public AudioClip Door_Unlocked_Sound;
+    
     public AudioClip Door_Locked_Sound;
     public AudioClip Drawer_Open_Sound;
     public AudioClip Drawer_Close_Sound;

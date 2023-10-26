@@ -18,6 +18,7 @@ public class doorScript : MonoBehaviour
 
     public int DOOR_NUM_SAVE;
     public bool save_door;
+    public bool metal_door;
 
 
 
@@ -45,7 +46,15 @@ public class doorScript : MonoBehaviour
             //doorSound.Play();
         
             door.Play("Open");
-            self_AudioSource.clip = AudioManager.DoorOpenSound;
+            if (!metal_door)
+            {
+                self_AudioSource.clip = AudioManager.DoorOpenSound;
+            }
+            else
+            {
+                self_AudioSource.clip = AudioManager.MetalDoorOpenSound;
+            }
+            
             self_AudioSource.Play();
         }
         else
@@ -63,11 +72,19 @@ public class doorScript : MonoBehaviour
             SaveVariables.door_unlocked[DOOR_NUM_SAVE - 1] = true;
 
         }
+
         DoorOpen = false;
 
         DoorInAniState = true;
         door.Play("Close");
-        self_AudioSource.clip = AudioManager.DoorCloseSound;
+        if (!metal_door)
+        {
+            self_AudioSource.clip = AudioManager.DoorOpenSound;
+        }
+        else
+        {
+            self_AudioSource.clip = AudioManager.MetalDoorOpenSound;
+        }
         self_AudioSource.Play();
     }
     public void StopAniState(){
