@@ -17,11 +17,11 @@ public class random_audio : MonoBehaviour
     {
         if(aud_playing == 1)
         {
-            gameObject.GetComponent<AudioSource>().volume = 0.1f;
+            gameObject.GetComponent<AudioSource>().volume = 0.05f;
         }
         else if(aud_playing == 2 || aud_playing == 0)
         {
-            gameObject.GetComponent<AudioSource>().volume = 0.4f;
+            gameObject.GetComponent<AudioSource>().volume = 0.3f;
         }
         
         

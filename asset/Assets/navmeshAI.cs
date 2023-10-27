@@ -11,6 +11,7 @@ using UnityEngine.AI;
 
 public class navmeshAI : MonoBehaviour
 {
+    public PlayerScript playerscript;
     public Transform chase;
     public ViewRange ViewRange;
     bool incontact;
@@ -334,17 +335,22 @@ public class navmeshAI : MonoBehaviour
             }
         }
     }
-    
-        
 
-    private void OnTriggerEnter(Collider other)
+    IEnumerator wait_to_die()
+    {
+
+        yield return new WaitForSeconds(2);
+        player.gameObject.GetComponent<PlayerScript>().DeathScene();
+    }
+        private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
            
             incontact=true;
-            
-        }
+            StartCoroutine(wait_to_die());
+
+            }
 
     }
     private void OnTriggerExit(Collider other)
@@ -395,7 +401,11 @@ public class navmeshAI : MonoBehaviour
             }
         }
     }
-
+    public void LowCaffeine()
+    {
+        navMeshAgent.speed = 6;
+        navMeshAgent.SetDestination(playerscript.PlayerPos);
+    }
     void EnviromentView()
     {
         if (enemyfloor == playerfloor)

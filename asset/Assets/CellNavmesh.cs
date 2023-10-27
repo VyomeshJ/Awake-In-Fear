@@ -162,6 +162,11 @@ public class CellNavmesh : MonoBehaviour
         }
 
     }
+    public void LowCaffeine()
+    {
+        navMeshAgent.speed = 6;
+        navMeshAgent.SetDestination(playerscript.PlayerPos);
+    }
     public IEnumerator Chase()
     {
         chasecollider.SetActive(true);
