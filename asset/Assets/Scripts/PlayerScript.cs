@@ -144,6 +144,8 @@ public class PlayerScript : MonoBehaviour
     public LightFlick flicker1, flicker2, flicker3, flicker4, flicker5, flicker6;
     public GameObject KeyPromptTxt;
     public GameObject BasementElectricityDoor;
+
+    public GameObject caffeine_low_indicator;
     
 
     public void DeathScene()
@@ -805,6 +807,14 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update(){
+        if(SaveVariables.CaffeineLevel < 98)
+        {
+            caffeine_low_indicator.SetActive(true);
+        }
+        else
+        {
+            caffeine_low_indicator.SetActive(false);
+        }
         SaveVariables.CaffeineLevel -= Time.deltaTime/10;
         Caffeine_Txt.text = "Caffeine Percentage: " + ((int)Math.Round(SaveVariables.CaffeineLevel)).ToString() + "%";
         //Debug.Log(transform.position);
