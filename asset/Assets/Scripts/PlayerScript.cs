@@ -13,6 +13,10 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public GameObject basementaudio;
+    public GameObject firstflooraudio;
+    public GameObject secondflooraudio;
+
     public TextMeshProUGUI Caffeine_Txt;
     public AudioSource footsteps;
     public AudioSource breathingaudio;
@@ -805,15 +809,29 @@ public class PlayerScript : MonoBehaviour
         Caffeine_Txt.text = "Caffeine Percentage: " + ((int)Math.Round(SaveVariables.CaffeineLevel)).ToString() + "%";
         //Debug.Log(transform.position);
 
-        if (transform.position.y > 22)
+        if (transform.position.y > 22 && transform.position.y < 28)
         {
-            
+            firstflooraudio.SetActive(true);
+            secondflooraudio.SetActive(false);
+            basementaudio.SetActive(false);
             playerfloor = 1;
             RemoveFLoor1();
-            
-        }
-        else if (transform.position.y > 28) playerfloor = 2;
 
+        }
+        else if (transform.position.y > 28)
+        {
+            secondflooraudio.SetActive(true);
+            basementaudio.SetActive(false);
+            firstflooraudio.SetActive(false);
+            playerfloor = 2;
+
+        }
+        else if(transform.position.y < 22)
+        {
+            basementaudio.SetActive(true);
+            firstflooraudio.SetActive(false);
+            secondflooraudio.SetActive(false);
+        }
         if (!SaveVariables.PlayerHiding_Bed && !SaveVariables.PlayerHiding_Closet) lockLook = false;
         
         if (trigger1.triggered && !trigger1.triggerDone && SaveVariables.trigger_to_trigger == 1)
