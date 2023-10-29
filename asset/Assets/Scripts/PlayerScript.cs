@@ -819,7 +819,7 @@ public class PlayerScript : MonoBehaviour
         Caffeine_Txt.text = "Caffeine Percentage: " + ((int)Math.Round(SaveVariables.CaffeineLevel)).ToString() + "%";
         //Debug.Log(transform.position);
 
-        if (transform.position.y > 22 && transform.position.y < 28)
+        if (transform.position.y > 21 && transform.position.y < 28)
         {
             firstflooraudio.SetActive(true);
             secondflooraudio.SetActive(false);
@@ -836,7 +836,7 @@ public class PlayerScript : MonoBehaviour
             playerfloor = 2;
 
         }
-        else if(transform.position.y < 22)
+        else if(transform.position.y < 21)
         {
             basementaudio.SetActive(true);
             firstflooraudio.SetActive(false);

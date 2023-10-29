@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class CellNavmesh : MonoBehaviour
 {
-    
+
+    public GameObject footstep;
     public AudioSource AiHitSound;
     //public doorScript buttondoor;
     //public Transform playerPosition;
@@ -73,6 +75,8 @@ public class CellNavmesh : MonoBehaviour
 
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
     }
+    
+   
     void Update()
 
     {
@@ -105,11 +109,12 @@ public class CellNavmesh : MonoBehaviour
                 //dead = true;
                // ready = true;
             //}
-
         }
 
         if (ready)
         {
+
+            footstep.SetActive(true);
             if (SaveVariables.PlayerHiding_Closet == true || SaveVariables.PlayerHiding_Bed == true)
             {
 
