@@ -24,16 +24,16 @@ public class AudioSourceScript : MonoBehaviour
             }
          
         }
-        else if(SceneManager.GetActiveScene().name == "Scene_A")
-        {
-            if (gameObject.GetComponent<AudioSource>().clip.name != "game")
-            {
-                gameObject.GetComponent<AudioSource>().clip = game_clip;
-                gameObject.GetComponent<AudioSource>().loop = true;
-                gameObject.GetComponent<AudioSource>().Play();
-            }
+        //else if(SceneManager.GetActiveScene().name == "Scene_A")
+        //{
+            //if (gameObject.GetComponent<AudioSource>().clip.name != "game")
+            //{
+                //gameObject.GetComponent<AudioSource>().clip = game_clip;
+               /// gameObject.GetComponent<AudioSource>().loop = true;
+                //gameObject.GetComponent<AudioSource>().Play();
+           // }
                 
-        }
+        //}
         else
         {
             gameObject.GetComponent<AudioSource>().Stop();
