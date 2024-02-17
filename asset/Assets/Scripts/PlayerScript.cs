@@ -265,6 +265,7 @@ public class PlayerScript : MonoBehaviour
             InventoryGUI.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            Destroy(InventoryGUI.GetComponent<HUDScript>().prefab_inst);
         }
     }
     public void OpenFlashlight(){

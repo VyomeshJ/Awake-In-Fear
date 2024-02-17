@@ -20,6 +20,7 @@ public class HUDScript : MonoBehaviour
     public bool wrench_open;
     public GameObject caffeine_prompt_prefab;
     public TextMeshProUGUI caffeine_pill_counter;
+    public GameObject prefab_inst;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class HUDScript : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(SaveVariables.CaffeineLevel);
         if (SaveVariables.CaffeinePillsAvailable > 0)
         {
             caffeine_pill_counter.text = SaveVariables.CaffeinePillsAvailable.ToString();
@@ -145,17 +147,18 @@ public class HUDScript : MonoBehaviour
     public void CaffeineSelected(){
         if(SaveVariables.CaffeinePillsAvailable > 0)
         {
-            if(SaveVariables.CaffeineLevel > 75)
+            if(SaveVariables.CaffeineLevel > 80)
             {
-                GameObject prefab_inst = Instantiate(caffeine_prompt_prefab);
+                prefab_inst = Instantiate(caffeine_prompt_prefab);
                 prefab_inst.transform.parent = gameObject.transform;
                 prefab_inst.transform.localPosition = new Vector3(0, -650f, 0);
                 prefab_inst.transform.localScale = new Vector3(2, 2, 2);
             }
             else
             {
-              
-                SaveVariables.CaffeineLevel += 25;
+                
+                SaveVariables.CaffeineLevel += 20;
+                if (SaveVariables.CaffeineLevel > 100) SaveVariables.CaffeineLevel = 100;
                 SaveVariables.CaffeinePillsAvailable -= 1;
             }
         }
