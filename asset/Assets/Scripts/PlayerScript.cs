@@ -807,7 +807,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update(){
-        if(SaveVariables.CaffeineLevel < 98)
+        if(SaveVariables.CaffeineLevel < 15)
         {
             caffeine_low_indicator.SetActive(true);
         }

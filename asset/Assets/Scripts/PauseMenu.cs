@@ -27,12 +27,12 @@ public class PauseMenu : MonoBehaviour
     }
     public void Prompt_Yes(){
         Time.timeScale = 1;
-        GameLoadObj.GetComponent<GameLoad>().SaveGame();
         ManageUI.GetComponent<ManageUI>().SceneChange("MainMenu");
     }
     public void Prompt_No(){
         Time.timeScale = 1;
-        ManageUI.GetComponent<ManageUI>().SceneChange("MainMenu");
+        AskPrompt.SetActive(false);
+        PromptOpen = false;
     }
     public void resumeGame(){
         Cursor.visible = false;
