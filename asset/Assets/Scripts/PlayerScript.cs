@@ -198,6 +198,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Start(){
+        RenderSettings.fog = false;
         if (SaveVariables.door_unlocked[5])
         {
             FloorDoor.GetComponent<Animator>().Play("Open");
@@ -762,6 +763,8 @@ public class PlayerScript : MonoBehaviour
     {
         if(SaveVariables.trigger_to_trigger == 1)
         {
+            
+           
             light0.enabled = true;
         }
         if (SaveVariables.trigger_to_trigger == 2)
@@ -822,6 +825,7 @@ public class PlayerScript : MonoBehaviour
 
         if (transform.position.y > 21 && transform.position.y < 28)
         {
+            RenderSettings.fog = false;
             firstflooraudio.SetActive(true);
             secondflooraudio.SetActive(false);
             basementaudio.SetActive(false);
@@ -831,6 +835,7 @@ public class PlayerScript : MonoBehaviour
         }
         else if (transform.position.y > 28)
         {
+            RenderSettings.fog = true;
             secondflooraudio.SetActive(true);
             basementaudio.SetActive(false);
             firstflooraudio.SetActive(false);
@@ -839,6 +844,7 @@ public class PlayerScript : MonoBehaviour
         }
         else if(transform.position.y < 21)
         {
+            RenderSettings.fog = false;
             basementaudio.SetActive(true);
             firstflooraudio.SetActive(false);
             secondflooraudio.SetActive(false);

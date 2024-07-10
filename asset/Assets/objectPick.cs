@@ -32,10 +32,12 @@ public class objectPick : MonoBehaviour
 
         if (p_pressed)
         {
+            
             p_pressed = false;
             Debug.Log("die mf 0");
             if (heldObj == null)
             {
+                
                 Debug.Log("die mf 1");
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
@@ -71,6 +73,8 @@ public class objectPick : MonoBehaviour
         }
         if (heldObj != null)
         {
+            
+
             MoveObject();
             /*if (Input.GetKeyDown(KeyCode.Mouse1) && canDrop == true)
             {
