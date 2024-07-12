@@ -13,6 +13,9 @@ using System;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource LightTriggerSound;
+    public AudioSource FlickeringSound;
+
     public GameObject basementaudio;
     public GameObject firstflooraudio;
     public GameObject secondflooraudio;
@@ -47,7 +50,8 @@ public class PlayerScript : MonoBehaviour
     public AudioManagerScript AudioManager;
 
     public LightTrigger trigger1;
-    public Light light1;
+    public GameObject light1;
+    //public Light light1;
     public Light light0;
     public LightTrigger trigger2;
     //public Light light2;
@@ -764,29 +768,31 @@ public class PlayerScript : MonoBehaviour
         if(SaveVariables.trigger_to_trigger == 1)
         {
             
-           
+            
             light0.enabled = true;
         }
         if (SaveVariables.trigger_to_trigger == 2)
         {
             light0.enabled = true;
-            light1.enabled = true;
+            light1.SetActive(true);
             trigger2.gameObject.SetActive(true);
+            LightTriggerSound.Play();
         }
         if (SaveVariables.trigger_to_trigger == 3)
         {
             light0.enabled = true;
-            light1.enabled = true;
+            light1.SetActive(true);
             trigger2.gameObject.SetActive(true);
             SaveVariables.trigger_to_trigger = 3;
             lightevent.SetActive(true);
             trigger3.enabled = true;
             collider3.enabled = true;
+            LightTriggerSound.Play();
         }
         if (SaveVariables.trigger_to_trigger == 4)
         {
             light0.enabled = true;
-            light1.enabled = true;
+            light1.SetActive(true);
             trigger2.gameObject.SetActive(true);
             SaveVariables.trigger_to_trigger = 3;
             lightevent.SetActive(true);
@@ -795,6 +801,7 @@ public class PlayerScript : MonoBehaviour
             trigger3.triggerDone = true;
             trigger3_door.GetComponent<doorScript>().closeDoor();
             trigger3_door.GetComponent<doorScript>().DoorStateLocked = true;
+            LightTriggerSound.Play();
 
             flicker1.enabled = true;
             flicker2.enabled = true;
@@ -856,13 +863,16 @@ public class PlayerScript : MonoBehaviour
             //light0.enabled = false;
             SaveVariables.trigger_to_trigger = 2;
             
-            light1.enabled = true;
+            light1.SetActive(true);
             trigger2.gameObject.SetActive(true);
-            
-            
+            LightTriggerSound.Play();
+            Debug.Log("ss");
+
+
         }
         if(trigger2.triggered && !trigger2.triggerDone && SaveVariables.trigger_to_trigger == 2)
         {
+            LightTriggerSound.Play();
             //light0.enabled = false;
             //light1.enabled = false;
             SaveVariables.trigger_to_trigger = 3;
@@ -874,11 +884,13 @@ public class PlayerScript : MonoBehaviour
         }
         if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
         {
+            FlickeringSound.Play();
             //lightevent.SetActive(false);
             //trigger3.enabled = false;
             //collider3.enabled = false;
             //lightevent.SetActive(false);
-            light1.enabled = false;
+
+            light1.SetActive(false);
             SaveVariables.trigger_to_trigger = 4;
             trigger3.triggerDone = true;
             trigger3_door.GetComponent<doorScript>().closeDoor();
@@ -895,7 +907,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (trigger4.triggered && !trigger4.triggerDone && SaveVariables.trigger_to_trigger == 4)
         {
-            
+
             
             SaveVariables.trigger_to_trigger = 5;
             
