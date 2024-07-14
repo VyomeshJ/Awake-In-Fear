@@ -80,8 +80,9 @@ public class CellNavmesh : MonoBehaviour
     void Update()
 
     {
+        //Debug.Log(navMeshAgent.remainingDistance);
 
-        if(viewRange.InRange == true)
+        if (viewRange.InRange == true)
         {
             m_playerInRange = true;             //  The player has been seeing by the enemy and then the nemy starts to chasing the player
             m_IsPatrol = false;

@@ -10,9 +10,11 @@ using System.Security.Claims;
 using UnityEngine.LowLevel;
 using UnityEngine.Rendering;
 using System;
+using UnityEngine.AI;
 
 public class PlayerScript : MonoBehaviour
 {
+    public NavMeshAgent CellMeshAgent;
     public AudioSource LightTriggerSound;
     public AudioSource FlickeringSound;
 
@@ -437,6 +439,8 @@ public class PlayerScript : MonoBehaviour
                 //gameObject.transform.localPosition = PointingToObj.transform.parent.Find("HidePosition").position;
                 if (!lockLook)
                 {
+                    
+                   
                     lockLook = true;
                     transform.LookAt(PointingToObj.transform.Find("Lookat"));
                     transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
