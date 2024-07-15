@@ -14,6 +14,7 @@ using UnityEngine.AI;
 
 public class PlayerScript : MonoBehaviour
 {
+    public Light StartingLight;
     public NavMeshAgent CellMeshAgent;
     public AudioSource LightTriggerSound;
     public AudioSource FlickeringSound;
@@ -865,6 +866,7 @@ public class PlayerScript : MonoBehaviour
         if (trigger1.triggered && !trigger1.triggerDone && SaveVariables.trigger_to_trigger == 1)
         {
             //light0.enabled = false;
+            StartingLight.enabled = false;
             SaveVariables.trigger_to_trigger = 2;
             
             light1.SetActive(true);

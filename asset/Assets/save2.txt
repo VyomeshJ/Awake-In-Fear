@@ -1,0 +1,1 @@
+{"FlashAvailable":false,"WrenchAvailable":false,"FlashBatteries":0,"flashtime":0.0,"GunAvailable":false,"Key1Available":false,"Key2Available":false,"Key3Available":false,"NotFirstTime":false,"PlayerPosition":{"x":0.0,"y":0.0,"z":0.0},"ItemIndexRemoved":[],"light_trigger_activated":0,"safe_code":"","trigger_to_trigger":0,"CaffeineLevel":0.0,"door_unlocked":[]}
