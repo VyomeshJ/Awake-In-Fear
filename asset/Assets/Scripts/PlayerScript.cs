@@ -14,6 +14,7 @@ using UnityEngine.AI;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource CellAiBreathing;
     public Light StartingLight;
     public NavMeshAgent CellMeshAgent;
     public AudioSource LightTriggerSound;
@@ -843,6 +844,7 @@ public class PlayerScript : MonoBehaviour
             basementaudio.SetActive(false);
             playerfloor = 1;
             RemoveFLoor1();
+            CellAiBreathing.Pause();
 
         }
         else if (transform.position.y > 28)
@@ -852,6 +854,7 @@ public class PlayerScript : MonoBehaviour
             basementaudio.SetActive(false);
             firstflooraudio.SetActive(false);
             playerfloor = 2;
+            CellAiBreathing.Pause();
 
         }
         else if(transform.position.y < 21)
@@ -860,6 +863,7 @@ public class PlayerScript : MonoBehaviour
             basementaudio.SetActive(true);
             firstflooraudio.SetActive(false);
             secondflooraudio.SetActive(false);
+            CellAiBreathing.Play();
         }
         if (!SaveVariables.PlayerHiding_Bed && !SaveVariables.PlayerHiding_Closet) lockLook = false;
         
