@@ -838,7 +838,7 @@ public class PlayerScript : MonoBehaviour
 
         if (transform.position.y > 21 && transform.position.y < 28)
         {
-            RenderSettings.fog = false;
+            
             firstflooraudio.SetActive(true);
             secondflooraudio.SetActive(false);
             basementaudio.SetActive(false);
@@ -849,7 +849,7 @@ public class PlayerScript : MonoBehaviour
         }
         else if (transform.position.y > 28)
         {
-            RenderSettings.fog = true;
+            
             secondflooraudio.SetActive(true);
             basementaudio.SetActive(false);
             firstflooraudio.SetActive(false);
@@ -859,11 +859,20 @@ public class PlayerScript : MonoBehaviour
         }
         else if(transform.position.y < 21)
         {
-            RenderSettings.fog = false;
+           
             basementaudio.SetActive(true);
             firstflooraudio.SetActive(false);
             secondflooraudio.SetActive(false);
             CellAiBreathing.Play();
+        }
+
+        if (transform.position.y < 21)
+        {
+            RenderSettings.fog = false;
+        }
+        else if (transform.position.y > 21)
+        {
+            RenderSettings.fog = true;
         }
         if (!SaveVariables.PlayerHiding_Bed && !SaveVariables.PlayerHiding_Closet) lockLook = false;
         

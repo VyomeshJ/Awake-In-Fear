@@ -7,7 +7,7 @@ public static class SaveVariables
     public static bool GamePaused;
     public static bool FlashAvailable;
     public static bool WrenchAvailable;
-    public static int NumBatteries;
+    public static int NumBatteries = 1;
     public static float flashtime;
     public static float CaffeineLevel;
     public static int CaffeinePillsAvailable;
