@@ -282,8 +282,8 @@ public class PlayerScript : MonoBehaviour
         if(SaveVariables.FlashAvailable && currentSelectedItem == "flashlight" && !SaveVariables.InventoryOpen){
             flashon = true;
             FlashlightHUD.SetActive(true);
-            batteryChargeText.gameObject.SetActive(true);
-            batteryNumText.gameObject.SetActive(true);
+            //batteryChargeText.gameObject.SetActive(true);
+            //batteryNumText.gameObject.SetActive(true);
             Light flashintensity;
             flashintensity = flashLight.GetComponent<Light>();
             
@@ -592,7 +592,7 @@ public class PlayerScript : MonoBehaviour
             if(PointingToObj.name.Length >= 10 && PointingToObj.name.Substring(0, 10) == "Flashlight"){
                 Destroy(PointingToObj);
                 SaveVariables.FlashAvailable = true;
-                
+                SaveVariables.NumBatteries = 1;
                 SaveVariables.FlashAvailable = true;
                 SaveVariables.flashtime = 100;
             }
@@ -1003,22 +1003,33 @@ public class PlayerScript : MonoBehaviour
 
 
 
-        batteryNumText.text = "Batteries: " + SaveVariables.NumBatteries.ToString();
-        batteryChargeText.text = "Flashlight Charge: " + SaveVariables.flashtime.ToString() + "%";
+        //batteryNumText.text = "Batteries: " + SaveVariables.NumBatteries.ToString();
+        //batteryChargeText.text = "Flashlight Charge: " + SaveVariables.flashtime.ToString() + "%";
         if (flashon) SaveVariables.flashtime -= 1 * Time.deltaTime;
-        
-        if (SaveVariables.flashtime <= 0)
+        else
         {
-            if(SaveVariables.NumBatteries > 0){
-                SaveVariables.NumBatteries -= 1;
-                SaveVariables.flashtime += 50;
-            }
-            else{
-                flashon = false;
-                flashLight.SetActive(false);
-            }
-            
+            flashon = false;
+            flashLight.SetActive(false);
         }
+        if (SaveVariables.NumBatteries <= 0) flashon = false;
+
+        if(SaveVariables.flashtime <= 2)
+
+
+
+
+        else if(SaveVariables.flashtime <= 2)
+        {
+            SaveVariables.NumBatteries -= 1;
+            if(SaveVariables.NumBatteries > 0)
+            {
+                SaveVariables.flashtime = 100;
+            }
+        }
+        
+        
+        
+        
         //incase if u reload and its over 100
         
 
