@@ -14,6 +14,7 @@ using UnityEngine.AI;
 
 public class PlayerScript : MonoBehaviour
 {
+    public bool battery0;
     public AudioSource CellAiBreathing;
     public Light StartingLight;
     public NavMeshAgent CellMeshAgent;
@@ -280,6 +281,7 @@ public class PlayerScript : MonoBehaviour
     public void OpenFlashlight(){
 
         if(SaveVariables.FlashAvailable && currentSelectedItem == "flashlight" && !SaveVariables.InventoryOpen){
+            
             flashon = true;
             FlashlightHUD.SetActive(true);
             //batteryChargeText.gameObject.SetActive(true);
@@ -593,12 +595,23 @@ public class PlayerScript : MonoBehaviour
                 Destroy(PointingToObj);
                 SaveVariables.FlashAvailable = true;
                 SaveVariables.NumBatteries = 1;
+                battery0 = false;
+                Debug.Log(".hello2");
+
                 SaveVariables.FlashAvailable = true;
                 SaveVariables.flashtime = 100;
             }
             if(PointingToObj.name.Length >= 7 && PointingToObj.name.Substring(0,7) == "battery"){
+                if(battery0 == true)
+                {
+                    flashon = true;
+                }
+                battery0 = false;
                 Destroy(PointingToObj);
                 SaveVariables.NumBatteries++;
+                if(SaveVariables.flashtime < 5) SaveVariables.flashtime = 100;
+                Debug.Log(".hello2");
+
             }
             if (PointingToObj.name.Length >= 4 && PointingToObj.name.Substring(0,4) == "key1")
             {
@@ -832,7 +845,7 @@ public class PlayerScript : MonoBehaviour
         {
             caffeine_low_indicator.SetActive(false);
         }
-        SaveVariables.CaffeineLevel -= Time.deltaTime/10;
+        SaveVariables.CaffeineLevel -= Time.deltaTime/1;
         Caffeine_Txt.text = "Caffeine Percentage: " + ((int)Math.Round(SaveVariables.CaffeineLevel)).ToString() + "%";
         //Debug.Log(transform.position);
 
@@ -1005,27 +1018,47 @@ public class PlayerScript : MonoBehaviour
 
         //batteryNumText.text = "Batteries: " + SaveVariables.NumBatteries.ToString();
         //batteryChargeText.text = "Flashlight Charge: " + SaveVariables.flashtime.ToString() + "%";
-        if (flashon) SaveVariables.flashtime -= 1 * Time.deltaTime;
+        if (flashon)
+        {
+            flashon = true;
+            flashLight.SetActive(true);
+            SaveVariables.flashtime -= 1 * Time.deltaTime;
+        }
+
         else
         {
             flashon = false;
             flashLight.SetActive(false);
         }
+
+
+        Debug.Log(SaveVariables.flashtime);
+
+
+
+
+
         if (SaveVariables.NumBatteries <= 0) flashon = false;
-
-        if(SaveVariables.flashtime <= 2)
-
-
-
-
-        else if(SaveVariables.flashtime <= 2)
+        if(SaveVariables.flashtime <= 2 && battery0 == false && flashon)
         {
             SaveVariables.NumBatteries -= 1;
             if(SaveVariables.NumBatteries > 0)
             {
                 SaveVariables.flashtime = 100;
             }
+            else
+            {
+                Debug.Log(".hello");
+                battery0 = true;
+                flashon = false;
+            }
+
         }
+
+
+
+
+        
         
         
         
