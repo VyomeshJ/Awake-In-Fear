@@ -165,11 +165,15 @@ public class InputMasterScript : MonoBehaviour
         if(ctx.action.activeControl.device.name == "XInputControllerWindows") CurrentInputMethod = InputMethod.Controller;
         if (SaveVariables.InventoryOpen) Player.GetComponent<PlayerScript>().InventoryMenu();
         else if (SaveVariables.PlayerHiding_Bed || SaveVariables.PlayerHiding_Closet) Player.GetComponent<PlayerScript>().StopHiding();
+  
         else if (GameObject.FindGameObjectWithTag("PauseMenuObj").GetComponent<PauseMenu>().PromptOpen){
             GameObject.FindGameObjectWithTag("PauseMenuObj").GetComponent<PauseMenu>().AskPrompt.SetActive(false);
-
+            GameObject.FindGameObjectWithTag("PauseMenuObj").transform.Find("PauseUI").gameObject.SetActive(true);
+            GameObject.FindGameObjectWithTag("PauseMenuObj").GetComponent<PauseMenu>().PromptOpen = false;
         }
+        else if (GameObject.FindGameObjectWithTag("PauseMenuObj").transform.Find("PauseUI").gameObject.activeSelf) GameObject.FindGameObjectWithTag("PauseMenuObj").GetComponent<PauseMenu>().resumeGame();
         else if (!Player.GetComponent<PlayerScript>().holdingnote) GameObject.FindGameObjectWithTag("PauseMenuObj").GetComponent<PauseMenu>().pauseGame();
+        
         else if (Player.GetComponent<PlayerScript>().holdingnote) Player.GetComponent<PlayerScript>().Exit_Holdingnote();
     }
     /*

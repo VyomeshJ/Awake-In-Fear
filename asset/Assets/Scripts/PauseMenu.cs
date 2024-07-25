@@ -12,18 +12,25 @@ public class PauseMenu : MonoBehaviour
     public GameObject ManageUI;
     public bool PromptOpen;
     public void pauseGame(){
+        Debug.Log("HERLLLLLL2");
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SaveVariables.GamePaused = true;
         Time.timeScale = 0;
         gameObject.GetComponent<Image>().enabled = true;
         gameObject.transform.Find("PauseUI").gameObject.SetActive(true);
-        //eventSystem.SetSelectedGameObject(gameObject.transform.Find("PauseUI").Find(ResumeButton))
+        
 
+    }
+    private void Update()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
     public void ExitGame(){
         AskPrompt.SetActive(true);
+        gameObject.transform.Find("PauseUI").gameObject.SetActive(false);
         PromptOpen = true;
+        
     }
     public void Prompt_Yes(){
         Time.timeScale = 1;
@@ -35,11 +42,13 @@ public class PauseMenu : MonoBehaviour
         PromptOpen = false;
     }
     public void resumeGame(){
+        Debug.Log("HERLLLLLL");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         SaveVariables.GamePaused = false;
         Time.timeScale = 1;
         gameObject.GetComponent<Image>().enabled = false;
         gameObject.transform.Find("PauseUI").gameObject.SetActive(false);
+       
     }
 }
