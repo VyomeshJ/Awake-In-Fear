@@ -837,6 +837,10 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update(){
+        if(SaveVariables.CaffeineLevel < 1)
+        {
+            DeathScene();
+        }
         if(SaveVariables.CaffeineLevel < 15)
         {
             caffeine_low_indicator.SetActive(true);
