@@ -34,6 +34,11 @@ public class CharController_Motor : MonoBehaviour
 
 
 
+   float xRotation = 0f;
+
+
+
+
     void Start()
     {
         //LockCursor ();
@@ -147,8 +152,15 @@ public class CharController_Motor : MonoBehaviour
         //Debug.Log(cam.transform.localEulerAngles.x);
         //rotX = Mathf.Clamp(rotX, -90f, 90f);
         //transform.rotation = Quaternion.Euler(rotX, rotY, 0);
-        transform.Rotate(0, rotX * Time.deltaTime, 0);
-        cam.transform.Rotate(-rotY * Time.deltaTime, 0, 0);
+
+
+        xRotation -= rotY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+
+        //transform.Rotate(0, rotX * Time.deltaTime, 0);
+        //cam.transform.Rotate(-rotY * Time.deltaTime, 0, 0);
 
 
     }

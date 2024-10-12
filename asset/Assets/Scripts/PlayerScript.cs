@@ -155,14 +155,23 @@ public class PlayerScript : MonoBehaviour
     public GameObject BasementElectricityDoor;
 
     public GameObject caffeine_low_indicator;
-    
+
+    public float mouse_sensitivity = 100f;
+    public float mouseX;
+    public float mouseY;
+
+
 
     public void DeathScene()
     {
         ManageUI.GetComponent<ManageUI>().SceneChange("You_Died_Scene");
     }
+    
     private void FixedUpdate()
     {
+
+   
+
 
         Vector3 pos_moved = transform.position - lastPos;
         lastPos = transform.position;
@@ -254,12 +263,13 @@ public class PlayerScript : MonoBehaviour
     public void InventoryMenu(){
         if (!SaveVariables.InventoryOpen)
         {
+            Debug.Log("some cokc");
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             SaveVariables.InventoryOpen = true;
             Time.timeScale = 0f;
             InventoryGUI.SetActive(true);
-            eventSystem.SetSelectedGameObject(InventoryGUI.transform.Find("FlashlightHolder").Find("Image").gameObject);
+            //eventSystem.SetSelectedGameObject(InventoryGUI.transform.Find("FlashlightHolder").Find("Image").gameObject);
             if (SaveVariables.FlashAvailable == true) InventoryGUI.transform.Find("FlashlightHolder").gameObject.GetComponent<Image>().sprite = FilledInv[0];
             if (SaveVariables.CaffeinePillsAvailable > 0) InventoryGUI.transform.Find("CaffeineHolder").gameObject.GetComponent<Image>().sprite = FilledInv[1];
 
@@ -837,6 +847,24 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update(){
+        mouseX = Input.GetAxis("Mouse X") * gameObject.GetComponent<CharController_Motor>().MouseSensitivity;
+        mouseY = Input.GetAxis("Mouse Y") * gameObject.GetComponent<CharController_Motor>().MouseSensitivity;
+        
+
+
+        if (!SaveVariables.PlayerHiding_Bed && Time.timeScale != 0f)
+        {
+            gameObject.GetComponent<CharController_Motor>().rotX = mouseX;
+            gameObject.transform.Rotate(Vector3.up * mouseX);
+            gameObject.GetComponent<CharController_Motor>().rotY = mouseY;
+        }
+        else
+        {
+            gameObject.GetComponent<CharController_Motor>().rotY = 0;
+        }
+        
+        
+        Debug.Log(SaveVariables.InventoryOpen);
         if(SaveVariables.CaffeineLevel < 1)
         {
             DeathScene();

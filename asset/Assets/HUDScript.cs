@@ -62,7 +62,7 @@ public class HUDScript : MonoBehaviour
     public void change_item_description(int item_index)
     {
         desc_txt.text = ItemDescriotions[item_index];
-        player.GetComponent<PlayerScript>().eventSystem.SetSelectedGameObject(InvObjects[item_index].transform.Find("Image").gameObject);
+        //player.GetComponent<PlayerScript>().eventSystem.SetSelectedGameObject(InvObjects[item_index].transform.Find("Image").gameObject);
     }
     public void null_item_description()
     {
@@ -79,18 +79,21 @@ public class HUDScript : MonoBehaviour
                     player.GetComponent<PlayerScript>().currentSelectedItem = "flashlight";
                     InvObjects[0].GetComponent<Image>().sprite = SelectedInv[0];
                     player.GetComponent<PlayerScript>().holdingweapon = false;
+                    player.GetComponent<PlayerScript>().flashon = true;
                     gunObj.SetActive(false);
                     player.GetComponent<PlayerScript>().OpenFlashlight();
                 }
                 else
                 {
+                Debug.Log("test lol");
                     InvObjects[0].GetComponent<Image>().sprite = UnselectedInv[0];
                     player.GetComponent<PlayerScript>().flashLight.SetActive(false);
+                    player.GetComponent<PlayerScript>().flashon = false;
                     player.GetComponent<PlayerScript>().FlashlightHUD.SetActive(false);
                     player.GetComponent<PlayerScript>().currentSelectedItem = "null";
-                    player.GetComponent<PlayerScript>().batteryChargeText.gameObject.SetActive(true);
-                    player.GetComponent<PlayerScript>().batteryNumText.gameObject.SetActive(true);
-            }
+                    //player.GetComponent<PlayerScript>().batteryChargeText.gameObject.SetActive(true);
+                    //player.GetComponent<PlayerScript>().batteryNumText.gameObject.SetActive(true);
+                }
                 gameObject.SetActive(false);
                 Time.timeScale = 1;
             

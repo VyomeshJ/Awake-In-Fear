@@ -21,8 +21,8 @@ public class InputMasterScript : MonoBehaviour
     private void OnEnable() {
         inputMaster.Player.Movement.performed += Movement;
         inputMaster.Player.Movement.canceled += MovementCanceled;
-        inputMaster.Player.Look.performed += Look;
-        inputMaster.Player.Look.canceled += LookCanceled;
+        //inputMaster.Player.Look.performed += Look;
+        //inputMaster.Player.Look.canceled += LookCanceled;
         inputMaster.Player.SpaceSouth.performed += Jump;
         inputMaster.Player.EWest.performed += E_Pressed;
         inputMaster.Player.EWest.canceled += E_Cancelled;
@@ -67,6 +67,7 @@ public class InputMasterScript : MonoBehaviour
         //if(!SaveVariables.InventoryOpen){
         if(ctx.action.activeControl.device.name == "Keyboard" || ctx.action.activeControl.device.name == "Mouse") CurrentInputMethod = InputMethod.Keyboard;
         if(ctx.action.activeControl.device.name == "XInputControllerWindows") CurrentInputMethod = InputMethod.Controller;
+
         Player.GetComponent<CharController_Motor>().moveFB = ctx.ReadValue<Vector2>().x;
         Player.GetComponent<CharController_Motor>().moveLR = ctx.ReadValue<Vector2>().y;
         
@@ -82,6 +83,7 @@ public class InputMasterScript : MonoBehaviour
     public void Look(InputAction.CallbackContext ctx){
         //if(!SaveVariables.InventoryOpen){
             if(ctx.action.activeControl.device.name == "Keyboard" || ctx.action.activeControl.device.name == "Mouse"){
+                
                 CurrentInputMethod = InputMethod.Keyboard;
                 Player.GetComponent<CharController_Motor>().rotX = ctx.ReadValue<Vector2>().x * Player.GetComponent<CharController_Motor>().MouseSensitivity;
             
