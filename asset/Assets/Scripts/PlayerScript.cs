@@ -877,7 +877,7 @@ public class PlayerScript : MonoBehaviour
         {
             caffeine_low_indicator.SetActive(false);
         }
-        SaveVariables.CaffeineLevel -= Time.deltaTime/1;
+        SaveVariables.CaffeineLevel -= Time.deltaTime/100;
         Caffeine_Txt.text = "Caffeine Percentage: " + ((int)Math.Round(SaveVariables.CaffeineLevel)).ToString() + "%";
         //Debug.Log(transform.position);
 
@@ -1108,9 +1108,9 @@ public class PlayerScript : MonoBehaviour
         RaycastHit hit;
         
         Ray ray = cam.ScreenPointToRay(new Vector3(cam.pixelWidth/2, cam.pixelHeight/2, 0));
-        if (Physics.Raycast(ray, out hit))
+        float maxRayDistance = 100f;
+        if (Physics.Raycast(ray, out hit, maxRayDistance))
         {
-            
             if(PointingToObj != null)
             {
            
@@ -1127,10 +1127,6 @@ public class PlayerScript : MonoBehaviour
                     if (F_Prompt != null) F_Prompt.SetActive(false);
                  
                 }
-               
-                
-                
-
             }
           
             if(hit.transform.gameObject.name == "FirstFloorDoor")
