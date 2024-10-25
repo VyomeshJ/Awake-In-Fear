@@ -864,7 +864,7 @@ public class PlayerScript : MonoBehaviour
         }
         
         
-        Debug.Log(SaveVariables.InventoryOpen);
+        //Debug.Log(SaveVariables.InventoryOpen);
         if(SaveVariables.CaffeineLevel < 1)
         {
             DeathScene();
@@ -1064,7 +1064,7 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        Debug.Log(SaveVariables.flashtime);
+        //Debug.Log(SaveVariables.flashtime);
 
 
 

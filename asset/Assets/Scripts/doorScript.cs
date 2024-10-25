@@ -29,6 +29,7 @@ public class doorScript : MonoBehaviour
     }
     public void openDoor()
     {
+        Debug.Log("Testing  lock");
       
         if (save_door)
         {
