@@ -877,7 +877,7 @@ public class PlayerScript : MonoBehaviour
         {
             caffeine_low_indicator.SetActive(false);
         }
-        SaveVariables.CaffeineLevel -= Time.deltaTime/100;
+        SaveVariables.CaffeineLevel -= Time.deltaTime/10;
         Caffeine_Txt.text = "Caffeine Percentage: " + ((int)Math.Round(SaveVariables.CaffeineLevel)).ToString() + "%";
         //Debug.Log(transform.position);
 
