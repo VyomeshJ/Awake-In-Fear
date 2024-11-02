@@ -1108,13 +1108,23 @@ public class PlayerScript : MonoBehaviour
         RaycastHit hit;
         
         Ray ray = cam.ScreenPointToRay(new Vector3(cam.pixelWidth/2, cam.pixelHeight/2, 0));
-        float maxRayDistance = 100f;
+        float maxRayDistance = 10f;
+        if (PointingToObj != null)
+        {
+            if (Vector3.Distance(PointingToObj.transform.position, gameObject.transform.position) > maxRayDistance)
+            {
+                PointingToObj = null;
+            }
+        }
+        
         if (Physics.Raycast(ray, out hit, maxRayDistance))
         {
             if(PointingToObj != null)
             {
+                
+                        
            
-                if (hit.transform.gameObject.name != PointingToObj.name)
+                if (hit.transform.gameObject != PointingToObj)
                 {
                    
                     //Debug.Log("block outline");
@@ -1141,6 +1151,7 @@ public class PlayerScript : MonoBehaviour
             
             if (hit.transform.gameObject.tag == "PickableObject" && !PickableObjectFound && Vector2.Distance(hit.transform.gameObject.transform.position, transform.position) < PlayerAccessRange)
             {
+                Debug.Log("found note");
                 PickableObjectFound = true;
                 if (E_Prompt != null) E_Prompt.SetActive(true);
                 PointingToObj = hit.transform.gameObject;
