@@ -774,6 +774,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void ElectricityOpen()
     {
+        removable.SetActive(false);
         //play audio
         footsteps.Play();
         dooraudio.Play(44100);
@@ -799,6 +800,7 @@ public class PlayerScript : MonoBehaviour
             
             
             light0.enabled = true;
+            Debug.Log("Light1 Triggered");
         }
         if (SaveVariables.trigger_to_trigger == 2)
         {
@@ -945,14 +947,17 @@ public class PlayerScript : MonoBehaviour
             lightevent.SetActive(true);
             trigger3.enabled = true;
             collider3.enabled = true;
+
+
+
+            ///testing light sequence
+            //light1.SetActive(false);
+            
         }
         if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
         {
             FlickeringSound.Play();
-            //lightevent.SetActive(false);
-            //trigger3.enabled = false;
-            //collider3.enabled = false;
-            //lightevent.SetActive(false);
+            
 
             light1.SetActive(false);
             SaveVariables.trigger_to_trigger = 4;
@@ -966,6 +971,7 @@ public class PlayerScript : MonoBehaviour
             flicker4.enabled = true;
             flicker5.enabled = true;
             flicker6.enabled = true;
+            removable.SetActive(false);
 
             //close door
         }
@@ -976,7 +982,7 @@ public class PlayerScript : MonoBehaviour
             SaveVariables.trigger_to_trigger = 5;
             
             trigger4.triggerDone = true;
-            removable.SetActive(false);
+            
            
         }
 
