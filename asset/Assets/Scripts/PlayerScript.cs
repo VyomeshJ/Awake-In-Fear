@@ -187,6 +187,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void SaveGame_event()
     {
+        StartCoroutine(ShowPrompt("saving"));
         saving_txt.SetActive(true);
         game_load.GetComponent<GameLoad>().SaveGame();
     }

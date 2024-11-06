@@ -13,21 +13,24 @@ public class GameLoad : MonoBehaviour
         LoadGame();
         player.GetComponent<PlayerScript>().SetupInventory();
         DeleteIndexedObjects();
-        for(int i = 0; i < 4; i++)
+        if (!JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() + ".txt")).NotFirstTime)
         {
-            for(int j = 0; j < 4; j++)
+            for (int i = 0; i < 4; i++)
             {
-                if(j == i)
+                for (int j = 0; j < 4; j++)
                 {
-                    notes[i].GetComponent<notescript>().txt += SaveVariables.safe_code.Substring(i,1);
+                    if (j == i)
+                    {
+                        notes[i].GetComponent<notescript>().txt += SaveVariables.safe_code.Substring(i, 1);
+                    }
+                    else
+                    {
+                        notes[i].GetComponent<notescript>().txt += "_";
+                    }
+
                 }
-                else
-                {
-                    notes[i].GetComponent<notescript>().txt += "_";
-                }
-                
+
             }
-            
         }
     }
     public void DeleteIndexedObjects(){

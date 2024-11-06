@@ -9,6 +9,7 @@ public class save_trigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            Debug.Log("saving game");
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().SaveGame_event();
         }
     }
