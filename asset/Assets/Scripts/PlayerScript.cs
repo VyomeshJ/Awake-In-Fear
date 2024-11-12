@@ -796,6 +796,7 @@ public class PlayerScript : MonoBehaviour
     
     public void start_triggers()
     {
+        Debug.Log("trigger" + SaveVariables.trigger_to_trigger.ToString());
         if(SaveVariables.trigger_to_trigger == 1)
         {
             
@@ -933,11 +934,12 @@ public class PlayerScript : MonoBehaviour
             light1.SetActive(true);
             trigger2.gameObject.SetActive(true);
             LightTriggerSound.Play();
+            trigger1.triggerDone = true;
             Debug.Log("ss");
 
 
         }
-        if(trigger2.triggered && !trigger2.triggerDone && SaveVariables.trigger_to_trigger == 2)
+        else if(trigger2.triggered && !trigger2.triggerDone && SaveVariables.trigger_to_trigger == 2)
         {
             LightTriggerSound.Play();
             //light0.enabled = false;
@@ -948,14 +950,14 @@ public class PlayerScript : MonoBehaviour
             lightevent.SetActive(true);
             trigger3.enabled = true;
             collider3.enabled = true;
-
-
+            trigger2.triggerDone = true;
+            Debug.Log("second light trigger");
 
             ///testing light sequence
             //light1.SetActive(false);
             
         }
-        if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
+        else if (trigger3.triggered && !trigger3.triggerDone && SaveVariables.trigger_to_trigger == 3)
         {
             FlickeringSound.Play();
             
@@ -976,7 +978,7 @@ public class PlayerScript : MonoBehaviour
 
             //close door
         }
-        if (trigger4.triggered && !trigger4.triggerDone && SaveVariables.trigger_to_trigger == 4)
+        else if (trigger4.triggered && !trigger4.triggerDone && SaveVariables.trigger_to_trigger == 4)
         {
 
             

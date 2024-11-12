@@ -11,7 +11,7 @@ public class LightTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SaveVariables.trigger_to_trigger >= triggerNum)
+        if (SaveVariables.trigger_to_trigger >= triggerNum && triggered)
         {
             triggered = true;
             triggerDone = false;
