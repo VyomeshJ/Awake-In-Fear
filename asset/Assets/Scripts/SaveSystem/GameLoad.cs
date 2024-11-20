@@ -45,6 +45,7 @@ public class GameLoad : MonoBehaviour
             SaveVariables.FlashAvailable = false;
             SaveVariables.WrenchAvailable = false;
             SaveVariables.NumBatteries = 0;
+            PlayerPrefs.SetFloat(PlayerPrefs.GetInt("SaveNum").ToString() + "_FlashBatteries", 0);
             SaveVariables.GunAvailable = false;
             SaveVariables.Key1Available = false;
             SaveVariables.Key2Available = false;
@@ -70,8 +71,8 @@ public class GameLoad : MonoBehaviour
             save = JsonUtility.FromJson<SaveClass>(File.ReadAllText(Application.dataPath + "/save" + PlayerPrefs.GetInt("SaveNum").ToString() +".txt"));
             SaveVariables.FlashAvailable = save.FlashAvailable;
             SaveVariables.WrenchAvailable = save.WrenchAvailable;
-            SaveVariables.NumBatteries = save.FlashBatteries;
-            SaveVariables.flashtime = save.flashtime;
+            SaveVariables.NumBatteries = PlayerPrefs.GetInt(PlayerPrefs.GetInt("SaveNum").ToString() + "_FlashBatteries");
+            SaveVariables.flashtime = PlayerPrefs.GetFloat(PlayerPrefs.GetInt("SaveNum").ToString() + "_FlashTime");
             SaveVariables.GunAvailable = save.GunAvailable;
             SaveVariables.Key1Available = save.Key1Available;
             SaveVariables.Key2Available = save.Key2Available;
@@ -95,8 +96,9 @@ public class GameLoad : MonoBehaviour
         save.NotFirstTime = true;
         save.FlashAvailable = SaveVariables.FlashAvailable;
         save.WrenchAvailable = SaveVariables.WrenchAvailable;
-        save.FlashBatteries = SaveVariables.NumBatteries;
-        save.flashtime = SaveVariables.flashtime;
+        
+        //save.FlashBatteries = SaveVariables.NumBatteries;
+        //save.flashtime = SaveVariables.flashtime;
         save.GunAvailable = SaveVariables.GunAvailable;
         save.Key1Available = SaveVariables.Key1Available;
         save.Key2Available = SaveVariables.Key2Available;

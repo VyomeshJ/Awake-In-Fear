@@ -33,6 +33,8 @@ public class PauseMenu : MonoBehaviour
         
     }
     public void Prompt_Yes(){
+        PlayerPrefs.SetInt(PlayerPrefs.GetInt("SaveNum").ToString() + "_FlashBatteries", SaveVariables.NumBatteries);
+        PlayerPrefs.SetFloat(PlayerPrefs.GetInt("SaveNum").ToString() + "_FlashTime", SaveVariables.flashtime);
         Time.timeScale = 1;
         ManageUI.GetComponent<ManageUI>().SceneChange("MainMenu");
     }
