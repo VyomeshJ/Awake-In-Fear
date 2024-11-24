@@ -217,6 +217,11 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Start(){
+        if(PlayerPrefs.GetInt(PlayerPrefs.GetInt("SaveNum").ToString() + "_ElectricityDoor") == 1)
+        {
+            BasementElectricityDoor.GetComponent<doorScript>().DoorStateLocked = false;
+            BasementElectricityDoor.GetComponent<doorScript>().openDoor();
+        }
         RenderSettings.fog = false;
         if (SaveVariables.door_unlocked[5])
         {
@@ -780,6 +785,7 @@ public class PlayerScript : MonoBehaviour
         footsteps.Play();
         dooraudio.Play(44100);
         aitheme.Play(60000);
+        PlayerPrefs.SetInt(PlayerPrefs.GetInt("SaveNum").ToString() + "_ElectricityDoor", 1);
         BasementElectricityDoor.GetComponent<doorScript>().DoorStateLocked = false;
         BasementElectricityDoor.GetComponent<doorScript>().openDoor();
         SaveGame_event();

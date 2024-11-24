@@ -124,6 +124,7 @@ public class ManageUI : MonoBehaviour
     {
         File.Delete(Application.dataPath + "/save" + num.ToString() + ".txt");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt(num.ToString() + "_ElectricityDoor", 0);
     }
     public void QuitGame()
     {
